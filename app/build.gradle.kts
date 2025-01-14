@@ -55,6 +55,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation(libs.material.v190)
+
+
     // Glide dependency
     implementation(libs.glide)
     annotationProcessor(libs.compiler)

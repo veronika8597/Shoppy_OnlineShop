@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,10 +29,27 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        //Explore title
+        val titleTextView: TextView = binding.ExploreTitleTextView
+        homeViewModel.exploreTitle.observe(viewLifecycleOwner) {
+            titleTextView.text = it
         }
+
+        //Search Bar
+        val searchBar: SearchView = binding.searchBarHome
+        searchBar.queryHint = "Search on Shoppy"
+        binding.searchBarHome.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(queary: String?): Boolean {
+                // Handle search query submission
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                // Handle search query text changes
+                return true
+            }
+        })
+
         return root
     }
 
