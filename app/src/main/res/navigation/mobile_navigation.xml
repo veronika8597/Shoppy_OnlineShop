@@ -12,14 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.shoppy_onlineshop.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_favorites"
+        android:name="com.example.shoppy_onlineshop.ui.favorites.FavoritesFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.shoppy_onlineshop.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_bag"
+        android:name="com.example.shoppy_onlineshop.ui.bag.BagFragment"
+        android:label="@string/title_bag"
+        tools:layout="@layout/fragment_bag" />
+
+    <fragment
+        android:id="@+id/navigation_deals"
+        android:name="com.example.shoppy_onlineshop.ui.deals.DealsFragment"
+        android:label="@string/title_deals"
+        tools:layout="@layout/fragment_deals" />
 </navigation>

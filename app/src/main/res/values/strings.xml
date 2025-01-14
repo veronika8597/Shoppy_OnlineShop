@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Shoppy_OnlineShop</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_favorites">Favorites</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_deals">Deals</string>
+    <string name="title_bag">Bag</string>
 </resources>
