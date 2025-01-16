@@ -10,8 +10,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.shoppy_onlineshop.API.StoreProduct
-import com.example.shoppy_onlineshop.API.RetroFitInstance
+import com.example.shoppy_onlineshop.api.StoreProduct
+import com.example.shoppy_onlineshop.api.RetroFitInstance
 import com.example.shoppy_onlineshop.databinding.ActivityMainBinding
 import retrofit2.Response
 import retrofit2.Call

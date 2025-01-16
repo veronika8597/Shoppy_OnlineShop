@@ -1,8 +1,14 @@
 package com.example.shoppy_onlineshop.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.shoppy_onlineshop.api.RetroFitInstance
+import com.example.shoppy_onlineshop.api.StoreProduct
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 
@@ -11,16 +17,27 @@ class HomeViewModel : ViewModel() {
     }
     val exploreTitle: LiveData<String> = _exploreTitle
 
-    // Placeholder data for featured items (you'll replace with real data)
-    private val _featuredItems = MutableLiveData<List<String>>().apply {
-        value = listOf("Item 1", "Item 2", "Item 3", "Item 4")
-    }
-    val featuredItems: LiveData<List<String>> = _featuredItems
+    private val _allProducts = MutableLiveData<List<StoreProduct>>()
+    val allProducts: LiveData<List<StoreProduct>> = _allProducts
 
-    // Placeholder data for recommended items (you'll replace with real data)
-    private val _recommendedItems = MutableLiveData<List<String>>().apply {
-        value = listOf("Recommended 1", "Recommended 2", "Recommended 3")
+    init {
+        fetchProducts()
     }
-    val recommendedItems: LiveData<List<String>> = _recommendedItems
 
+    private fun fetchProducts() {
+        RetroFitInstance.api.getProducts().enqueue(object : Callback<List<StoreProduct>> {
+            override fun onResponse(call: Call<List<StoreProduct>>, response: Response<List<StoreProduct>>) {
+                if (response.isSuccessful) {
+                    val products = response.body() ?: emptyList()
+                    _allProducts.value = products
+                } else {
+                    onFailure(call, Throwable("API request failed"))
+                }
+            }
+
+            override fun onFailure(call: Call<List<StoreProduct>>, t: Throwable) {
+                Log.e("API Error", t.message ?: "Unknown error")
+            }
+        })
+    }
 }
