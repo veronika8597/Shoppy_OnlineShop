@@ -6,5 +6,4 @@
         <item name="android:fontFamily">@font/fredoka_semibold</item> <!-- Use Fredoka font or any other custom font -->
         <item name="android:textAllCaps">true</item> <!-- Uppercase text for the button -->
     </style>
-
 </resources>

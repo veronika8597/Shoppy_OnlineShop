@@ -1,21 +1,13 @@
 package com.example.shoppy_onlineshop
 
 import android.os.Bundle
-import android.util.Log
-
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.shoppy_onlineshop.api.StoreProduct
-import com.example.shoppy_onlineshop.api.RetroFitInstance
 import com.example.shoppy_onlineshop.databinding.ActivityMainBinding
-import retrofit2.Response
-import retrofit2.Call
-import retrofit2.Callback
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,21 +35,5 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
-        RetroFitInstance.api.getProducts().enqueue(object : Callback<List<StoreProduct>> {
-            override fun onResponse(call: Call<List<StoreProduct>>, response: Response<List<StoreProduct>>) {
-                if(response.isSuccessful){
-                    val products = response.body()
-                    if (products != null) {
-                        Log.d("Products", products.toString())}
-                }
-            }
-
-            override fun onFailure(call: Call<List<StoreProduct>>, t: Throwable) {
-                Log.d("Products", t.message.toString())
-            }
-
-        })
     }
 }

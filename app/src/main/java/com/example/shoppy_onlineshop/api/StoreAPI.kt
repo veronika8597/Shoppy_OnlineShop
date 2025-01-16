@@ -5,5 +5,8 @@ import retrofit2.http.GET
 
 interface StoreAPI {
     @GET("products")
-    fun getProducts(): Call<List<StoreProduct>>
+    fun getProducts(): Call<StoreProductResponse>
+
+    @GET("products/categories")
+    fun getCategories(): Call<List<StoreCategory>> // Updated return type
 }

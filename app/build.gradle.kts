@@ -70,5 +70,10 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
 
+    //Gson dependency
+    implementation(libs.converter.gson)
+
+    implementation(libs.material)
+
 
 }
