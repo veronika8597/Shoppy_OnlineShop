@@ -9,9 +9,13 @@
 
     <ImageView
         android:id="@+id/storeLogo_splash_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/store_logo_animation" />
+        android:layout_width="320dp"
+        android:layout_height="400dp"
+        android:src="@drawable/store_logo_animation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
