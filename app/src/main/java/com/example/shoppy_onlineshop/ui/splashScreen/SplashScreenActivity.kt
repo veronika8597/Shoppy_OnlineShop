@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.shoppy_onlineshop.MainActivity
 import com.example.shoppy_onlineshop.R
+import com.example.shoppy_onlineshop.ui.LogIn.LogInActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Delay to show splash screen for a few seconds before transitioning
         android.os.Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LogInActivity::class.java))
             finish()  // Close the splash activity
         }, 2000) // 2 seconds
     }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@drawable/gradient_background"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Header Text -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/deliveringsmiles" />
+
+        <TextView
+            android:id="@+id/header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create an Account"
+            android:textSize="24sp"
+            android:textColor="#fae5d8"
+            android:fontFamily="@font/fredoka_medium"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Full Name Input -->
+        <EditText
+            android:id="@+id/full_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:fontFamily="@font/fredoka"
+            android:padding="12dp"
+            android:textColorHint="#522959"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Email Input -->
+        <EditText
+            android:id="@+id/email_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:fontFamily="@font/fredoka"
+            android:padding="12dp"
+            android:textColorHint="#522959"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Password Input -->
+        <EditText
+            android:id="@+id/password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:fontFamily="@font/fredoka"
+            android:padding="12dp"
+            android:inputType="textPassword"
+            android:textColorHint="#522959"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Confirm Password Input -->
+        <EditText
+            android:id="@+id/confirm_password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:fontFamily="@font/fredoka"
+            android:padding="12dp"
+            android:inputType="textPassword"
+            android:textColorHint="#522959"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Register Button -->
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:background="@drawable/button_background"
+            android:backgroundTint="#E8A7B6"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/fredoka_medium"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Already Have an Account Text -->
+        <TextView
+            android:id="@+id/already_have_account_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? Login"
+            android:textColor="#FAE5D8"
+            android:textSize="14sp"
+            android:fontFamily="@font/fredoka_light"
+            android:gravity="center" />
+
+    </LinearLayout>
+</ScrollView>
