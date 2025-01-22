@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.shoppy_onlineshop.MainActivity
 import com.example.shoppy_onlineshop.R
 
 class LogInActivity : AppCompatActivity() {
@@ -24,7 +25,8 @@ class LogInActivity : AppCompatActivity() {
         val loginButton: Button = findViewById(R.id.login_button)
 
         loginButton.setOnClickListener {
-            // Handle login button click
+            intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
         }
 
         login2reg.setOnClickListener {

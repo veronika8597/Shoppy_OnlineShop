@@ -2,4 +2,11 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+
+}
+
+buildscript {
+    dependencies {
+        classpath(libs.google.services) // Use the latest version
+    }
 }
