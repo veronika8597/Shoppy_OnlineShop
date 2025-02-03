@@ -41,6 +41,7 @@
             android:fontFamily="@font/fredoka"
             android:padding="12dp"
             android:textColorHint="#522959"
+            android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
         <!-- Email Input -->
@@ -52,6 +53,7 @@
             android:fontFamily="@font/fredoka"
             android:padding="12dp"
             android:textColorHint="#522959"
+            android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
         <!-- Password Input -->
@@ -64,6 +66,7 @@
             android:padding="12dp"
             android:inputType="textPassword"
             android:textColorHint="#522959"
+            android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
         <!-- Confirm Password Input -->
@@ -76,6 +79,7 @@
             android:padding="12dp"
             android:inputType="textPassword"
             android:textColorHint="#522959"
+            android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
         <!-- Register Button -->

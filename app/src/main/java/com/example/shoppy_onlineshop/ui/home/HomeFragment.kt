@@ -1,15 +1,19 @@
 package com.example.shoppy_onlineshop.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.databinding.FragmentHomeBinding
 import com.example.shoppy_onlineshop.ui.home.adapter.CategoryAdapter
 import com.example.shoppy_onlineshop.ui.home.adapter.ProductAdapter
@@ -58,6 +62,16 @@ class HomeFragment : Fragment() {
             productAdapter.updateData(products)
         }
 
+        //All categories button
+        val allCategoriesButton: Button = binding.categoriesButton
+
+        allCategoriesButton.setOnClickListener {
+            Log.d("HomeFragment", "Navigating to CategoriesFragment")
+            findNavController().navigate(R.id.action_home_to_categories) // Use the action defined in the nav graph
+
+        }
+
+
         //Search Bar
         val searchBar: SearchView = binding.searchBarHome
         searchBar.queryHint = "Search on Shoppy"
@@ -75,6 +89,21 @@ class HomeFragment : Fragment() {
 
         return root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //All categories button setup
+        val allCategoriesButton: Button = binding.categoriesButton
+        allCategoriesButton.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putParcelableArrayList(
+                "categories",
+                ArrayList(homeViewModel.allCategories.value)
+            )
+            findNavController().navigate(R.id.action_home_to_categories, bundle)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

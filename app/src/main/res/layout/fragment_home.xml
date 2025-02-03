@@ -30,20 +30,21 @@
         android:textSize="22sp" />
 
     <!-- Featured Items RecyclerView -->
+
+    <!-- Button for all categories -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Featured_Items_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:padding="10dp" />
 
-    <!-- Button for all categories -->
     <Button
         android:id="@+id/categories_button"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginLeft="20dp"
         android:text="All categories"
-        android:textColor="@color/white"
+        android:textColor="#ffffff"
         android:textSize="12sp"
         android:background="@drawable/button_background"
         android:layout_gravity="left"

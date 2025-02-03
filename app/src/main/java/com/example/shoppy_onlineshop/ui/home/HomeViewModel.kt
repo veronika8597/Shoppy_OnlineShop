@@ -1,5 +1,6 @@
 package com.example.shoppy_onlineshop.ui.home
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,6 +27,9 @@ class HomeViewModel : ViewModel() {
     //Categories
     private val _featuredCategories = MutableLiveData<List<StoreCategory>>()
     val featuredCategories: LiveData<List<StoreCategory>> = _featuredCategories
+
+    private val _allCategories = MutableLiveData<List<StoreCategory>>()
+    val allCategories: LiveData<List<StoreCategory>> = _allCategories
 
     init {
         fetchProducts()
@@ -59,6 +63,7 @@ class HomeViewModel : ViewModel() {
                     Log.d("HomeViewModel", "Categories fetched successfully: $categories")
                     val featured = categories.take(5) // Select first 5 categories
                     _featuredCategories.value = featured
+                    _allCategories.value = categories // Store all categories
                 } else {
                     Log.e("HomeViewModel", "Categories API request failed: ${response.message()}")
                     onFailure(call, Throwable("API request failed"))
@@ -70,4 +75,5 @@ class HomeViewModel : ViewModel() {
             }
         })
     }
+
 }

@@ -33,7 +33,7 @@ class CategoryAdapter(private var categories: List<StoreCategory>) : RecyclerVie
         val imageResId = when (category.slug) {
             "beauty" -> R.drawable.beauty_placeholder
             "fragrances" -> R.drawable.fragrances_placeholder
-            "skincare" -> R.drawable.skincare_placeholder
+            "skin-care" -> R.drawable.skincare_placeholder
             "groceries" -> R.drawable.groceries_placeholder
             "home-decoration" -> R.drawable.home_decoration_placeholder
             "furniture" -> R.drawable.furniture_placeholder
@@ -47,9 +47,16 @@ class CategoryAdapter(private var categories: List<StoreCategory>) : RecyclerVie
             "womens-bags" -> R.drawable.womens_bags_placeholder
             "womens-jewellery" -> R.drawable.womens_jewellery_placeholder
             "sunglasses" -> R.drawable.sunglasses_placeholder
-            "automotive" -> R.drawable.automotive_placeholder
+            "vehicle" -> R.drawable.automotive_placeholder
             "motorcycle" -> R.drawable.motorcycle_placeholder
             "lighting" -> R.drawable.lighting_placeholder
+            "kitchen-accessories" -> R.drawable.kitchen_accessories_placeholder
+            "laptops" -> R.drawable.laptops_placeholder
+            "mobile-accessories" -> R.drawable.mobile_accessories_placeholder
+            "smartphones" -> R.drawable.smartphones_placeholder
+            "sports-accessories" -> R.drawable.sports_accessories_placeholder
+            "tablets" -> R.drawable.tablets_placeholder
+
             else -> R.drawable.ic_launcher_background // Default placeholder
         }
 
