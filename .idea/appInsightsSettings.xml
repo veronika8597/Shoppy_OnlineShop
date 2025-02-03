@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.shoppy_onlineshop" />
+                  <option name="mobileSdkAppId" value="1:817175636364:android:05c5a973267da885118ea9" />
+                  <option name="projectId" value="shoppy-a3a71" />
+                  <option name="projectNumber" value="817175636364" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
