@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.databinding.FragmentCategoriesBinding
@@ -37,7 +38,7 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         categories?.let {
             val categoryAdapter = CategoryAdapter(it)
-            binding.all.layoutManager = LinearLayoutManager(context)
+            binding.all.layoutManager = GridLayoutManager(context,2)
             binding.all.adapter = categoryAdapter
         }
     }
