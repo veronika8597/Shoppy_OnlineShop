@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -66,9 +67,14 @@ class HomeFragment : Fragment() {
         val allCategoriesButton: Button = binding.categoriesButton
 
         allCategoriesButton.setOnClickListener {
-            Log.d("HomeFragment", "Navigating to CategoriesFragment")
-            findNavController().navigate(R.id.action_home_to_categories) // Use the action defined in the nav graph
+            findNavController().navigate(R.id.action_home_to_categories)
 
+        }
+
+        //Profile button
+        val profileButton: ImageButton = binding.profileButton
+        profileButton.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_user_profile)
         }
 
 

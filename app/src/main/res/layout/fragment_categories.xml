@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:layout_marginTop="70dp">
 
     <SearchView
         android:id="@+id/searchBarHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:layout_marginTop="3dp"
         android:background="@drawable/search_background"
         android:clipToPadding="false"
         android:iconifiedByDefault="false"
-        android:queryHint="Search on Shoppy">
+        android:queryHint="Search on Shoppy"
+        >
 
     </SearchView>
 

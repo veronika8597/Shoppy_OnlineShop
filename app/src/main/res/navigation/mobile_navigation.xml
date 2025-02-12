@@ -14,6 +14,10 @@
         <action
             android:id="@+id/action_home_to_categories"
             app:destination="@id/categoriesFragment" />
+
+        <action
+            android:id="@+id/action_home_to_user_profile"
+            app:destination="@id/user_profileFragment" />
     </fragment>
 
 
@@ -44,6 +48,13 @@
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.shoppy_onlineshop.ui.home.CategoriesFragment"
-        android:label="fragment_categories"
+        android:label="@string/title_categories"
         tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/user_profileFragment"
+        android:name="com.example.shoppy_onlineshop.ui.UserProfileFragment"
+        android:label="@string/title_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+
 </navigation>
