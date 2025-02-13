@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/user_profileFragment"
-        android:name="com.example.shoppy_onlineshop.ui.UserProfileFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.UserProfileFragment"
         android:label="@string/title_user_profile"
         tools:layout="@layout/fragment_user_profile" />
 

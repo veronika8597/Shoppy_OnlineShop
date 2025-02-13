@@ -12,10 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.shoppy_onlineshop.R
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.auth.auth
 
 class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +43,7 @@ class RegistrationActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // Initialize Firebase Auth
-        var auth: FirebaseAuth = Firebase.auth
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
         registerButton.setOnClickListener {

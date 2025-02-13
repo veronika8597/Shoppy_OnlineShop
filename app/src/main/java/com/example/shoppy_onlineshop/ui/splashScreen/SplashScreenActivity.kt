@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.shoppy_onlineshop.MainActivity
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.ui.LogIn.LogInActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,8 @@ class SplashScreenActivity : AppCompatActivity() {
             insets
         }
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
         // Load GIF using Glide
         Glide.with(this)
             .asGif()
@@ -30,7 +33,10 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Delay to show splash screen for a few seconds before transitioning
         android.os.Handler().postDelayed({
-            startActivity(Intent(this, LogInActivity::class.java))
+            if (currentUser != null) {
+                startActivity(Intent(this, MainActivity::class.java))
+            } else{
+            startActivity(Intent(this, LogInActivity::class.java))}
             finish()  // Close the splash activity
         }, 2000) // 2 seconds
     }

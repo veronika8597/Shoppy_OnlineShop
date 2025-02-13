@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,10 +18,7 @@ class DbHelper(val context: Context){
     fun addUser(user: User){
         // Generate a unique ID for each user using push()
         //val userId = usersRef.push().key
-        val userId = Firebase.auth.currentUser?.uid
-
-        // Get the current user UID from Firebase Auth
-        val auth = FirebaseAuth.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId != null) {
             // Store the user data under this unique ID

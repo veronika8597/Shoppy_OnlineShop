@@ -43,6 +43,7 @@ android {
 
 dependencies {
 
+    implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -82,6 +83,9 @@ dependencies {
 
     implementation(libs.material)
 
-
+    //Firebase auth dependency - handles user authentication
+    implementation(libs.firebase.auth)
+    //For storing user credentials automatically
+    implementation(libs.androidx.datastore.preferences)
 
 }
