@@ -1,5 +1,6 @@
 package com.example.shoppy_onlineshop.ui.userProfile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
@@ -70,19 +72,28 @@ class UserProfileFragment : Fragment() {
 
     private fun handleSectionClick(section: AccountSection) {
         when (section.title) {
-/*            "Profile" -> findNavController().navigate(R.id.action_myAccountFragment_to_profileFragment)
+/*          "Profile" -> findNavController().navigate(R.id.action_myAccountFragment_to_profileFragment)
             "My Orders" -> findNavController().navigate(R.id.action_myAccountFragment_to_ordersFragment)
-            "Settings" -> findNavController().navigate(R.id.action_myAccountFragment_to_settingsFragment)
-            "Help & Support" -> findNavController().navigate(R.id.action_myAccountFragment_to_helpFragment)*/
+            "Settings" -> findNavController().navigate(R.id.action_myAccountFragment_to_settingsFragment)*/
+            "Need help?" -> findNavController().navigate(R.id.action_myAccountFragment_to_faqFragment)
             "Log out" -> logoutUser()
         }
     }
 
     private fun logoutUser() {
-        // Handle logout logic (Firebase sign out, clear session, navigate to login screen)
-        Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
-        val intent = Intent(requireContext(), LogInActivity::class.java)
+        FirebaseAuth.getInstance().signOut() // Sign out from Firebase
+
+        // Clear stored login session (if using SharedPreferences)
+        val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+
+        Toast.makeText(this.context, "Logged out", Toast.LENGTH_SHORT).show()
+
+        // Navigate back to login screen and clear activity stack
+        val intent = Intent(this.context, LogInActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
+        requireActivity().finish() // Finish the current activity
     }
 }
 

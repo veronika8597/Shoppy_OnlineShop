@@ -55,6 +55,18 @@
         android:id="@+id/user_profileFragment"
         android:name="com.example.shoppy_onlineshop.ui.userProfile.UserProfileFragment"
         android:label="@string/title_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_myAccountFragment_to_faqFragment"
+            app:destination="@id/faqFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.FAQ.FAQFragment"
+        android:label="@string/title_FAQ"
+        tools:layout="@layout/fragment_faq"/>
+
+
 
 </navigation>

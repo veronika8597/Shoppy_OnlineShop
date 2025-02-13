@@ -1,6 +1,7 @@
 package com.example.shoppy_onlineshop.ui.LogIn
 
 import UserPreferences
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -39,15 +40,17 @@ class LogInActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
 
- /*       ----------------------------------------   *NOTE*  ---------------------------------------------
-                Should check if the user tried to log out and not automatically log in everytime.
-        ----------------------------------------   *NOTE*  ---------------------------------------------*/
 
         // 🔹 Try to auto-login if credentials exist
         lifecycleScope.launch {
             val (savedEmail, savedPassword) = UserPreferences.getCredentials(this@LogInActivity)
             if (!savedEmail.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
-                autoLogin(savedEmail, savedPassword)
+                val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+                if (isLoggedIn) {
+                    autoLogin(savedEmail, savedPassword)
+                }
             }
         }
 
@@ -73,6 +76,9 @@ class LogInActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+
+                    val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
 
                     // 🔹 Save credentials for future auto-login
                     lifecycleScope.launch {

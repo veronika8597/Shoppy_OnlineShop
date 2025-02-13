@@ -1,5 +1,6 @@
 package com.example.shoppy_onlineshop.ui.splashScreen
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -23,6 +24,8 @@ class SplashScreenActivity : AppCompatActivity() {
             insets
         }
 
+        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
         val currentUser = FirebaseAuth.getInstance().currentUser
 
         // Load GIF using Glide
@@ -33,11 +36,13 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Delay to show splash screen for a few seconds before transitioning
         android.os.Handler().postDelayed({
-            if (currentUser != null) {
+            if (currentUser != null && isLoggedIn) {
                 startActivity(Intent(this, MainActivity::class.java))
             } else{
             startActivity(Intent(this, LogInActivity::class.java))}
+
             finish()  // Close the splash activity
         }, 2000) // 2 seconds
     }
 }
+
