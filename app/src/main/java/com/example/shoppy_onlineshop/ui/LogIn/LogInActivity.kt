@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.shoppy_onlineshop.MainActivity
 import com.example.shoppy_onlineshop.R
+import com.example.shoppy_onlineshop.ui.userProfile.AccountSection
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -37,6 +38,11 @@ class LogInActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         supportActionBar?.hide()
 
+
+ /*       ----------------------------------------   *NOTE*  ---------------------------------------------
+                Should check if the user tried to log out and not automatically log in everytime.
+        ----------------------------------------   *NOTE*  ---------------------------------------------*/
+
         // 🔹 Try to auto-login if credentials exist
         lifecycleScope.launch {
             val (savedEmail, savedPassword) = UserPreferences.getCredentials(this@LogInActivity)
@@ -44,7 +50,6 @@ class LogInActivity : AppCompatActivity() {
                 autoLogin(savedEmail, savedPassword)
             }
         }
-
 
         loginButton.setOnClickListener {
             val enteredEmail = userEmail.text.toString()
@@ -76,6 +81,7 @@ class LogInActivity : AppCompatActivity() {
 
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
+
                 } else {
                     Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
                 }
