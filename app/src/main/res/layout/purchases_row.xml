@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/orderId_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order #12345"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/orderDate_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jan 25, 2025"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/orderStatus_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shipped"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_green_dark"/>
+
+    <TextView
+        android:id="@+id/totalPrice_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: $49.99"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/viewDetails_butto"
+        android:layout_width="150dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="200dp"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/fredoka_medium"
+        android:text="View Details"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>

@@ -25,7 +25,6 @@ class UserProfileFragment : Fragment() {
     private val sections = listOf(
         AccountSection(R.drawable.orders, "My orders"),
         AccountSection(R.drawable.question, "Need help?"),
-        AccountSection(R.drawable.details, "My details"),
         AccountSection(R.drawable.password, "Change password"),
         AccountSection(R.drawable.address, "My addresses"),
         AccountSection(R.drawable.card, "Payment methods"),
@@ -51,7 +50,7 @@ class UserProfileFragment : Fragment() {
         Log.d("UserProfileFragment", "User name: $userName")
 
         // Set the user's name in the TextView
-        userNameTextView.text = "Hello $userName"
+        userNameTextView.text = "$userName"
 
         // Return the root view
         return binding.root
@@ -72,10 +71,9 @@ class UserProfileFragment : Fragment() {
 
     private fun handleSectionClick(section: AccountSection) {
         when (section.title) {
-/*          "Profile" -> findNavController().navigate(R.id.action_myAccountFragment_to_profileFragment)
-            "My Orders" -> findNavController().navigate(R.id.action_myAccountFragment_to_ordersFragment)
-            "Settings" -> findNavController().navigate(R.id.action_myAccountFragment_to_settingsFragment)*/
-            "Need help?" -> findNavController().navigate(R.id.action_myAccountFragment_to_faqFragment)
+            "My orders" -> findNavController().navigate(R.id.action_user_profileFragment_to_userOrdersFragment)
+            //"Change Password" -> findNavController().navigate(R.id.action_myAccountFragment_to_changePasswordFragment)
+            "Need help?" -> findNavController().navigate(R.id.action_user_profileFragment_to_faqFragment)
             "Log out" -> logoutUser()
         }
     }

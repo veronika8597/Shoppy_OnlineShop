@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 
@@ -17,6 +18,7 @@ class MyAccountAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById(R.id.rowLogoImage)
         val title: TextView = view.findViewById(R.id.rowNameText)
+        val cardView: CardView = view.findViewById(R.id.cardView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +33,7 @@ class MyAccountAdapter(
         holder.title.text = section.title
 
         // Handle item clicks
-        holder.itemView.setOnClickListener { onItemClick(section) }
+        holder.cardView.setOnClickListener { onItemClick(section) }
     }
 
     override fun getItemCount(): Int = sections.size

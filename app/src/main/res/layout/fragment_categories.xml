@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="70dp">
+    android:layout_marginTop="5dp">
 
     <SearchView
         android:id="@+id/searchBarHome"
@@ -23,7 +23,12 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
+        android:text="All categories"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:padding="7dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all"

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.userProfile.Orders.UserOrdersFragment">
+
+    <TextView
+        android:id="@+id/all_purchases_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="All purchases"
+        android:fontFamily="@font/fredoka_medium"
+        android:textSize="17sp"
+        android:textColor="@color/black"
+        android:padding="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewOrders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp" />
+
+</LinearLayout>

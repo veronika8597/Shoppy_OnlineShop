@@ -6,7 +6,10 @@
     <string name="title_deals">Deals</string>
     <string name="title_bag">Bag</string>
     <string name="title_categories">All Categories</string>
-    <string name="title_user_profile">Profile</string>
+    <string name="title_user_profile">My Profile</string>
     <string name="title_FAQ">FAQ</string>
+    <string name="title_user_orders">My Orders</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
