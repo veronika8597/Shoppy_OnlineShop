@@ -9,23 +9,28 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
+import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.databinding.FragmentHomeBinding
 import com.example.shoppy_onlineshop.ui.home.adapter.CategoryAdapter
+import com.example.shoppy_onlineshop.ui.home.adapter.CategoryClickListener
 import com.example.shoppy_onlineshop.ui.home.adapter.ProductAdapter
+import retrofit2.http.Url
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CategoryClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var productAdapter: ProductAdapter
     private lateinit var categoryAdapter: CategoryAdapter
+    private var categories: List<StoreCategory> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +51,37 @@ class HomeFragment : Fragment() {
         //Featured Categories RecyclerView
         val categoriesRecyclerView: RecyclerView = binding.FeaturedItemsHorizontal
         categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        categoryAdapter = CategoryAdapter(emptyList())
+
+        // Initialize your categories list here (e.g., from an API call)
+        categories = listOf(
+            StoreCategory("beauty", "Beauty", "https://dummyjson.com/products/category/beauty"),
+            StoreCategory("fragrances", "Fragrances", "https://dummyjson.com/products/category/fragrances"),
+            StoreCategory("skin-care", "Skin Care", "https://dummyjson.com/products/category/skin-care"),
+            StoreCategory("groceries", "Groceries", "https://dummyjson.com/products/category/groceries"),
+            StoreCategory("home-decoration", "Home Decoration", "https://dummyjson.com/products/category/home-decoration"),
+            StoreCategory("furniture", "Furniture", "https://dummyjson.com/products/category/furniture"),
+            StoreCategory("tops", "Tops", "https://dummyjson.com/products/category/tops"),
+            StoreCategory("womens-dresses", "Womens Dresses", "https://dummyjson.com/products/category/womens-dresses"),
+            StoreCategory("womens-shoes", "Womens Shoes", "https://dummyjson.com/products/category/womens-shoes"),
+            StoreCategory("mens-shirts", "Mens Shirts", "https://dummyjson.com/products/category/mens-shirts"),
+            StoreCategory("mens-shoes", "Mens Shoes", "https://dummyjson.com/products/category/mens-shoes"),
+            StoreCategory("mens-watches", "Mens Watches", "https://dummyjson.com/products/category/mens-watches"),
+            StoreCategory("womens-watches", "Womens Watches", "https://dummyjson.com/products/category/womens-watches"),
+            StoreCategory("womens-bags", "Womens Bags", "https://dummyjson.com/products/category/womens-bags"),
+            StoreCategory("womens-jewellery", "Womens Jewellery", "https://dummyjson.com/products/category/womens-jewellery"),
+            StoreCategory("sunglasses", "Sunglasses", "https://dummyjson.com/products/category/sunglasses"),
+            StoreCategory("vehicle", "Vehicle", "https://dummyjson.com/products/category/vehicle"),
+            StoreCategory("motorcycle", "Motorcycle", "https://dummyjson.com/products/category/motorcycle"),
+            StoreCategory("lighting", "Lighting", "https://dummyjson.com/products/category/lighting"),
+            StoreCategory("kitchen-accessories", "Kitchen Accessories", "https://dummyjson.com/products/category/kitchen-accessories"),
+            StoreCategory("laptops", "Laptops", "https://dummyjson.com/products/category/laptops"),
+            StoreCategory("mobile-accessories", "Mobile Accessories", "https://dummyjson.com/products/category/mobile-accessories"),
+            StoreCategory("smartphones", "Smartphones", "https://dummyjson.com/products/category/smartphones"),
+            StoreCategory("sports-accessories", "Sports Accessories", "https://dummyjson.com/products/category/sports-accessories"),
+            StoreCategory("tablets", "Tablets", "https://dummyjson.com/products/category/tablets")
+        )
+
+        categoryAdapter = CategoryAdapter(emptyList(), this)
         categoriesRecyclerView.adapter = categoryAdapter
 
         homeViewModel.featuredCategories.observe(viewLifecycleOwner) { categories ->
@@ -114,5 +149,14 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCategoryClick(category: StoreCategory) {
+        // Handle the category click here
+        Toast.makeText(context, "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
+        Log.d("HomeFragment", "Clicked category: ${category.name}, Slug: ${category.slug}, Url: ${category.url}")
+        // You can now fetch more data based on the category, navigate to a new screen, etc.
+        // For example:
+        // fetchProductsForCategory(category)
     }
 }
