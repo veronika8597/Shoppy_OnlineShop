@@ -72,7 +72,7 @@ class UserProfileFragment : Fragment() {
     private fun handleSectionClick(section: AccountSection) {
         when (section.title) {
             "My orders" -> findNavController().navigate(R.id.action_user_profileFragment_to_userOrdersFragment)
-            //"Change Password" -> findNavController().navigate(R.id.action_myAccountFragment_to_changePasswordFragment)
+            //"Change password" -> findNavController().navigate(R.id.action_myAccountFragment_to_changePasswordFragment)
             "Need help?" -> findNavController().navigate(R.id.action_user_profileFragment_to_faqFragment)
             "Log out" -> logoutUser()
         }

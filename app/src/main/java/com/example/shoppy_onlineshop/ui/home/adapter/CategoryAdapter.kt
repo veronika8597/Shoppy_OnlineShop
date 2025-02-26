@@ -10,8 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreCategory
-import com.example.shoppy_onlineshop.utils.RoundedCornerTarget
-import com.example.shoppy_onlineshop.utils.RoundedCornersTransformation
+import com.example.shoppy_onlineshop.ui.home.adapter.design.RoundedCornersTransformation
 
 class CategoryAdapter(private var categories: List<StoreCategory>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 

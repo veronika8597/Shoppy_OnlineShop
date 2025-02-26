@@ -4,35 +4,57 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppy_onlineshop.R
+import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
 
-    private var _binding: FragmentFavoritesBinding? = null
+    private lateinit var favoritesViewModel: FavoritesViewModel
+    private lateinit var favoritesAdapter: FavoritesAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var emptyFavoritesTextView: TextView
+    private lateinit var emptyFavoritesImageView: ImageView
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DealsViewModel::class.java)
 
-        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val view = inflater.inflate(R.layout.fragment_favorites, container, false)
+        recyclerView = view.findViewById(R.id.bagRecyclerView)
+        emptyFavoritesTextView = view.findViewById(R.id.emptyFavoritesTextView)
+        emptyFavoritesImageView = view.findViewById(R.id.bagimageView)
 
-        val textView: TextView = binding.textFavorites
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        favoritesAdapter = FavoritesAdapter(emptyList())//Empty at first
+        recyclerView.adapter = favoritesAdapter
+
+        favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
+        favoritesViewModel.favoriteItems.observe(viewLifecycleOwner) { favoriteProducts ->
+            favoritesAdapter.updateFavoriteProducts(favoriteProducts)
+            updateUI(favoriteProducts)
         }
-        return root
+        return view
+    }
+
+    private fun updateUI(favoriteProducts: List<StoreProduct>) {
+        if (favoriteProducts.isEmpty()) {
+            recyclerView.visibility = View.GONE
+            emptyFavoritesTextView.visibility = View.VISIBLE
+            emptyFavoritesImageView.visibility = View.VISIBLE
+        }
+        else {
+            recyclerView.visibility = View.VISIBLE
+            emptyFavoritesTextView.visibility = View.GONE
+            emptyFavoritesImageView.visibility = View.GONE
+        }
+
     }
 
     override fun onDestroyView() {

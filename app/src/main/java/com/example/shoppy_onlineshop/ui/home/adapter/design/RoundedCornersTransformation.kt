@@ -1,4 +1,4 @@
-package com.example.shoppy_onlineshop.utils
+package com.example.shoppy_onlineshop.ui.home.adapter.design
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
