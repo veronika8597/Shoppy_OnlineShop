@@ -72,8 +72,10 @@ class UserProfileFragment : Fragment() {
     private fun handleSectionClick(section: AccountSection) {
         when (section.title) {
             "My orders" -> findNavController().navigate(R.id.action_user_profileFragment_to_userOrdersFragment)
-            //"Change password" -> findNavController().navigate(R.id.action_myAccountFragment_to_changePasswordFragment)
             "Need help?" -> findNavController().navigate(R.id.action_user_profileFragment_to_faqFragment)
+            "Change password" -> findNavController().navigate(R.id.action_user_profileFragment_to_changePasswordFragment)
+            "My addresses" -> Toast.makeText(this.context, "My addresses", Toast.LENGTH_SHORT).show()
+            "Payment methods" -> Toast.makeText(this.context, "Payment methods", Toast.LENGTH_SHORT).show()
             "Log out" -> logoutUser()
         }
     }

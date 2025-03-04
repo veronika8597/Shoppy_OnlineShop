@@ -59,14 +59,16 @@
 
         <action
             android:id="@+id/action_user_profileFragment_to_faqFragment"
+            android:label="@string/title_FAQ"
             app:destination="@id/faqFragment" />
 
         <action
             android:id="@+id/action_user_profileFragment_to_userOrdersFragment"
             android:label="@string/title_user_orders"
             app:destination="@id/userOrdersFragment" />
-
-
+        <action
+            android:id="@+id/action_user_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
 
     <fragment
@@ -77,8 +79,13 @@
     <fragment
         android:id="@+id/userOrdersFragment"
         android:name="com.example.shoppy_onlineshop.ui.userProfile.Orders.UserOrdersFragment"
-        android:label="fragment_user_orders"
+        android:label="@string/title_user_orders"
         tools:layout="@layout/fragment_user_orders" />
-
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.ChangePassword.ChangePasswordFragment"
+        android:label="@string/title_change_password"
+        tools:layout="@layout/fragment_change_password" >
+    </fragment>
 
 </navigation>

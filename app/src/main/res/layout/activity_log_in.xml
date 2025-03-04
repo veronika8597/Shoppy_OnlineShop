@@ -74,22 +74,15 @@
 
         <ImageView
             android:id="@+id/google_login"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/ic_google"
             android:layout_marginEnd="16dp" />
 
         <ImageView
-            android:id="@+id/apple_login"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_apple"
-            android:layout_marginEnd="16dp" />
-
-        <ImageView
             android:id="@+id/facebook_login"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/ic_facebook" />
     </LinearLayout>
 

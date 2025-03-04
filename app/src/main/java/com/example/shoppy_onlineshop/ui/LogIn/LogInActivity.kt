@@ -4,6 +4,7 @@ import UserPreferences
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,6 +18,10 @@ import kotlinx.coroutines.launch
 
 class LogInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var userEmail: EditText
+    private lateinit var userPassword: EditText
+    private lateinit var loginButton: Button
+    private lateinit var login2reg: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,16 +31,16 @@ class LogInActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_log_in)
 
-        val login2reg: TextView = findViewById(R.id.sign_up_text)
-        val userEmail: EditText = findViewById(R.id.email_input)
-        val userPassword: EditText = findViewById(R.id.password_input)
-        val loginButton: Button = findViewById(R.id.login_button)
+        login2reg= findViewById(R.id.sign_up_text)
+        userEmail= findViewById(R.id.email_input)
+        userPassword = findViewById(R.id.password_input)
+        loginButton = findViewById(R.id.login_button)
 
-/*
-        window.statusBarColor = Color.TRANSPARENT
+
+        //window.statusBarColor = Color.TRANSPARENT
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         supportActionBar?.hide()
-*/
+
 
 
         lifecycleScope.launch {
@@ -86,6 +91,8 @@ class LogInActivity : AppCompatActivity() {
 
                 } else {
                     Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                    userEmail.text.clear()
+                    userPassword.text.clear()
                 }
             }
     }
