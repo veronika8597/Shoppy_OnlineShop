@@ -68,7 +68,12 @@
             app:destination="@id/userOrdersFragment" />
         <action
             android:id="@+id/action_user_profileFragment_to_changePasswordFragment"
+            android:label="@string/title_change_password"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_user_profileFragment_to_addressesFragment"
+            android:label="@string/title_user_addresses"
+            app:destination="@id/addressesFragment" />
     </fragment>
 
     <fragment
@@ -86,6 +91,22 @@
         android:name="com.example.shoppy_onlineshop.ui.userProfile.ChangePassword.ChangePasswordFragment"
         android:label="@string/title_change_password"
         tools:layout="@layout/fragment_change_password" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/editAddressFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.addresses.EditAddressFragment"
+        android:label="@string/title_edit_address"
+        tools:layout="@layout/fragment_edit_address" />
+    <fragment
+        android:id="@+id/addressesFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.addresses.AddressesFragment"
+        android:label="@string/title_user_addresses"
+        tools:layout="@layout/fragment_addresses">
+        <action
+            android:id="@+id/action_addressesFragment_to_editAddressFragment"
+            android:label="@string/title_edit_address"
+            app:destination="@id/editAddressFragment" />
     </fragment>
 
 </navigation>

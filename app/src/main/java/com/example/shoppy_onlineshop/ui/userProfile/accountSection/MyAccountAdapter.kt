@@ -1,6 +1,5 @@
-package com.example.shoppy_onlineshop.ui.userProfile
+package com.example.shoppy_onlineshop.ui.userProfile.accountSection
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.databinding.FragmentUserProfileBinding
 import com.example.shoppy_onlineshop.ui.LogIn.LogInActivity
+import com.example.shoppy_onlineshop.ui.userProfile.accountSection.AccountSection
+import com.example.shoppy_onlineshop.ui.userProfile.accountSection.MyAccountAdapter
 import com.google.firebase.auth.FirebaseAuth
 
 class UserProfileFragment : Fragment() {
@@ -74,7 +76,7 @@ class UserProfileFragment : Fragment() {
             "My orders" -> findNavController().navigate(R.id.action_user_profileFragment_to_userOrdersFragment)
             "Need help?" -> findNavController().navigate(R.id.action_user_profileFragment_to_faqFragment)
             "Change password" -> findNavController().navigate(R.id.action_user_profileFragment_to_changePasswordFragment)
-            "My addresses" -> Toast.makeText(this.context, "My addresses", Toast.LENGTH_SHORT).show()
+            "My addresses" -> findNavController().navigate(R.id.action_user_profileFragment_to_addressesFragment)
             "Payment methods" -> Toast.makeText(this.context, "Payment methods", Toast.LENGTH_SHORT).show()
             "Log out" -> logoutUser()
         }

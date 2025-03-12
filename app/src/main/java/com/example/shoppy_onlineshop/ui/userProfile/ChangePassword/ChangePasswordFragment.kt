@@ -70,13 +70,16 @@ class ChangePasswordFragment : Fragment() {
             if (currentPassword.isEmpty()) {
                 binding.currentPasswordTextPassword.error = "Please enter your current password"
                 Toast.makeText(requireContext(), "Please enter your current password", Toast.LENGTH_SHORT).show()
+
             } else if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
                 binding.newPasswordTextPassword.error = "Please enter the new password"
                 binding.confirmPasswordTextPassword.error = "Please confirm the new password"
+
             } else if (newPassword != confirmPassword) {
                 Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
                 binding.newPasswordTextPassword.error = "Passwords do not match"
                 binding.confirmPasswordTextPassword.error = "Passwords do not match"
+
             } else {
                 checkCurrentPassword(currentPassword, newPassword)
             }
@@ -89,6 +92,8 @@ class ChangePasswordFragment : Fragment() {
         progressBar.visibility = View.VISIBLE
         emailSentTextView.visibility = View.GONE
     }
+
+
     private fun hideLoading() {
         changePasswordForm.visibility = View.VISIBLE
         loadingLayout.visibility = View.GONE
@@ -96,11 +101,13 @@ class ChangePasswordFragment : Fragment() {
         emailSentTextView.visibility = View.GONE
     }
 
+
     private fun showEmailSentConfirmation() {
         progressBar.visibility = View.GONE
         emailSentTextView.visibility = View.VISIBLE
     }
 
+    
     private fun sendPasswordResetEmail() {
         val user = FirebaseAuth.getInstance().currentUser
         val email = user?.email
