@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 
-class AddressesAdapter(private var addressList: List<AddressItem>, private val onItemClick: (AddressItem) -> Unit ) : RecyclerView.Adapter<AddressesAdapter.AddressViewHolder>() {
+class AddressesAdapter(private var addressList: MutableList<AddressItem>, private val onItemClick: (AddressItem) -> Unit ) : RecyclerView.Adapter<AddressesAdapter.AddressViewHolder>() {
 
     class AddressViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -23,31 +22,37 @@ class AddressesAdapter(private var addressList: List<AddressItem>, private val o
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
-
         val view = LayoutInflater.from(parent.context).inflate(R.layout.address_row, parent, false)
         return AddressViewHolder(view)
-
     }
 
     override fun getItemCount(): Int {
         return addressList.size
     }
 
+    fun getItem(position: Int): AddressItem {
+        return addressList[position]
+    }
+
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
-        val addressItem = addressList[position]
-        holder.fullName.text = addressItem.fullName
-        holder.address.text = addressItem.streetAddress
-        holder.apt.text = addressItem.apt ?: "N/A"
-        holder.city.text = addressItem.city
-        holder.zipCode.text = addressItem.zip?.toString() ?: "N/A"
+        val addressItem = getItem(position)
 
-        holder.status.visibility = if (addressItem.isDefault) View.VISIBLE else View.GONE
+        holder.apply {
+            fullName.text = addressItem.fullName
+            address.text = addressItem.streetAddress
+            apt.text = addressItem.apt ?: "N/A"
+            city.text = addressItem.city
+            zipCode.text = addressItem.zip?.toString() ?: "N/A"
 
-        holder.itemView.setOnClickListener { onItemClick(addressItem) }
+            status.visibility = if (addressItem.isDefault) View.VISIBLE else View.GONE
+
+            itemView.setOnClickListener { onItemClick(addressItem) }
+        }
     }
 
     fun updateData(newList: List<AddressItem>) {
-        addressList = newList
+        addressList.clear()
+        addressList.addAll(newList)
         notifyDataSetChanged()
     }
 }

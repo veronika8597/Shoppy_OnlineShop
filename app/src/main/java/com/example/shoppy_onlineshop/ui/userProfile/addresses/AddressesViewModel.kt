@@ -17,7 +17,7 @@ class AddressesViewModel(application: Application) : AndroidViewModel(applicatio
     private val gson = Gson()
 
     private val _addresses = MutableLiveData<List<AddressItem>>()
-    val addresses: LiveData<List<AddressItem>> get() = _addresses
+    val addresses: MutableLiveData<List<AddressItem>> get() = _addresses
 
     init {
         loadAddresses()
@@ -49,5 +49,18 @@ class AddressesViewModel(application: Application) : AndroidViewModel(applicatio
         val savedAddresses: List<AddressItem> = gson.fromJson(json, type)
         _addresses.value = savedAddresses
     }
-}
 
+    fun deleteAddress(deletedItem: AddressItem) {
+        // Get the current list of addresses
+        val currentList = _addresses.value.orEmpty().toMutableList()
+
+        // Remove the deleted item from the list
+        currentList.remove(deletedItem)
+
+        // Update the LiveData with the new list
+        _addresses.value = ArrayList(currentList)
+
+        // Persist the changes in SharedPreferences
+        saveAddresses()
+    }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/background">
+        <shape>
+            <solid android:color="#FF0000" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item
+        android:id="@+id/icon"
+        android:drawable="@drawable/delete_icon"
+        android:gravity="end|center_vertical"
+        android:end="16dp"/>
+</layer-list>

@@ -88,4 +88,8 @@ dependencies {
     //For storing user credentials automatically
     implementation(libs.androidx.datastore.preferences)
 
+
+    implementation(libs.androidx.recyclerview)
+
+
 }
