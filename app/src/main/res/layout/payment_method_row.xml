@@ -1,74 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    android:background="@color/white">
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Delete Card View -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_delete"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_margin="12dp"
+        android:backgroundTint="#FF4D4D"
+        android:padding="15dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <!-- Delete Icon -->
+            <ImageView
+                android:id="@+id/delete_imageView"
+                android:layout_width="40dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/delete_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Main Card View -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_margin="12dp"
+        android:padding="15dp"
+        android:translationX="0dp"
+        android:visibility="visible"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Card Icon -->
-        <ImageView
-            android:id="@+id/payment_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/card"
-            android:contentDescription="Payment Icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:scaleType="fitCenter" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
-        <!-- Masked Card Number -->
-        <TextView
-            android:id="@+id/masked_card_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/fredoka"
-            android:text="**** **** **** 1234"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@id/payment_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="12dp" />
+            <!-- Default Badge -->
+            <TextView
+                android:id="@+id/default_payment_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Default"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/status_background"
+                android:padding="4dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="12dp" />
 
-        <!-- Expiration Date -->
-        <TextView
-            android:id="@+id/expiry_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/fredoka"
-            android:text="12/25"
-            android:textSize="14sp"
-            android:textColor="#545050"
-            app:layout_constraintStart_toEndOf="@id/masked_card_number"
-            app:layout_constraintTop_toTopOf="@id/masked_card_number"
-            android:layout_marginStart="12dp" />
+            <!-- Card Icon -->
+            <ImageView
+                android:id="@+id/payment_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/card"
+                android:contentDescription="Payment Icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:scaleType="fitCenter" />
 
-        <!-- Default Payment Badge -->
-        <TextView
-            android:id="@+id/default_payment_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Default"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:background="@drawable/status_background"
-            android:padding="4dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="12dp" />
+            <!-- Masked Card Number -->
+            <TextView
+                android:id="@+id/masked_card_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka"
+                android:text="**** **** **** 1234"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/payment_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="12dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Expiration Date -->
+            <TextView
+                android:id="@+id/expiry_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka"
+                android:text="12/25"
+                android:textSize="14sp"
+                android:textColor="#545050"
+                app:layout_constraintStart_toEndOf="@id/masked_card_number"
+                app:layout_constraintTop_toTopOf="@id/masked_card_number"
+                android:layout_marginStart="12dp" />
 
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

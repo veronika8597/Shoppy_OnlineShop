@@ -13,6 +13,8 @@
     <string name="title_reset_password">Reset Password</string>
     <string name="title_edit_address">Edit Address</string>
     <string name="title_user_addresses">My Addresses</string>
+    <string name="title_edit_payment_methods">Edit Payment Methods</string>
+    <string name="title_payment_methods">Payment Methods</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

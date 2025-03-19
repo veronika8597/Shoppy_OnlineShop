@@ -13,7 +13,6 @@
         android:layout_margin="12dp"
         android:backgroundTint="#FF4D4D"
         android:padding="15dp"
-        android:visibility="gone"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,110 +45,110 @@
         android:layout_height="130dp"
         android:layout_margin="12dp"
         android:padding="15dp"
-        android:visibility="visible"
         android:translationX="0dp"
+        android:visibility="visible"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
-        <!-- EditText fields inside the main card -->
-        <TextView
-            android:id="@+id/status_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="2dp"
-            android:background="@drawable/status_background"
-            android:fontFamily="@font/fredoka"
-            android:text="Default"
-            android:textColor="#FEFFFF"
-            android:textSize="11sp"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <!-- EditText fields inside the main card -->
+            <TextView
+                android:id="@+id/status_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/status_background"
+                android:fontFamily="@font/fredoka"
+                android:text="Default"
+                android:textColor="#FEFFFF"
+                android:textSize="11sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/fullName_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:ems="10"
-            android:focusable="false"
-            android:fontFamily="@font/fredoka"
-            android:inputType="none"
-            android:text="User Full Name"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/status_textView" />
+            <EditText
+                android:id="@+id/fullName_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/fredoka"
+                android:inputType="none"
+                android:text="User Full Name"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_textView" />
 
-        <EditText
-            android:id="@+id/street_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:ems="10"
-            android:focusable="false"
-            android:fontFamily="@font/fredoka"
-            android:inputType="text"
-            android:text="Street address"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fullName_editText" />
+            <EditText
+                android:id="@+id/street_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/fredoka"
+                android:inputType="text"
+                android:text="Street address"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fullName_editText" />
 
-        <EditText
-            android:id="@+id/apt_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:ems="10"
-            android:focusable="false"
-            android:fontFamily="@font/fredoka"
-            android:inputType="text"
-            android:text="Apt/Suit/Other"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/street_editText" />
+            <EditText
+                android:id="@+id/apt_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/fredoka"
+                android:inputType="text"
+                android:text="Apt/Suit/Other"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/street_editText" />
 
-        <EditText
-            android:id="@+id/city_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:ems="10"
-            android:focusable="false"
-            android:fontFamily="@font/fredoka"
-            android:inputType="text"
-            android:text="City"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apt_editText" />
+            <EditText
+                android:id="@+id/city_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/fredoka"
+                android:inputType="text"
+                android:text="City"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/apt_editText" />
 
-        <EditText
-            android:id="@+id/postalCode_editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:ems="10"
-            android:focusable="false"
-            android:fontFamily="@font/fredoka"
-            android:inputType="text"
-            android:text="Postal code"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/city_editText" />
+            <EditText
+                android:id="@+id/postalCode_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/fredoka"
+                android:inputType="text"
+                android:text="Postal code"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_editText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

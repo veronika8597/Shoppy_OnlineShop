@@ -77,7 +77,7 @@ class UserProfileFragment : Fragment() {
             "Need help?" -> findNavController().navigate(R.id.action_user_profileFragment_to_faqFragment)
             "Change password" -> findNavController().navigate(R.id.action_user_profileFragment_to_changePasswordFragment)
             "My addresses" -> findNavController().navigate(R.id.action_user_profileFragment_to_addressesFragment)
-            "Payment methods" -> Toast.makeText(this.context, "Payment methods", Toast.LENGTH_SHORT).show()
+            "Payment methods" -> findNavController().navigate(R.id.action_user_profileFragment_to_paymentMethodsFragment)
             "Log out" -> logoutUser()
         }
     }

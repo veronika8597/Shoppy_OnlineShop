@@ -74,6 +74,9 @@
             android:id="@+id/action_user_profileFragment_to_addressesFragment"
             android:label="@string/title_user_addresses"
             app:destination="@id/addressesFragment" />
+        <action
+            android:id="@+id/action_user_profileFragment_to_paymentMethodsFragment"
+            app:destination="@id/paymentMethodsFragment" />
     </fragment>
 
     <fragment
@@ -108,5 +111,19 @@
             android:label="@string/title_edit_address"
             app:destination="@id/editAddressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/paymentMethodsFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.paymentMethods.PaymentMethodsFragment"
+        android:label="@string/title_payment_methods"
+        tools:layout="@layout/fragment_payment_methods" >
+        <action
+            android:id="@+id/action_paymentMethodsFragment_to_editPaymentMethodFragment"
+            app:destination="@id/editPaymentMethodsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPaymentMethodsFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.paymentMethods.EditPaymentMethodsFragment"
+        android:label="@string/title_edit_payment_methods"
+        tools:layout="@layout/fragment_edit_payment_methods" />
 
 </navigation>
