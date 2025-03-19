@@ -1,4 +1,4 @@
-package com.example.shoppy_onlineshop.ui.home.adapter
+package com.example.shoppy_onlineshop.ui.home.categories
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,8 @@ import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.ui.home.adapter.design.RoundedCornersTransformation
 
 class CategoryAdapter(private var categories: List<StoreCategory>,
-                      private val categoryClickListener: CategoryClickListener) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+                      private val categoryClickListener: CategoryClickListener
+) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val categoryImageView: ImageView = itemView.findViewById(R.id.categoryImageView)

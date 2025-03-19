@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp"
+    android:padding="5dp"
     tools:context=".ui.home.products.ProductsFragment">
 
     <!-- RecyclerView for the product grid -->
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="65dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"/>
 

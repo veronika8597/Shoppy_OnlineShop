@@ -1,4 +1,4 @@
-package com.example.shoppy_onlineshop.ui.home.adapter
+package com.example.shoppy_onlineshop.ui.home.categories
 
 import com.example.shoppy_onlineshop.api.StoreCategory
 

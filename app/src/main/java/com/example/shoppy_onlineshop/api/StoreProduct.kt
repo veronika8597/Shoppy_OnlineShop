@@ -18,6 +18,10 @@ data class StoreProduct(
     val shippingInformation: String,
     val availabilityStatus: String,
     val reviews: List<Review>,
+    val returnPolicy: String,
+    val minimumOrderQuantity: Int,
+    val meta: Meta,
+    val images: List<String>,
     val thumbnail: String
 )
 
@@ -33,4 +37,11 @@ data class Review(
     val date: String,
     val reviewerName: String,
     val reviewerEmail: String
+)
+
+data class Meta(
+    val createdAt: String,
+    val updatedAt: String,
+    val barcode: String,
+    val qrCode: String
 )

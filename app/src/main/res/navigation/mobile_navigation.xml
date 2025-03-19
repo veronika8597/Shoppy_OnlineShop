@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_home_to_user_profile"
             app:destination="@id/user_profileFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_productsFragment"
+            app:destination="@id/productsFragment" />
     </fragment>
 
 
@@ -49,7 +52,11 @@
         android:id="@+id/categoriesFragment"
         android:name="com.example.shoppy_onlineshop.ui.home.categories.CategoriesFragment"
         android:label="@string/title_categories"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/user_profileFragment"
@@ -125,5 +132,11 @@
         android:name="com.example.shoppy_onlineshop.ui.userProfile.paymentMethods.EditPaymentMethodsFragment"
         android:label="@string/title_edit_payment_methods"
         tools:layout="@layout/fragment_edit_payment_methods" />
+
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.shoppy_onlineshop.ui.home.products.ProductsFragment"
+        android:label="@string/title_products"
+        tools:layout="@layout/fragment_products" />
 
 </navigation>

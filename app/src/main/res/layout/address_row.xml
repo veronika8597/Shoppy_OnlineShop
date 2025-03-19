@@ -38,6 +38,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+
+
     <!-- Main Card View -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_main"
@@ -60,25 +62,31 @@
             android:padding="10dp">
 
             <!-- EditText fields inside the main card -->
+
             <TextView
                 android:id="@+id/status_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/status_background"
                 android:fontFamily="@font/fredoka"
                 android:text="Default"
                 android:textColor="#FEFFFF"
                 android:textSize="11sp"
                 android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.94"
+                app:layout_constraintStart_toEndOf="@+id/apt_editText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.478" />
 
             <EditText
                 android:id="@+id/fullName_editText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:background="@null"
                 android:clickable="false"
                 android:ems="10"
@@ -88,42 +96,14 @@
                 android:text="User Full Name"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/status_textView" />
-
-            <EditText
-                android:id="@+id/street_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:clickable="false"
-                android:ems="10"
-                android:focusable="false"
-                android:fontFamily="@font/fredoka"
-                android:inputType="text"
-                android:text="Street address"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fullName_editText" />
-
-            <EditText
-                android:id="@+id/apt_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:clickable="false"
-                android:ems="10"
-                android:focusable="false"
-                android:fontFamily="@font/fredoka"
-                android:inputType="text"
-                android:text="Apt/Suit/Other"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/street_editText" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/city_editText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:background="@null"
                 android:clickable="false"
                 android:ems="10"
@@ -136,9 +116,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/apt_editText" />
 
             <EditText
+                android:id="@+id/apt_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/fredoka"
+                android:inputType="text"
+                android:text="Apt/Suit/Other"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/street_editText" />
+
+            <EditText
                 android:id="@+id/postalCode_editText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:background="@null"
                 android:clickable="false"
                 android:ems="10"
@@ -149,6 +148,23 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/city_editText" />
+
+            <EditText
+                android:id="@+id/street_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/fredoka"
+                android:inputType="text"
+                android:text="Street address"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fullName_editText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,78 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"
-    android:orientation="vertical">
+    android:fillViewport="true"
+    tools:context=".ui.home.HomeFragment">
 
-    <!-- Search Bar Section (Custom Design) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="60dp">
 
-        <SearchView
-            android:id="@+id/searchBarHome"
-            android:layout_width="336dp"
+        <!-- Search Bar Section (Custom Design) -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/search_background"
-            android:clipToPadding="false"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search on Shoppy" >
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
-        </SearchView>
+            <SearchView
+                android:id="@+id/searchBarHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/search_background"
+                android:clipToPadding="false"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search on Shoppy" />
 
-        <ImageButton
-            android:id="@+id/profileButton"
-            android:layout_width="53dp"
-            android:layout_height="53dp"
-            android:scaleType="centerInside"
-            android:background="#ffffff"
-            android:src="@drawable/user_logo" />
+            <ImageButton
+                android:id="@+id/profileButton"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:background="#ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/user_logo" />
+
+        </LinearLayout>
+
+        <!-- Category title -->
+        <TextView
+            android:id="@+id/ExploreTitle_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_medium"
+            android:paddingStart="17dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:text="Explore these categories"
+            android:textSize="25sp" />
+
+        <!-- Featured Items RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Featured_Items_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/categories_button"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/fredoka"
+            android:text="All categories"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <!-- Recommended Items RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Recomended_Items_vertical_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"/>
 
     </LinearLayout>
-
-    <!-- Category title -->      
-    <TextView
-        android:id="@+id/ExploreTitle_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fredoka_medium"
-        android:paddingLeft="10dp"
-        android:text="Explore these categories"
-        android:textSize="22sp" />
-
-    <!-- Featured Items RecyclerView -->
-
-    <!-- Button for all categories -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Featured_Items_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:padding="10dp" />
-
-    <Button
-        android:id="@+id/categories_button"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_marginLeft="20dp"
-        android:text="All categories"
-        android:textColor="#ffffff"
-        android:textSize="12sp"
-        android:background="@drawable/button_background"
-        android:layout_gravity="left"
-        android:fontFamily="@font/fredoka" />
-
-    <!-- Recommended Items RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Recomended_Items_vertical_RecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginBottom="70dp"/>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

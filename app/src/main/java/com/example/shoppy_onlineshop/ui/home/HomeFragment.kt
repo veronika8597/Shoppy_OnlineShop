@@ -19,8 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.databinding.FragmentHomeBinding
-import com.example.shoppy_onlineshop.ui.home.adapter.CategoryAdapter
-import com.example.shoppy_onlineshop.ui.home.adapter.CategoryClickListener
+import com.example.shoppy_onlineshop.helpers.ProductLoader
+import com.example.shoppy_onlineshop.ui.home.categories.CategoryAdapter
+import com.example.shoppy_onlineshop.ui.home.categories.CategoryClickListener
 import com.example.shoppy_onlineshop.ui.home.products.ProductAdapter
 
 class HomeFragment : Fragment(), CategoryClickListener {
@@ -89,13 +90,6 @@ class HomeFragment : Fragment(), CategoryClickListener {
         }
 
         //Recommended Products RecyclerView
-/*        val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
-        productsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        productAdapter = ProductAdapter(emptyList())
-        productsRecyclerView.adapter = productAdapter
-
-        homeViewModel.allProducts.observe(viewLifecycleOwner) { products ->
-            productAdapter.updateData(products)*/
         val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
         productsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
         productAdapter = ProductAdapter(emptyList())
@@ -159,11 +153,9 @@ class HomeFragment : Fragment(), CategoryClickListener {
     }
 
     override fun onCategoryClick(category: StoreCategory) {
-        // Handle the category click here
-        Toast.makeText(context, "Clicked: ${category.name}", Toast.LENGTH_SHORT).show()
-        Log.d("HomeFragment", "Clicked category: ${category.name}, Slug: ${category.slug}, Url: ${category.url}")
-        // You can now fetch more data based on the category, navigate to a new screen, etc.
-        // For example:
-        // fetchProductsForCategory(category)
+        val bundle = Bundle().apply {
+            putString("categorySlug", category.slug)
+        }
+        findNavController().navigate(R.id.action_navigation_home_to_productsFragment, bundle)
     }
 }

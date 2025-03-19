@@ -61,8 +61,9 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val categories = response.body() ?: emptyList()
                     Log.d("HomeViewModel", "Categories fetched successfully: $categories")
-                    val featured = categories.take(5) // Select first 5 categories
+                    val featured = categories.shuffled().take(5) // Select first 5 categories
                     _featuredCategories.value = featured
+
                     _allCategories.value = categories // Store all categories
                 } else {
                     Log.e("HomeViewModel", "Categories API request failed: ${response.message()}")
