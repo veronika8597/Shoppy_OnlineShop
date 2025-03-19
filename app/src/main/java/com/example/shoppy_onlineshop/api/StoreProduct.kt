@@ -17,7 +17,8 @@ data class StoreProduct(
     val warrantyInformation: String,
     val shippingInformation: String,
     val availabilityStatus: String,
-    val reviews: List<Review>
+    val reviews: List<Review>,
+    val thumbnail: String
 )
 
 data class Dimensions(

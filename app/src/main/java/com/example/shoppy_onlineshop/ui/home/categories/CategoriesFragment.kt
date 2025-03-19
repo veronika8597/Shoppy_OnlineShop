@@ -1,4 +1,4 @@
-package com.example.shoppy_onlineshop.ui.home
+package com.example.shoppy_onlineshop.ui.home.categories
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.databinding.FragmentCategoriesBinding
 import com.example.shoppy_onlineshop.ui.home.adapter.CategoryAdapter

@@ -52,7 +52,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Featured_Items_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="240dp"
         android:padding="10dp" />
 
     <Button
@@ -72,6 +72,7 @@
         android:id="@+id/Recomended_Items_vertical_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:layout_marginBottom="70dp"/>
 
 </LinearLayout>

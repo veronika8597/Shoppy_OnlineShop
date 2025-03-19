@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
@@ -20,8 +21,7 @@ import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.databinding.FragmentHomeBinding
 import com.example.shoppy_onlineshop.ui.home.adapter.CategoryAdapter
 import com.example.shoppy_onlineshop.ui.home.adapter.CategoryClickListener
-import com.example.shoppy_onlineshop.ui.home.adapter.ProductAdapter
-import retrofit2.http.Url
+import com.example.shoppy_onlineshop.ui.home.products.ProductAdapter
 
 class HomeFragment : Fragment(), CategoryClickListener {
 
@@ -89,8 +89,15 @@ class HomeFragment : Fragment(), CategoryClickListener {
         }
 
         //Recommended Products RecyclerView
-        val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
+/*        val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
         productsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        productAdapter = ProductAdapter(emptyList())
+        productsRecyclerView.adapter = productAdapter
+
+        homeViewModel.allProducts.observe(viewLifecycleOwner) { products ->
+            productAdapter.updateData(products)*/
+        val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
+        productsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
         productAdapter = ProductAdapter(emptyList())
         productsRecyclerView.adapter = productAdapter
 

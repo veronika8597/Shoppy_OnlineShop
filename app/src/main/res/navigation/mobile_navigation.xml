@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.example.shoppy_onlineshop.ui.home.CategoriesFragment"
+        android:name="com.example.shoppy_onlineshop.ui.home.categories.CategoriesFragment"
         android:label="@string/title_categories"
         tools:layout="@layout/fragment_categories" />
 

@@ -1,4 +1,4 @@
-package com.example.shoppy_onlineshop.ui.home
+package com.example.shoppy_onlineshop.ui.home.categories
 
 import androidx.lifecycle.ViewModel
 
