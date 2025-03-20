@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import java.security.MessageDigest
+import androidx.core.graphics.createBitmap
 
 class RoundedCornersTransformation(private val radius: Float) : BitmapTransformation() {
 
@@ -20,7 +21,7 @@ class RoundedCornersTransformation(private val radius: Float) : BitmapTransforma
     ): Bitmap {
         val source = TransformationUtils.centerCrop(pool, toTransform, outWidth, outHeight)
         val bitmap = pool.get(source.width, source.height, Bitmap.Config.ARGB_8888)
-            ?: Bitmap.createBitmap(source.width, source.height, Bitmap.Config.ARGB_8888)
+            ?: createBitmap(source.width, source.height)
 
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)

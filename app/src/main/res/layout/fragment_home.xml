@@ -10,9 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical">
 
         <!-- Search Bar Section (Custom Design) -->
         <LinearLayout
@@ -72,13 +72,18 @@
             android:text="All categories"
             android:textColor="#ffffff"
             android:textSize="16sp" />
-
+        <!--Product List-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" />
         <!-- Recommended Items RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Recomended_Items_vertical_RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

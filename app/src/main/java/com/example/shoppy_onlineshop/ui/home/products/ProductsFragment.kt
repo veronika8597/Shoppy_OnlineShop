@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.shoppy_onlineshop.R
+import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.databinding.FragmentProductsBinding
 import com.example.shoppy_onlineshop.helpers.ProductLoader.loadProductsForCategory
 
-class ProductsFragment : Fragment() {
+class ProductsFragment : Fragment(), ProductClickListener {
 
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
@@ -66,8 +69,18 @@ class ProductsFragment : Fragment() {
             Toast.makeText(context, "No products available", Toast.LENGTH_SHORT).show()
         }
 
-        val productAdapter = ProductAdapter(products ?: emptyList())
+        val productAdapter = ProductAdapter(products ?: emptyList(), this)
         binding.productsRecyclerView.layoutManager = GridLayoutManager(context, 2)
         binding.productsRecyclerView.adapter = productAdapter
+    }
+
+    override fun onProductClick(product: StoreProduct) {
+        //Pass the category data to the ProductFragment
+        val bundle = Bundle().apply{
+            putInt("productId", product.id) //Pass the product ID
+        }
+        //Navigate to the ProductsFragment with the category's data
+        findNavController().navigate(R.id.action_productsFragment_to_productDetailsFragment, bundle)
+
     }
 }

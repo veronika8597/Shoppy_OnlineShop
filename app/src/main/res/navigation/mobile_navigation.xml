@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_navigation_home_to_productsFragment"
             app:destination="@id/productsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
 
 
@@ -137,6 +140,15 @@
         android:id="@+id/productsFragment"
         android:name="com.example.shoppy_onlineshop.ui.home.products.ProductsFragment"
         android:label="@string/title_products"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_productsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.shoppy_onlineshop.ui.home.products.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" />
 
 </navigation>

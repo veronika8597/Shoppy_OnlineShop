@@ -18,13 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreCategory
+import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.databinding.FragmentHomeBinding
 import com.example.shoppy_onlineshop.helpers.ProductLoader
 import com.example.shoppy_onlineshop.ui.home.categories.CategoryAdapter
 import com.example.shoppy_onlineshop.ui.home.categories.CategoryClickListener
 import com.example.shoppy_onlineshop.ui.home.products.ProductAdapter
+import com.example.shoppy_onlineshop.ui.home.products.ProductClickListener
 
-class HomeFragment : Fragment(), CategoryClickListener {
+class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -92,7 +94,7 @@ class HomeFragment : Fragment(), CategoryClickListener {
         //Recommended Products RecyclerView
         val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
         productsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
-        productAdapter = ProductAdapter(emptyList())
+        productAdapter = ProductAdapter(emptyList(), this)
         productsRecyclerView.adapter = productAdapter
 
         homeViewModel.allProducts.observe(viewLifecycleOwner) { products ->
@@ -140,7 +142,7 @@ class HomeFragment : Fragment(), CategoryClickListener {
             val bundle = Bundle()
             bundle.putParcelableArrayList(
                 "categories",
-                ArrayList(homeViewModel.allCategories.value)
+                homeViewModel.allCategories.value?.let { it1 -> ArrayList(it1) }
             )
             findNavController().navigate(R.id.action_home_to_categories, bundle)
         }
@@ -157,5 +159,14 @@ class HomeFragment : Fragment(), CategoryClickListener {
             putString("categorySlug", category.slug)
         }
         findNavController().navigate(R.id.action_navigation_home_to_productsFragment, bundle)
+    }
+
+    override fun onProductClick(product: StoreProduct) {
+        //Pass the category data to the ProductFragment
+        val bundle = Bundle().apply{
+            putInt("productId", product.id) //Pass the slug
+        }
+        //Navigate to the ProductsFragment with the category's data
+        findNavController().navigate(R.id.action_navigation_home_to_productDetailsFragment, bundle)
     }
 }
