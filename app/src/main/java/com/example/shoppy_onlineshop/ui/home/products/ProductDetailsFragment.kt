@@ -1,6 +1,7 @@
 package com.example.shoppy_onlineshop.ui.home.products
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.example.shoppy_onlineshop.api.Review
 import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.databinding.FragmentProductDetailsBinding
 import com.example.shoppy_onlineshop.helpers.isProductInFavorites
+import com.example.shoppy_onlineshop.helpers.toggleFavoriteStatus
 import com.example.shoppy_onlineshop.helpers.toggleSectionVisibility
 import com.example.shoppy_onlineshop.ui.favorites.FavoritesViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +27,8 @@ class ProductDetailsFragment : Fragment() {
 
     private var _binding: FragmentProductDetailsBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("Binding should not be null")
+
+    private var isFavorite = false
 
     companion object {
         private const val PRODUCT_ID_KEY = "productId"
@@ -66,22 +70,21 @@ class ProductDetailsFragment : Fragment() {
                 val currentProduct: StoreProduct = product
 
                 if (currentUserID != null) {
-                    isProductInFavorites(currentUserID, currentProduct) { isFavorite ->
-                        // Handle the favorite button visibility
-                        binding.favoriteButtonFilledHeart.visibility = if (isFavorite) View.VISIBLE else View.GONE
-                        binding.favoriteButtonEmptyHeart.visibility = if (!isFavorite) View.VISIBLE else View.GONE
+                    isProductInFavorites(currentUserID, currentProduct) { result ->
+                        isFavorite = result
+                        updateFavoriteButtonVisibility(isFavorite)
 
-                        // Set the onClick listener for the favorite button
                         val favoriteClickListener = View.OnClickListener {
-                            val newFavoriteStatus = favoritesViewModel.toggleFavoriteStatus(
+                            isFavorite = toggleFavoriteStatus(
                                 currentUserID,
                                 binding.favoriteButtonEmptyHeart,
                                 binding.favoriteButtonFilledHeart,
                                 currentProduct,
                                 isFavorite
                             )
+                            updateFavoriteButtonVisibility(isFavorite)
                         }
-                        // Set the click listener for both buttons
+
                         binding.favoriteButtonEmptyHeart.setOnClickListener(favoriteClickListener)
                         binding.favoriteButtonFilledHeart.setOnClickListener(favoriteClickListener)
                     }
@@ -142,6 +145,14 @@ class ProductDetailsFragment : Fragment() {
             )
         }
     }
+
+    // Function to update UI
+    private fun updateFavoriteButtonVisibility(isFavorite: Boolean) {
+        binding.favoriteButtonFilledHeart.visibility = if (isFavorite) View.VISIBLE else View.INVISIBLE
+        binding.favoriteButtonEmptyHeart.visibility = if (!isFavorite) View.VISIBLE else View.INVISIBLE
+        Log.d("ProductDetailsFragment", "Updated UI: isFavorite = $isFavorite")
+    }
+
 
     private fun setTags(tags: List<String>) {
         // List of tag views

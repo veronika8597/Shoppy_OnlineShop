@@ -12,6 +12,7 @@ import com.example.shoppy_onlineshop.helpers.fetchProductDetails
 import com.example.shoppy_onlineshop.helpers.removeFromFavorites
 import com.example.shoppy_onlineshop.ui.userProfile.addresses.AddressItem
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class FavoritesViewModel() : ViewModel() {
 
@@ -24,7 +25,8 @@ class FavoritesViewModel() : ViewModel() {
     fun loadFavoriteProducts(userId: String?) {
 
         if (userId != null) {
-            fetchProductDetails(userId,
+            fetchProductDetails(
+                userId,
                 onSuccess = { products ->
                     _favoriteItems.value = products
                     _errorMessage.value = null // Clear previous error
@@ -36,38 +38,23 @@ class FavoritesViewModel() : ViewModel() {
 
     }
 
-    fun toggleFavoriteStatus(userId: String, emptyHeart: ImageView, filledHeart: ImageView, product: StoreProduct, isFavorite: Boolean): Boolean {
+/*    fun addProductToFavorites(userId: String, product: StoreProduct) {
+        val currentFaveList = _favoriteItems.value.orEmpty().toMutableList()
+        currentFaveList.add(product)
+        _favoriteItems.value = ArrayList(currentFaveList)
 
-        Log.d("FavoritesViewModel", "Current favorite status: $isFavorite")
-        val newFavoriteStatus = !isFavorite // Toggle the status
-        Log.d("FavoritesViewModel", "New favorite status: $newFavoriteStatus")
+        addToFavorites(
+            userId,
+            product,
+            onSuccess = {
+                Log.d("FavoritesViewModel", "Product added to favorites")
+            },
+            onFailure = {
+                Log.e("FavoritesViewModel", "Failed to add product to favorites", it)
+            }
+        )
+    }*/
 
-        if (newFavoriteStatus) {
-            addToFavorites(userId, product,
-                onSuccess = {
-                    Log.d("FavoritesViewModel", "Product added to favorites")
-                            },
-                onFailure = {
-                    Log.e("FavoritesViewModel", "Failed to add product to favorites", it)
-                })
-            filledHeart.visibility = View.VISIBLE
-            emptyHeart.visibility = View.GONE
-
-        } else {
-            removeFromFavorites(userId, product,
-                onSuccess = {
-                    Log.d("FavoritesViewModel", "Product removed from favorites")
-                },
-                onFailure = {
-                    Log.e("FavoritesViewModel", "Failed to remove product from favorites", it)
-                })
-
-            filledHeart.visibility = View.GONE
-            emptyHeart.visibility = View.VISIBLE
-        }
-
-        return newFavoriteStatus
-    }
 
 
 // removes from the favorites list and updates the UI

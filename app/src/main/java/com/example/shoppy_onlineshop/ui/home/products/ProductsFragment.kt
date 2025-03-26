@@ -15,6 +15,7 @@ import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.databinding.FragmentProductsBinding
 import com.example.shoppy_onlineshop.helpers.ProductLoader.loadProductsForCategory
+import com.google.firebase.auth.FirebaseAuth
 
 class ProductsFragment : Fragment(), ProductClickListener {
 
@@ -69,7 +70,8 @@ class ProductsFragment : Fragment(), ProductClickListener {
             Toast.makeText(context, "No products available", Toast.LENGTH_SHORT).show()
         }
 
-        val productAdapter = ProductAdapter(products ?: emptyList(), this)
+        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+        val productAdapter = ProductAdapter(products ?: emptyList(), this, currentUserID)
         binding.productsRecyclerView.layoutManager = GridLayoutManager(context, 2)
         binding.productsRecyclerView.adapter = productAdapter
     }

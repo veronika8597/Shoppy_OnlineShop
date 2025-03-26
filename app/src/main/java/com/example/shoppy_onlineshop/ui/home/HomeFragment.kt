@@ -25,6 +25,7 @@ import com.example.shoppy_onlineshop.ui.home.categories.CategoryAdapter
 import com.example.shoppy_onlineshop.ui.home.categories.CategoryClickListener
 import com.example.shoppy_onlineshop.ui.home.products.ProductAdapter
 import com.example.shoppy_onlineshop.ui.home.products.ProductClickListener
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
 
@@ -94,7 +95,9 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
         //Recommended Products RecyclerView
         val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
         productsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
-        productAdapter = ProductAdapter(emptyList(), this)
+
+        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+        productAdapter = ProductAdapter(emptyList(), this, currentUserID)
         productsRecyclerView.adapter = productAdapter
 
         homeViewModel.allProducts.observe(viewLifecycleOwner) { products ->
@@ -161,11 +164,14 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
         findNavController().navigate(R.id.action_navigation_home_to_productsFragment, bundle)
     }
 
+
+
     override fun onProductClick(product: StoreProduct) {
         //Pass the category data to the ProductFragment
         val bundle = Bundle().apply{
             putInt("productId", product.id) //Pass the slug
         }
+
         //Navigate to the ProductsFragment with the category's data
         findNavController().navigate(R.id.action_navigation_home_to_productDetailsFragment, bundle)
     }

@@ -8,12 +8,10 @@
     android:layout_margin="8dp"
     android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:gravity="center_horizontal">
+        android:padding="8dp">
 
         <!-- Product Image -->
         <ImageView
@@ -23,27 +21,60 @@
             android:scaleType="centerCrop"
             android:src="@drawable/product_place_holder" /> <!-- Example placeholder image -->
 
-        <!-- Product Title -->
-        <TextView
-            android:id="@+id/productTitleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Product Title"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            android:textColor="@android:color/black"
-            android:maxLines="2"
-            android:ellipsize="end"/>
+        <!-- Heart (Add to favorites) button -->
+        <ImageView
+            android:id="@+id/favorite_button_emptyHeart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/heart_empty"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="13dp"
+            android:contentDescription="add_to_favorites"
+            android:visibility="visible"/>
 
-        <!-- Product Price -->
-        <TextView
-            android:id="@+id/productPriceTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="$99.99"
-            android:textSize="16sp"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_marginTop="4dp"/>
+        <!-- Heart (remove from favorites) button -->
+        <ImageView
+            android:id="@+id/favorite_button_filledHeart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/heart_filled"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="13dp"
+            android:contentDescription="remove_from_favorites"
+            android:visibility="gone"/>
 
-    </LinearLayout>
+        <!-- LinearLayout for Product Details -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/productImageView"
+            android:layout_marginTop="8dp">
+
+            <!-- Product Title -->
+            <TextView
+                android:id="@+id/productTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Title"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:maxLines="2"
+                android:ellipsize="end"/>
+
+            <!-- Product Price -->
+            <TextView
+                android:id="@+id/productPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$99.99"
+                android:textSize="16sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
