@@ -1,5 +1,6 @@
 package com.example.shoppy_onlineshop.helpers
 
+import android.util.Log
 import com.example.shoppy_onlineshop.api.StoreProduct
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -20,6 +21,9 @@ fun addToFavorites(userId: String, product: StoreProduct, onSuccess: () -> Unit,
 }
 
 fun removeFromFavorites(userId: String, product: StoreProduct, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+
+    Log.e("removeFromFavorites", "Product ID: ${product.id}")
+
     databaseFavoritesRef.child(userId).child(product.id.toString())
         .removeValue()
         .addOnSuccessListener { onSuccess() }

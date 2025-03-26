@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppy_onlineshop.databinding.FragmentFavoritesBinding
+import com.example.shoppy_onlineshop.helpers.setupSwipeToDelete
 import com.google.firebase.auth.FirebaseAuth
 
 class FavoritesFragment : Fragment() {
@@ -17,12 +18,16 @@ class FavoritesFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: FavoritesViewModel by activityViewModels()
     private lateinit var favoritesAdapter: FavoritesAdapter
+    private lateinit var currentUserID: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+
+        currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+        viewModel.loadFavoriteProducts(currentUserID)
 
         // Setup RecyclerView
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -32,8 +37,11 @@ class FavoritesFragment : Fragment() {
         // Observe LiveData
         observeFavoriteProducts()
 
-        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
-        viewModel.loadFavoriteProducts(currentUserID)
+        setupSwipeToDelete(binding.favoritesRecyclerView) { position ->
+            val deletedItem = favoritesAdapter.getItem(position)
+            viewModel.removeProductFromFavorites(currentUserID, deletedItem)
+        }
+
 
         return binding.root
     }

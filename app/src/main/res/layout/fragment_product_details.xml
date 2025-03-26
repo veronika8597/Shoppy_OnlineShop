@@ -44,7 +44,7 @@
 
                     <!-- Heart (Add to favorites) button -->
                     <ImageView
-                        android:id="@+id/favorite_button"
+                        android:id="@+id/favorite_button_emptyHeart"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/favorites_logo"
@@ -55,7 +55,7 @@
 
                     <!-- Heart (remove from favorites) button -->
                     <ImageView
-                        android:id="@+id/favorite_button_clicked"
+                        android:id="@+id/favorite_button_filledHeart"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/heart_filled"
@@ -420,7 +420,7 @@
 
                 <!-- Return Policy Heading -->
                 <TextView
-                    android:id="@+id/returnPolicy"
+                    android:id="@+id/returnPolicyHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/fredoka"
@@ -441,7 +441,7 @@
 
                     <!-- Return Policy Content -->
                     <TextView
-                        android:id="@+id/returnPolicyContent"
+                        android:id="@+id/returnPolicy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/fredoka_light"

@@ -68,19 +68,22 @@ class ProductDetailsFragment : Fragment() {
                 if (currentUserID != null) {
                     isProductInFavorites(currentUserID, currentProduct) { isFavorite ->
                         // Handle the favorite button visibility
-                        binding.favoriteButtonClicked.visibility = if (isFavorite) View.VISIBLE else View.GONE
-                        binding.favoriteButton.visibility = if (!isFavorite) View.VISIBLE else View.GONE
+                        binding.favoriteButtonFilledHeart.visibility = if (isFavorite) View.VISIBLE else View.GONE
+                        binding.favoriteButtonEmptyHeart.visibility = if (!isFavorite) View.VISIBLE else View.GONE
 
                         // Set the onClick listener for the favorite button
-                        binding.favoriteButton.setOnClickListener {
-                            favoritesViewModel.toggleFavoriteStatus(
+                        val favoriteClickListener = View.OnClickListener {
+                            val newFavoriteStatus = favoritesViewModel.toggleFavoriteStatus(
                                 currentUserID,
-                                binding.favoriteButton,
-                                binding.favoriteButtonClicked,
+                                binding.favoriteButtonEmptyHeart,
+                                binding.favoriteButtonFilledHeart,
                                 currentProduct,
                                 isFavorite
                             )
                         }
+                        // Set the click listener for both buttons
+                        binding.favoriteButtonEmptyHeart.setOnClickListener(favoriteClickListener)
+                        binding.favoriteButtonFilledHeart.setOnClickListener(favoriteClickListener)
                     }
                 }
 

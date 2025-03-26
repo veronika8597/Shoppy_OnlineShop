@@ -34,6 +34,10 @@ class FavoritesAdapter(private var favorites: List<StoreProduct>) : RecyclerView
         return favorites.size
     }
 
+    fun getItem(position: Int): StoreProduct {
+        return favorites[position]
+    }
+
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
         holder.favProductTitle.text = favorites[position].title
         holder.favProductPrice.text = favorites[position].price.toString()

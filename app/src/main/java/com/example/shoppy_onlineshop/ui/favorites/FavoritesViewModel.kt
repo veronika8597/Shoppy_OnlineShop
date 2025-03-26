@@ -10,6 +10,7 @@ import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.helpers.addToFavorites
 import com.example.shoppy_onlineshop.helpers.fetchProductDetails
 import com.example.shoppy_onlineshop.helpers.removeFromFavorites
+import com.example.shoppy_onlineshop.ui.userProfile.addresses.AddressItem
 import com.google.firebase.database.FirebaseDatabase
 
 class FavoritesViewModel() : ViewModel() {
@@ -37,7 +38,9 @@ class FavoritesViewModel() : ViewModel() {
 
     fun toggleFavoriteStatus(userId: String, emptyHeart: ImageView, filledHeart: ImageView, product: StoreProduct, isFavorite: Boolean): Boolean {
 
+        Log.d("FavoritesViewModel", "Current favorite status: $isFavorite")
         val newFavoriteStatus = !isFavorite // Toggle the status
+        Log.d("FavoritesViewModel", "New favorite status: $newFavoriteStatus")
 
         if (newFavoriteStatus) {
             addToFavorites(userId, product,
@@ -70,9 +73,19 @@ class FavoritesViewModel() : ViewModel() {
 // removes from the favorites list and updates the UI
     fun removeProductFromFavorites(userId: String, product: StoreProduct) {
 
+        val currentFaveList = _favoriteItems.value.orEmpty().toMutableList()
+
+        currentFaveList.remove(product)
+
+        _favoriteItems.value = ArrayList(currentFaveList)
+
+        removeFromFavorites(userId, product,
+            onSuccess = {
+                Log.d("FavoritesViewModel", "Product removed from favorites")
+            },
+            onFailure = {
+                Log.e("FavoritesViewModel", "Failed to remove product from favorites", it)
+            })
     }
 
-    fun addProductToFavorites(userId: String, product: StoreProduct) {
-
-    }
 }
