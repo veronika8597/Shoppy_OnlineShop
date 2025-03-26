@@ -10,6 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductDetailsViewModel : ViewModel() {
+
     fun loadProductDetails(
         context: Context,
         productID: Int,

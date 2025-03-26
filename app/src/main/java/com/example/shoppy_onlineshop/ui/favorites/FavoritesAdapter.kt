@@ -1,10 +1,15 @@
 package com.example.shoppy_onlineshop.ui.favorites
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreProduct
 
@@ -12,7 +17,11 @@ class FavoritesAdapter(private var favorites: List<StoreProduct>) : RecyclerView
 
     class FavoritesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val favoritesTextView: TextView = view.findViewById(R.id.favoriteProductName)
+        val favProductImage: ImageView = view.findViewById(R.id.productImage)
+        val favProductTitle: TextView = view.findViewById(R.id.productTitle)
+        val favProductPrice: TextView = view.findViewById(R.id.productPrice)
+        val isOutOfStock: TextView = view.findViewById(R.id.outOfStockLabel)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
@@ -26,13 +35,25 @@ class FavoritesAdapter(private var favorites: List<StoreProduct>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) {
-        holder.favoritesTextView.text = favorites[position].title
+        holder.favProductTitle.text = favorites[position].title
+        holder.favProductPrice.text = favorites[position].price.toString()
+        holder.isOutOfStock.visibility = if (isProductInStock(favorites[position])) View.VISIBLE else View.GONE
+        Glide.with(holder.itemView.context)
+            .load(favorites[position].thumbnail)
+            .transform(CenterCrop(), RoundedCorners(16))
+            .into(holder.favProductImage)
     }
+
 
     fun updateFavoriteProducts(newFavoriteProducts: List<StoreProduct>){
         this.favorites = newFavoriteProducts
         notifyDataSetChanged()
     }
+}
+
+fun isProductInStock(product: StoreProduct): Boolean{
+    return product.stock == 0
+
 }
 
 

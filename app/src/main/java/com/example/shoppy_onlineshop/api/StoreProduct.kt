@@ -1,47 +1,47 @@
 package com.example.shoppy_onlineshop.api
 
 data class StoreProduct(
-    val id: Int,
-    val title: String,
-    val description: String,
-    val category: String,
-    val price: Double,
-    val discountPercentage: Double,
-    val rating: Double,
-    val stock: Int,
-    val tags: List<String>,
-    val brand: String,
-    val sku: String,
-    val weight: Int,
-    val dimensions: Dimensions,
-    val warrantyInformation: String,
-    val shippingInformation: String,
-    val availabilityStatus: String,
-    val reviews: List<Review>,
-    val returnPolicy: String,
-    val minimumOrderQuantity: Int,
-    val meta: Meta,
-    val images: List<String>,
-    val thumbnail: String
+    val id: Int = 0, // Default value: 0
+    val title: String = "", // Default value: empty string
+    val description: String = "", // Default value: empty string
+    val category: String = "", // Default value: empty string
+    val price: Double = 0.0, // Default value: 0.0
+    val discountPercentage: Double = 0.0, // Default value: 0.0
+    val rating: Double = 0.0, // Default value: 0.0
+    val stock: Int = 0, // Default value: 0
+    val tags: List<String> = emptyList(), // Default value: empty list
+    val brand: String = "", // Default value: empty string
+    val sku: String = "", // Default value: empty string
+    val weight: Int = 0, // Default value: 0
+    val dimensions: Dimensions = Dimensions(), // Default value: default Dimensions
+    val warrantyInformation: String = "", // Default value: empty string
+    val shippingInformation: String = "", // Default value: empty string
+    val availabilityStatus: String = "", // Default value: empty string
+    val reviews: List<Review> = emptyList(), // Default value: empty list
+    val returnPolicy: String = "", // Default value: empty string
+    val minimumOrderQuantity: Int = 0, // Default value: 0
+    val meta: Meta = Meta(), // Default value: default Meta
+    val images: List<String> = emptyList(), // Default value: empty list
+    val thumbnail: String = "" // Default value: empty string
 )
 
 data class Dimensions(
-    val width: Double,
-    val height: Double,
-    val depth: Double
+    val width: Double = 0.0, // Default value: 0.0
+    val height: Double = 0.0, // Default value: 0.0
+    val depth: Double = 0.0 // Default value: 0.0
 )
 
 data class Review(
-    val rating: Int,
-    val comment: String,
-    val date: String,
-    val reviewerName: String,
-    val reviewerEmail: String
+    val rating: Int = 0, // Default value: 0
+    val comment: String = "", // Default value: empty string
+    val date: String = "", // Default value: empty string
+    val reviewerName: String = "", // Default value: empty string
+    val reviewerEmail: String = "" // Default value: empty string
 )
 
 data class Meta(
-    val createdAt: String,
-    val updatedAt: String,
-    val barcode: String,
-    val qrCode: String
+    val createdAt: String = "", // Default value: empty string
+    val updatedAt: String = "", // Default value: empty string
+    val barcode: String = "", // Default value: empty string
+    val qrCode: String = "" // Default value: empty string
 )

@@ -1,14 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/favoriteProductName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+    <!-- Delete Card View -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_delete"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_margin="12dp"
+        android:backgroundTint="#FF4D4D"
+        android:padding="15dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
-</LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="131dp">
+
+            <ImageView
+                android:id="@+id/delete_imageView"
+                android:layout_width="66dp"
+                android:layout_height="62dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.492"
+                app:srcCompat="@drawable/delete_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Main Card View -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_main"
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:layout_margin="12dp"
+        android:padding="15dp"
+        android:translationX="0dp"
+        android:visibility="visible"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <!-- Product Image -->
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:contentDescription="Product Image"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/product_place_holder" />
+
+            <!-- Product Price (in red) -->
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="$99.99"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toTopOf="@+id/productImage" />
+
+            <!-- Short Description -->
+            <TextView
+                android:id="@+id/productTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:ellipsize="end"
+
+                android:maxLines="2"
+                android:text="Product title"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toBottomOf="@+id/productPrice" />
+
+            <!-- Out of Stock Label (visible if product is out of stock) -->
+            <TextView
+                android:id="@+id/outOfStockLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Out of stock"
+                android:textColor="@android:color/holo_red_light"
+                app:layout_constraintBottom_toTopOf="@+id/moveToCartButton"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toBottomOf="@+id/productTitle"
+                android:visibility="gone"/>  <!-- Hidden by default -->
+
+            <!-- Move to Cart Button -->
+            <Button
+                android:id="@+id/moveToCartButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="#FFFFFF"
+                android:text="Move to Cart"
+                android:padding="10dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

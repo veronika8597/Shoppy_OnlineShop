@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp"
+    android:padding="5dp"
+    android:layout_marginBottom="65dp"
     tools:context=".ui.favorites.FavoritesFragment">
 
     <TextView
@@ -21,7 +22,7 @@
         android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/bagimageView"
+        android:id="@+id/favoritesimageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/favorites_logo"
@@ -29,7 +30,7 @@
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bagRecyclerView"
+        android:id="@+id/favoritesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />

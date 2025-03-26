@@ -23,11 +23,11 @@ class ReviewAdapter(private val reviews: List<Review>) : RecyclerView.Adapter<Re
     inner class ReviewViewHolder(private val binding: ItemReviewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(review: Review) {
             // Binding the data from Review object to the respective views
-            binding.reviewAuthor.text = review.reviewerName
-            binding.reviewRating.text = "Rating: ${review.rating}"
-            binding.reviewText.text = review.comment
-            binding.reviewEmail.text = review.reviewerEmail
-            binding.reviewDate.text = review.date
+            binding.reviewAuthor.text = review.reviewerName ?: "Anonymous"
+            binding.reviewRating.text = "Rating: ${review.rating ?: "N/A"}"
+            binding.reviewText.text = review.comment ?: "No comment available"
+            binding.reviewEmail.text = review.reviewerEmail ?: "No email provided"
+            binding.reviewDate.text = review.date ?: "No date available"
         }
     }
 }

@@ -1,60 +1,62 @@
 package com.example.shoppy_onlineshop.ui.favorites
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppy_onlineshop.R
-import com.example.shoppy_onlineshop.api.StoreProduct
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppy_onlineshop.databinding.FragmentFavoritesBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class FavoritesFragment : Fragment() {
 
-    private lateinit var favoritesViewModel: FavoritesViewModel
-    private lateinit var favoritesAdapter: FavoritesAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var emptyFavoritesTextView: TextView
-    private lateinit var emptyFavoritesImageView: ImageView
-
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: FavoritesViewModel by activityViewModels()
+    private lateinit var favoritesAdapter: FavoritesAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
 
-        val view = inflater.inflate(R.layout.fragment_favorites, container, false)
-        recyclerView = view.findViewById(R.id.bagRecyclerView)
-        emptyFavoritesTextView = view.findViewById(R.id.emptyFavoritesTextView)
-        emptyFavoritesImageView = view.findViewById(R.id.bagimageView)
+        // Setup RecyclerView
+        binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        favoritesAdapter = FavoritesAdapter(emptyList())
+        binding.favoritesRecyclerView.adapter = favoritesAdapter
 
-        favoritesAdapter = FavoritesAdapter(emptyList())//Empty at first
-        recyclerView.adapter = favoritesAdapter
+        // Observe LiveData
+        observeFavoriteProducts()
 
-        favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
-        favoritesViewModel.favoriteItems.observe(viewLifecycleOwner) { favoriteProducts ->
-            favoritesAdapter.updateFavoriteProducts(favoriteProducts)
-            updateUI(favoriteProducts)
-        }
-        return view
+        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+        viewModel.loadFavoriteProducts(currentUserID)
+
+        return binding.root
     }
 
-    private fun updateUI(favoriteProducts: List<StoreProduct>) {
-        if (favoriteProducts.isEmpty()) {
-            recyclerView.visibility = View.GONE
-            emptyFavoritesTextView.visibility = View.VISIBLE
-            emptyFavoritesImageView.visibility = View.VISIBLE
+    private fun observeFavoriteProducts() {
+        viewModel.favoriteItems.observe(viewLifecycleOwner) { products ->
+            if (products.isNotEmpty()) {
+                favoritesAdapter.updateFavoriteProducts(products)
+                binding.favoritesRecyclerView.visibility = View.VISIBLE
+                binding.emptyFavoritesTextView.visibility = View.GONE
+                binding.favoritesimageView.visibility = View.GONE
+            } else {
+                binding.favoritesRecyclerView.visibility = View.GONE
+                binding.emptyFavoritesTextView.visibility = View.VISIBLE
+                binding.favoritesimageView.visibility = View.VISIBLE
+            }
         }
-        else {
-            recyclerView.visibility = View.VISIBLE
-            emptyFavoritesTextView.visibility = View.GONE
-            emptyFavoritesImageView.visibility = View.GONE
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            if (!error.isNullOrEmpty()) {
+                // Handle error message display
+                Log.e("FavoritesFragment", "Error: $error")
+            }
         }
-
     }
 
     override fun onDestroyView() {

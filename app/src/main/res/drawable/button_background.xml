@@ -1,9 +1,17 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#E8A7B6" />
-    <corners android:radius="30dp" />
-    <padding
-        android:left="10dp"
-        android:right="10dp"
-        android:top="2dp"
-        android:bottom="2dp" /> <!-- Padding for spacing -->
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Default State: Dark Blue Button -->
+    <item android:state_pressed="false">
+        <shape>
+            <solid android:color="#0B0B45"/> <!-- Dark Blue Color -->
+            <corners android:radius="8dp"/> <!-- Rounded corners -->
+        </shape>
+    </item>
+
+    <!-- Pressed State: Slightly Darker Blue when clicked -->
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#040426"/> <!-- Slightly Darker Blue -->
+            <corners android:radius="8dp"/> <!-- Rounded corners -->
+        </shape>
+    </item>
+</selector>

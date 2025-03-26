@@ -247,7 +247,10 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
-                    android:layout_marginBottom="8dp"/>
+                    android:paddingBottom="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="toggleReviewsVisibility" />
 
                 <TextView
                     android:id="@+id/reviews_content"
@@ -260,8 +263,7 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="expandReviews"/>
+                    android:focusable="true"/>
 
                 <!-- RecyclerView for Individual Reviews -->
                 <androidx.recyclerview.widget.RecyclerView
@@ -272,11 +274,12 @@
 
                 <!-- Add Review Section -->
                 <LinearLayout
+                    android:id="@+id/review_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="16dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <!-- Review Input -->
                     <EditText
@@ -303,159 +306,149 @@
                         android:layout_marginTop="8dp"/>
                 </LinearLayout>
 
-                <!-- Collapsable Item Details Section -->
+
+                <!-- Item Details Header -->
+                <TextView
+                    android:id="@+id/itemDetailsHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Item Details +"
+                    android:fontFamily="@font/fredoka"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:onClick="toggleItemDetailsVisibility"/>
+
+                    <!-- Collapsable Item Details Section -->
                 <LinearLayout
                     android:id="@+id/itemDetailsSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="8dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:padding="8dp">
+                    android:visibility="gone"> <!-- Initially hidden -->
 
-                    <!-- Item Details Header -->
                     <TextView
-                        android:id="@+id/itemDetailsHeader"
+                        android:id="@+id/itemStock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Item Details +"
                         android:fontFamily="@font/fredoka"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:layout_marginBottom="8dp"/>
+                        android:text="Stock: 20"
+                        android:padding="8dp"/>
 
-                    <!-- Collapsable Item Details Content -->
-                    <LinearLayout
-                        android:id="@+id/itemDetailsContent"
+                    <TextView
+                        android:id="@+id/itemSku"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone"> <!-- Initially hidden -->
+                        android:fontFamily="@font/fredoka"
+                        android:text="SKU: XYZ12345"
+                        android:padding="8dp"/>
 
-                        <TextView
-                            android:id="@+id/itemStock"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fredoka"
-                            android:text="Stock: 20"
-                            android:padding="8dp"/>
+                    <TextView
+                        android:id="@+id/itemWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Weight: 1.5kg"
+                        android:padding="8dp"/>
 
-                        <TextView
-                            android:id="@+id/itemSku"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fredoka"
-                            android:text="SKU: XYZ12345"
-                            android:padding="8dp"/>
+                    <TextView
+                        android:id="@+id/itemDimensions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Dimensions: 20x30x10 cm"
+                        android:padding="8dp"/>
 
-                        <TextView
-                            android:id="@+id/itemWeight"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fredoka"
-                            android:text="Weight: 1.5kg"
-                            android:padding="8dp"/>
+                    <TextView
+                        android:id="@+id/itemWarranty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Warranty: 2 years"
+                        android:padding="8dp"/>
 
-                        <TextView
-                            android:id="@+id/itemDimensions"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fredoka"
-                            android:text="Dimensions: 20x30x10 cm"
-                            android:padding="8dp"/>
+                    <TextView
+                        android:id="@+id/itemAvailability"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Availability: In stock"
+                        android:padding="8dp"/>
 
-                        <TextView
-                            android:id="@+id/itemWarranty"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fredoka"
-                            android:text="Warranty: 2 years"
-                            android:padding="8dp"/>
-
-                        <TextView
-                            android:id="@+id/itemAvailability"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fredoka"
-                            android:text="Availability: In stock"
-                            android:padding="8dp"/>
-
-                        <TextView
-                            android:id="@+id/itemMinOrderQuantity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fredoka"
-                            android:text="Minimum Order Quantity: 1"
-                            android:padding="8dp"/>
+                    <TextView
+                        android:id="@+id/itemMinOrderQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Minimum Order Quantity: 1"
+                        android:padding="8dp"/>
                     </LinearLayout>
-                </LinearLayout>
+
+                <!-- Shipping Information Heading -->
+                <TextView
+                    android:id="@+id/shippingInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka"
+                    android:text="Shipping Information +"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"
+                    android:onClick="toggleShippingInfoVisibility"/>
 
                 <LinearLayout
+                    android:id="@+id/shippingInformationSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <!-- Shipping Information Heading -->
-                    <TextView
-                        android:id="@+id/shippingInfoHeading"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/fredoka"
-                        android:text="Shipping Information"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:paddingBottom="8dp"/>
+                    android:visibility="gone">
 
                     <!-- Shipping Information Content -->
                     <TextView
-                        android:id="@+id/shippingInfo"
+                        android:id="@+id/shippingInformationContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/fredoka_light"
                         android:textColor="@android:color/black"
                         android:text="Free shipping on orders over $50. Estimated delivery time: 3-5 business days."
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </LinearLayout>
 
+                <!-- Return Policy Heading -->
+                <TextView
+                    android:id="@+id/returnPolicy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka"
+                    android:text="Return Policy +"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textStyle="bold"
+                    android:onClick="toggleReturnPolicyVisibility"/>
+
                 <LinearLayout
+                    android:id="@+id/returnPolicySection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <!-- Return Policy Heading -->
-                    <TextView
-                        android:id="@+id/returnPolicyHeading"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/fredoka"
-                        android:text="Return Policy"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:paddingBottom="8dp"/>
+                    android:visibility="gone">
 
                     <!-- Return Policy Content -->
                     <TextView
-                        android:id="@+id/returnPolicy"
+                        android:id="@+id/returnPolicyContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/fredoka_light"
                         android:textColor="@android:color/black"
                         android:text="You can return your purchase within 30 days for a full refund. Please ensure the product is unused."
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </LinearLayout>
-
-
-
-
-
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>

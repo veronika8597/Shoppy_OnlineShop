@@ -1,11 +1,12 @@
 <!-- item_review.xml -->
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     android:padding="12dp"
-    android:elevation="2dp">
+    android:elevation="2dp"
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:orientation="vertical"
