@@ -7,22 +7,30 @@ import com.example.shoppy_onlineshop.api.StoreProduct
 
 class BagViewModel : ViewModel() {
 
-    private val bagProducts = MutableLiveData<List<StoreProduct>>(mutableListOf())
-    val bagItems: LiveData<List<StoreProduct>> get() = bagProducts
+    private val _bagItems = MutableLiveData<List<CartItem>>(mutableListOf())
+        val bagItems: LiveData<List<CartItem>> get() = _bagItems
 
-    fun addProduct(item: StoreProduct) {
-        val updatedList = bagProducts.value!!.toMutableList()
-        updatedList.add(item)
-        bagProducts.value = updatedList
+    fun addProduct(product: StoreProduct) {
+        val currentList = _bagItems.value?.toMutableList() ?: mutableListOf()
+
+        val existingItem = currentList.find { it.product.id == product.id }
+
+        if (existingItem != null) {
+            existingItem.quantity += 1
+        } else {
+            currentList.add(CartItem(product = product, quantity = 1))
+        }
+
+        _bagItems.value = currentList
     }
 
-    fun removeProduct(item: StoreProduct) {
-        val updatedList = bagProducts.value!!.toMutableList()
-        updatedList.remove(item)
-        bagProducts.value = updatedList
+    fun removeProduct(productId: Int) {
+        val currentList = _bagItems.value?.toMutableList() ?: return
+        val updatedList = currentList.filterNot { it.product.id == productId }
+        _bagItems.value = updatedList
     }
 
     fun clearBag() {
-        bagProducts.value = mutableListOf()
+        _bagItems.value = emptyList()
     }
 }

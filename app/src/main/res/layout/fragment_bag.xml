@@ -1,37 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp"
+    android:gravity="center"
+    android:background="@color/lavender_gray"
+    android:layout_marginBottom="65dp"
     tools:context=".ui.bag.BagFragment">
 
-    <TextView
-        android:id="@+id/emptyBagTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/fredoka"
-        android:text="Your shopping bag is empty"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
-        android:visibility="gone"/>
+    <!-- Empty Bag Layout Centered -->
+    <LinearLayout
+        android:id="@+id/emptyBagLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <ImageView
-        android:id="@+id/bagimageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/bag_logo"
-        android:padding="5dp"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/emptyBagTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka"
+            android:text="Your shopping bag is empty"
+            android:textColor="@android:color/black"
+            android:textSize="25sp" />
 
+        <ImageView
+            android:id="@+id/bagimageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:padding="5dp"
+            android:src="@drawable/bag_logo" />
+    </LinearLayout>
+
+    <!-- Bag List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bagRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:visibility="gone" />
 
+    <!-- Price Summary & Checkout -->
+    <LinearLayout
+        android:id="@+id/priceSummaryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="12dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/priceSubtotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subtotal: $0.00"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/priceShipping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Shipping: $0.00"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/priceTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Total: $0.00"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/checkoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purple_500"
+            android:text="Proceed to Checkout"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
 </LinearLayout>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/lavender_gray">
 
     <!-- Delete Card View -->
     <androidx.cardview.widget.CardView
@@ -120,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:textColor="#FFFFFF"
-                android:text="Move to Cart"
+                android:text="Add to Cart"
                 android:padding="10dp"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

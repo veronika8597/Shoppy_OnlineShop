@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreProduct
 
-class BagAdapter(private var products: List<StoreProduct>) : RecyclerView.Adapter<BagAdapter.BagViewHolder>() {
+class BagAdapter(private var items: List<CartItem>) : RecyclerView.Adapter<BagAdapter.BagViewHolder>() {
 
     class BagViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val productNameTextView: TextView = view.findViewById(R.id.productName)
+        val productName_TextView: TextView = view.findViewById(R.id.productTitle)
+        val productPrice_TextView: TextView = view.findViewById(R.id.productUnitPrice)
+        val productQuantity_TextView: TextView = view.findViewById(R.id.quantityText)
+        val productTotalPrice_TextView: TextView = view.findViewById(R.id.totalPriceText)
 
     }
 
@@ -21,15 +24,20 @@ class BagAdapter(private var products: List<StoreProduct>) : RecyclerView.Adapte
     }
 
     override fun getItemCount(): Int {
-        return products.size
+        return items.size
     }
 
     override fun onBindViewHolder(holder: BagViewHolder, position: Int) {
-        holder.productNameTextView.text = products[position].title
+        val item = items[position]
+
+        holder.productName_TextView.text = item.product.title
+        holder.productPrice_TextView.text = "$%.2f".format(item.product.price)
+        holder.productQuantity_TextView.text = item.quantity.toString()
+        holder.productTotalPrice_TextView.text = "Total: $%.2f".format(item.product.price * item.quantity)
     }
 
-    fun updateProducts(newProducts: List<StoreProduct>){
-        this.products = newProducts
+    fun updateItems(newItems: List<CartItem>) {
+        this.items = newItems
         notifyDataSetChanged()
     }
 }

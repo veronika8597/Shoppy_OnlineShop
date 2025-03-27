@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/lavender_gray"
     tools:context=".ui.userProfile.Orders.UserOrdersFragment">
 
     <TextView

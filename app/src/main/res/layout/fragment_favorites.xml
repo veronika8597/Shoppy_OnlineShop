@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="5dp"
+    android:background="@color/lavender_gray"
     android:layout_marginBottom="65dp"
     tools:context=".ui.favorites.FavoritesFragment">
 

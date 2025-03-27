@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#854D69</color>
-    <color name="purple_500">#DFB6B2</color>
-    <color name="purple_700">#522959</color>
-    <color name="teal_200">#E8A7B6</color>
-    <color name="teal_700">#2a114b</color>
-    <color name="black">#180018</color>
-    <color name="white">#fae5d8</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
-    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_blue_600">#039BE5</color>
+    <color name="light_blue_900">#01579B</color>
+    <color name="light_blue_A200">#40C4FF</color>
+    <color name="light_blue_A400">#00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+    <!-- Your custom colors -->
+    <!-- Background & contrast -->
+    <color name="lavender_gray">#E5E9F2</color> <!-- main app background -->
+    <color name="bottom_nav_background">#CBD2E0</color> <!-- slightly darker for contrast -->
+
+    <!-- Buttons -->
+    <color name="navy_blue">#1A2A4F</color>
+    <color name="on_navy">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#777777</color>
+
+    <!-- Status bar -->
+    <color name="navy">#0D2B6F</color>
+    <color name="my_white">#FFFFFF</color>
+
 </resources>

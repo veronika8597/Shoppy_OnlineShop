@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp"
+    android:background="@color/lavender_gray"
     tools:context=".ui.home.products.ProductsFragment">
 
     <!-- RecyclerView for the product grid -->

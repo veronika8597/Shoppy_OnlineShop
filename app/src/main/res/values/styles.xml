@@ -2,22 +2,15 @@
 <resources>
 
     <!-- Button text style -->
-    <style name="EtsyButtonTextStyle">
-        <item name="android:textColor">#FFFFFF</item> <!-- White text -->
-        <item name="android:fontFamily">@font/fredoka_semibold</item> <!-- Custom font -->
-        <item name="android:textAllCaps">true</item> <!-- Uppercase text for the button -->
-    </style>
-
-<!--    &lt;!&ndash; Button background style &ndash;&gt;
-    <style name="ButtonBackgroundStyle">
-        <item name="android:background">@color/black_overlay</item> &lt;!&ndash; Dark Blue background &ndash;&gt;
-        <item name="android:cornerRadius">8dp</item> &lt;!&ndash; Rounded corners &ndash;&gt;
-    </style>
-
-    &lt;!&ndash; Fullscreen button bar (if needed) &ndash;&gt;
-    <style name="Widget.Theme.Shoppy_OnlineShop.ButtonBar.Fullscreen" parent="">
-        <item name="android:background">@color/black_overlay</item>
-        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+<!--    <style name="EtsyButtonTextStyle">
+        <item name="android:textColor">#FFFFFF</item> &lt;!&ndash; White text &ndash;&gt;
+        <item name="android:fontFamily">@font/fredoka_semibold</item> &lt;!&ndash; Custom font &ndash;&gt;
+        <item name="android:textAllCaps">true</item> &lt;!&ndash; Uppercase text for the button &ndash;&gt;
     </style>-->
+
+    <style name="Widget.ShoppyOldMoney.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/navy_blue</item>
+        <item name="android:textColor">@color/on_navy</item>
+    </style>
 
 </resources>
