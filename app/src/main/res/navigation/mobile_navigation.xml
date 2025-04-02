@@ -148,7 +148,7 @@
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.example.shoppy_onlineshop.ui.home.products.ProductDetailsFragment"
-        android:label="fragment_product_details"
+        android:label="@string/title_product_details"
         tools:layout="@layout/fragment_product_details" />
 
 </navigation>

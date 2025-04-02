@@ -20,6 +20,7 @@ import com.example.shoppy_onlineshop.databinding.FragmentProductDetailsBinding
 import com.example.shoppy_onlineshop.helpers.isProductInFavorites
 import com.example.shoppy_onlineshop.helpers.toggleFavoriteStatus
 import com.example.shoppy_onlineshop.helpers.toggleSectionVisibility
+import com.example.shoppy_onlineshop.ui.bag.BagViewModel
 import com.example.shoppy_onlineshop.ui.favorites.FavoritesViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -27,6 +28,12 @@ class ProductDetailsFragment : Fragment() {
 
     private var _binding: FragmentProductDetailsBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("Binding should not be null")
+
+    private val bagViewModel: BagViewModel by activityViewModels()
+
+    private val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+    private lateinit var currentProduct: StoreProduct
+
 
     private var isFavorite = false
 
@@ -48,6 +55,7 @@ class ProductDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -55,7 +63,7 @@ class ProductDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val productID = arguments?.getInt(PRODUCT_ID_KEY)
-        val currentUserID = FirebaseAuth.getInstance().currentUser?.uid
+        //val currentUserID = FirebaseAuth.getInstance().currentUser?.uid
 
         if (productID == null || productID <= 0) {
             Toast.makeText(requireContext(), "Product not found", Toast.LENGTH_SHORT).show()
@@ -67,27 +75,25 @@ class ProductDetailsFragment : Fragment() {
             context = requireContext(),
             productID = productID,
             onSuccess = { product ->
-                val currentProduct: StoreProduct = product
+                currentProduct = product
 
-                if (currentUserID != null) {
-                    isProductInFavorites(currentUserID, currentProduct) { result ->
-                        isFavorite = result
+                isProductInFavorites(currentUserID, currentProduct) { result ->
+                    isFavorite = result
+                    updateFavoriteButtonVisibility(isFavorite)
+
+                    val favoriteClickListener = View.OnClickListener {
+                        isFavorite = toggleFavoriteStatus(
+                            currentUserID,
+                            binding.favoriteButtonEmptyHeart,
+                            binding.favoriteButtonFilledHeart,
+                            currentProduct,
+                            isFavorite
+                        )
                         updateFavoriteButtonVisibility(isFavorite)
-
-                        val favoriteClickListener = View.OnClickListener {
-                            isFavorite = toggleFavoriteStatus(
-                                currentUserID,
-                                binding.favoriteButtonEmptyHeart,
-                                binding.favoriteButtonFilledHeart,
-                                currentProduct,
-                                isFavorite
-                            )
-                            updateFavoriteButtonVisibility(isFavorite)
-                        }
-
-                        binding.favoriteButtonEmptyHeart.setOnClickListener(favoriteClickListener)
-                        binding.favoriteButtonFilledHeart.setOnClickListener(favoriteClickListener)
                     }
+
+                    binding.favoriteButtonEmptyHeart.setOnClickListener(favoriteClickListener)
+                    binding.favoriteButtonFilledHeart.setOnClickListener(favoriteClickListener)
                 }
 
                 // Set product data
@@ -143,6 +149,29 @@ class ProductDetailsFragment : Fragment() {
                 "Return Policy -",
                 "Return Policy +"
             )
+        }
+
+        binding.addToBagButton.setOnClickListener{
+            if (::currentProduct.isInitialized) {
+                bagViewModel.addToBag(
+                    currentUserID,
+                    currentProduct,
+                    onSuccess = {
+                        Toast.makeText(requireContext(), "Product added to bag", Toast.LENGTH_SHORT)
+                            .show()
+                    },
+                    onFailure = {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to add product to bag",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    })
+            }
+            else{
+                Toast.makeText(requireContext(), "Please wait, loading product...", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

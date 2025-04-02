@@ -4,8 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreProduct
 
@@ -18,6 +22,7 @@ class BagAdapter(
     class BagViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productName_TextView: TextView = view.findViewById(R.id.productTitle)
         val productPrice_TextView: TextView = view.findViewById(R.id.productUnitPrice)
+        val productPicture_ImageView: ImageView = view.findViewById(R.id.productImage)
         val productQuantity_TextView: TextView = view.findViewById(R.id.quantityText)
         val productTotalPrice_TextView: TextView = view.findViewById(R.id.totalPriceText)
         val increaseButton: TextView = view.findViewById(R.id.btnIncrease)
@@ -40,6 +45,11 @@ class BagAdapter(
         holder.productPrice_TextView.text = "$%.2f".format(item.product.price)
         holder.productQuantity_TextView.text = item.quantity.toString()
         holder.productTotalPrice_TextView.text = "Total: $%.2f".format(item.product.price * item.quantity)
+
+        Glide.with(holder.itemView.context)
+            .load(item.product.thumbnail)
+            .transform(CenterCrop(), RoundedCorners(16))
+            .into(holder.productPicture_ImageView)
 
         holder.increaseButton.setOnClickListener {
             onIncreaseQuantity(item.product.id)

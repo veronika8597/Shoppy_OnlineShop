@@ -111,7 +111,8 @@ class BagViewModel : ViewModel() {
             _bagItems.value = currentList
             saveQuantityToDB(userId, item)
         } else if (item != null) {
-            removeProductFromBag(userId, productId)
+
+            //removeProductFromBag(userId, productId)
         }
     }
 

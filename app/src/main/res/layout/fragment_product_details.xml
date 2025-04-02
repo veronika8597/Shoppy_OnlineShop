@@ -227,10 +227,10 @@
 
                 <!-- Add to Cart Button -->
                 <Button
-                    android:id="@+id/add_to_cart_button"
+                    android:id="@+id/add_to_bag_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add to Cart"
+                    android:text="Add to Bag"
                     android:fontFamily="@font/fredoka"
                     android:background="@drawable/button_background"
                     app:backgroundTint="@null"
