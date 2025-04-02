@@ -9,8 +9,17 @@
     </style>-->
 
     <style name="Widget.ShoppyOldMoney.Button" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/navy_blue</item>
-        <item name="android:textColor">@color/on_navy</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textColor">@color/text_on_dark</item> <!-- White -->
+        <item name="android:fontFamily">@font/fredoka</item>
+        <item name="android:elevation">2dp</item>
     </style>
+
+    <style name="Widget.ShoppyOldMoney.Checkbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/checkbox_tint</item>
+        <item name="android:fontFamily">@font/fredoka</item>
+    </style>
+
+
 
 </resources>

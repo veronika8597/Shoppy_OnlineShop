@@ -129,6 +129,7 @@
                 android:fontFamily="@font/fredoka"
                 android:text="save address"
                 android:background="@drawable/button_background"
+                app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

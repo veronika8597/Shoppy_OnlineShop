@@ -1,17 +1,33 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Default State: Dark Blue Button -->
-    <item android:state_pressed="false">
-        <shape>
-            <solid android:color="#0B0B45"/> <!-- Dark Blue Color -->
-            <corners android:radius="8dp"/> <!-- Rounded corners -->
-        </shape>
-    </item>
-
-    <!-- Pressed State: Slightly Darker Blue when clicked -->
     <item android:state_pressed="true">
-        <shape>
-            <solid android:color="#040426"/> <!-- Slightly Darker Blue -->
-            <corners android:radius="8dp"/> <!-- Rounded corners -->
-        </shape>
-    </item>
+            <shape>
+                <solid android:color="@color/button_pressed"/> <!-- Black Russian -->
+                <corners android:radius="13dp"/>
+            </shape>
+        </item>
+        <item>
+            <shape>
+                <solid android:color="@color/button_normal"/> <!-- Dark Slate Blue -->
+                <corners android:radius="13dp"/>
+            </shape>
+        </item>
 </selector>
+
+    <!--
+        &lt;!&ndash; Default State: Dark Blue Button &ndash;&gt;
+        <item android:state_pressed="false">
+            <shape>
+                <solid android:color="#3A3A80"/> &lt;!&ndash; Dark Blue Color &ndash;&gt;
+                <corners android:radius="13dp"/> &lt;!&ndash; Rounded corners &ndash;&gt;
+            </shape>
+        </item>
+
+        &lt;!&ndash; Pressed State: Slightly Darker Blue when clicked &ndash;&gt;
+        <item android:state_pressed="true">
+            <shape>
+                <solid android:color="#040426"/> &lt;!&ndash; Slightly Darker Blue &ndash;&gt;
+                <corners android:radius="13dp"/> &lt;!&ndash; Rounded corners &ndash;&gt;
+            </shape>
+        </item>
+    </selector>
+    -->

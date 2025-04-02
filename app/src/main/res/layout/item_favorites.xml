@@ -109,20 +109,21 @@
                 android:layout_marginStart="10dp"
                 android:text="Out of stock"
                 android:textColor="@android:color/holo_red_light"
-                app:layout_constraintBottom_toTopOf="@+id/moveToCartButton"
+                app:layout_constraintBottom_toTopOf="@+id/addToBag_Button"
                 app:layout_constraintStart_toEndOf="@+id/productImage"
                 app:layout_constraintTop_toBottomOf="@+id/productTitle"
                 android:visibility="gone"/>  <!-- Hidden by default -->
 
-            <!-- Move to Cart Button -->
+            <!-- Add to Bag Button -->
             <Button
-                android:id="@+id/moveToCartButton"
+                android:id="@+id/addToBag_Button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 android:textColor="#FFFFFF"
-                android:text="Add to Cart"
-                android:padding="10dp"
+                android:background="@drawable/button_background"
+                app:backgroundTint="@null"
+                android:text="Add to Bag"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/productImage" />

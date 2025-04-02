@@ -35,9 +35,9 @@ class UserOrdersFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val sampleOrders = listOf(
-            order("12345", "Feb 24, 2025", "Shipped", "$49.99"),
-            order("67890", "Feb 20, 2025", "Processing", "$19.99"),
-            order("54321", "Feb 18, 2025", "Delivered", "$89.99")
+            order("No #12345", "Feb 24, 2025", "Shipped", "$49.99"),
+            order("No #67890", "Feb 20, 2025", "Processing", "$19.99"),
+            order("No #54321", "Feb 18, 2025", "Delivered", "$89.99")
         )
 
         orderAdapter = OrderAdapter(sampleOrders)

@@ -14,9 +14,7 @@ private val databaseFavoritesRef = FirebaseDatabase.getInstance().getReference("
 
 fun toggleFavoriteStatus(userId: String, emptyHeart: ImageView, filledHeart: ImageView, product: StoreProduct, isFavorite: Boolean): Boolean {
 
-    Log.d("FavoritesViewModel", "Current favorite status: $isFavorite")
     val newFavoriteStatus = !isFavorite // Toggle the status
-    Log.d("FavoritesViewModel", "New favorite status: $newFavoriteStatus")
 
     if (newFavoriteStatus) {
         addToFavorites(userId, product,
@@ -57,8 +55,6 @@ fun addToFavorites(userId: String, product: StoreProduct, onSuccess: () -> Unit,
 }
 
 fun removeFromFavorites(userId: String, product: StoreProduct, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-
-    Log.e("removeFromFavorites", "Product ID: ${product.id}")
 
     databaseFavoritesRef.child(userId).child(product.id.toString())
         .removeValue()

@@ -1,24 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.ShoppyOldMoney" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Background -->
-<!--        <item name="android:windowBackground">@color/lavender_gray</item>
-        <item name="colorSurface">@color/lavender_gray</item>-->
-        <item name="colorOnSurface">@color/text_primary</item>
+        <!-- App background -->
+        <item name="android:windowBackground">@color/lavender_gray</item>
+        <item name="colorSurface">@color/lavender_gray</item>
 
-        <!-- App bar, Status bar, Buttons -->
-        <item name="colorPrimary">@color/navy_blue</item>
-        <item name="colorPrimaryVariant">@color/navy</item>
-        <item name="colorOnPrimary">@color/on_navy</item>
-
-        <!-- Status bar -->
+        <!-- Status bar and top bar -->
         <item name="android:statusBarColor">@color/navy_blue</item>
-        <item name="android:windowLightStatusBar">false</item> <!-- Make icons white -->
+        <item name="colorPrimary">@color/navy_blue</item>
+        <item name="android:windowLightStatusBar">false</item> <!-- White text/icons -->
 
-        <!-- Text -->
-        <item name="android:textColorPrimary">@color/text_primary</item>
-        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <!-- Default font and text -->
+        <item name="android:textColorPrimary">@color/Black_russian</item>
+        <item name="android:fontFamily">@font/fredoka</item>
 
-        <!-- Buttons -->
+        <!-- Custom component styles -->
         <item name="materialButtonStyle">@style/Widget.ShoppyOldMoney.Button</item>
+        <item name="checkboxStyle">@style/Widget.ShoppyOldMoney.Checkbox</item>
     </style>
 </resources>

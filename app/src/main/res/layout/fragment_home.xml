@@ -37,8 +37,7 @@
                 android:id="@+id/profileButton"
                 android:layout_width="53dp"
                 android:layout_height="53dp"
-                android:background="#ffffff"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:src="@drawable/user_logo" />
 
         </LinearLayout>
@@ -69,6 +68,7 @@
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:background="@drawable/button_background"
+            app:backgroundTint="@null"
             android:fontFamily="@font/fredoka"
             android:text="All categories"
             android:textColor="#ffffff"

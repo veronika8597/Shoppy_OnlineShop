@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:fontFamily="@font/fredoka"
+        android:background="@drawable/button_background"
+        app:backgroundTint="@null"
         android:textColor="#FFFFFF"
         android:text="Refrfesh Notifications"/>
 

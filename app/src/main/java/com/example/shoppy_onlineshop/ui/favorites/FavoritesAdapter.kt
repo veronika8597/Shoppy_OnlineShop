@@ -13,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreProduct
 
-class FavoritesAdapter(private var favorites: List<StoreProduct>) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
+class FavoritesAdapter(private var favorites: List<StoreProduct>, private val onAddToBagClick: (StoreProduct) -> Unit) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
     class FavoritesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -21,6 +21,7 @@ class FavoritesAdapter(private var favorites: List<StoreProduct>) : RecyclerView
         val favProductTitle: TextView = view.findViewById(R.id.productTitle)
         val favProductPrice: TextView = view.findViewById(R.id.productPrice)
         val isOutOfStock: TextView = view.findViewById(R.id.outOfStockLabel)
+        val addToBagButton: TextView = view.findViewById(R.id.addToBag_Button)
 
     }
 
@@ -46,6 +47,10 @@ class FavoritesAdapter(private var favorites: List<StoreProduct>) : RecyclerView
             .load(favorites[position].thumbnail)
             .transform(CenterCrop(), RoundedCorners(16))
             .into(holder.favProductImage)
+
+        holder.addToBagButton.setOnClickListener {
+            onAddToBagClick(favorites[position])
+        }
     }
 
 

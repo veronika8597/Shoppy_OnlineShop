@@ -14,20 +14,31 @@
     <color name="black_overlay">#66000000</color>
 
     <!-- Your custom colors -->
-    <!-- Background & contrast -->
-    <color name="lavender_gray">#E5E9F2</color> <!-- main app background -->
-    <color name="bottom_nav_background">#CBD2E0</color> <!-- slightly darker for contrast -->
 
-    <!-- Buttons -->
-    <color name="navy_blue">#1A2A4F</color>
-    <color name="on_navy">#FFFFFF</color>
+    <!-- App background color -->
+    <color name="lavender_gray">#E5E9F2</color> <!-- Main screen background -->
 
-    <!-- Text -->
-    <color name="text_primary">#1A1A1A</color>
-    <color name="text_secondary">#777777</color>
+    <!-- Bottom navigation bar background -->
+    <color name="bottom_nav_background">#CBD2E0</color> <!-- Slight contrast background -->
 
-    <!-- Status bar -->
-    <color name="navy">#0D2B6F</color>
-    <color name="my_white">#FFFFFF</color>
+    <!-- Button colors -->
+    <color name="button_normal">#0B0B45</color> <!-- Default button background (Dark Slate Blue) -->
+    <color name="button_pressed">#040426</color> <!-- Button background when pressed (Black Russian) -->
+    <color name="Black_russian">#040426</color>
+
+    <!-- Status bar and top app bar -->
+    <color name="navy_blue">#1A2A4F</color> <!-- Used for status bar and top bar (Blue Zodiac) -->
+
+    <!-- Text/icons on dark backgrounds -->
+    <color name="text_on_dark">#FFFFFF</color> <!-- White text for buttons, status bar, etc. -->
+
+    <!-- Bottom navigation icons and labels -->
+    <color name="bottom_nav_icon">#1A2A4F</color> <!-- Dark blue icons and text (same as navy_blue) -->
+
+    <!-- Checkbox -->
+    <color name="checkbox_checked">#1A2A4F</color> <!-- Dark blue when checked -->
+    <color name="checkbox_unchecked">#777777</color> <!-- Light gray when unchecked -->
+    <color name="checkbox_disabled">#B0B0B0</color> <!-- Dimmed when disabled -->
+
 
 </resources>

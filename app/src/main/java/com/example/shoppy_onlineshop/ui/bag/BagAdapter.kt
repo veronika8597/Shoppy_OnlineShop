@@ -3,19 +3,25 @@ package com.example.shoppy_onlineshop.ui.bag
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreProduct
 
-class BagAdapter(private var items: List<CartItem>) : RecyclerView.Adapter<BagAdapter.BagViewHolder>() {
+class BagAdapter(
+    private var bagItems: List<BagItem>,
+    private val onIncreaseQuantity: (Int) -> Unit,
+    private val onDecreaseQuantity: (Int) -> Unit
+) : RecyclerView.Adapter<BagAdapter.BagViewHolder>() {
 
     class BagViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productName_TextView: TextView = view.findViewById(R.id.productTitle)
         val productPrice_TextView: TextView = view.findViewById(R.id.productUnitPrice)
         val productQuantity_TextView: TextView = view.findViewById(R.id.quantityText)
         val productTotalPrice_TextView: TextView = view.findViewById(R.id.totalPriceText)
-
+        val increaseButton: TextView = view.findViewById(R.id.btnIncrease)
+        val decreaseButton: TextView = view.findViewById(R.id.btnDecrease)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BagViewHolder {
@@ -23,21 +29,29 @@ class BagAdapter(private var items: List<CartItem>) : RecyclerView.Adapter<BagAd
         return BagViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = bagItems.size
+
+    fun getItem(position: Int): BagItem = bagItems[position]
 
     override fun onBindViewHolder(holder: BagViewHolder, position: Int) {
-        val item = items[position]
+        val item = bagItems[position]
 
         holder.productName_TextView.text = item.product.title
         holder.productPrice_TextView.text = "$%.2f".format(item.product.price)
         holder.productQuantity_TextView.text = item.quantity.toString()
         holder.productTotalPrice_TextView.text = "Total: $%.2f".format(item.product.price * item.quantity)
+
+        holder.increaseButton.setOnClickListener {
+            onIncreaseQuantity(item.product.id)
+        }
+
+        holder.decreaseButton.setOnClickListener {
+            onDecreaseQuantity(item.product.id)
+        }
     }
 
-    fun updateItems(newItems: List<CartItem>) {
-        this.items = newItems
+    fun updateItems(newItems: List<BagItem>) {
+        this.bagItems = newItems
         notifyDataSetChanged()
     }
 }

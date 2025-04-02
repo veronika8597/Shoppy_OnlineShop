@@ -1,18 +1,16 @@
 package com.example.shoppy_onlineshop.ui.favorites
 
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoppy_onlineshop.api.StoreProduct
-import com.example.shoppy_onlineshop.helpers.addToFavorites
 import com.example.shoppy_onlineshop.helpers.fetchProductDetails
 import com.example.shoppy_onlineshop.helpers.removeFromFavorites
-import com.example.shoppy_onlineshop.ui.userProfile.addresses.AddressItem
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.ValueEventListener
 
 class FavoritesViewModel() : ViewModel() {
 
@@ -38,25 +36,6 @@ class FavoritesViewModel() : ViewModel() {
 
     }
 
-/*    fun addProductToFavorites(userId: String, product: StoreProduct) {
-        val currentFaveList = _favoriteItems.value.orEmpty().toMutableList()
-        currentFaveList.add(product)
-        _favoriteItems.value = ArrayList(currentFaveList)
-
-        addToFavorites(
-            userId,
-            product,
-            onSuccess = {
-                Log.d("FavoritesViewModel", "Product added to favorites")
-            },
-            onFailure = {
-                Log.e("FavoritesViewModel", "Failed to add product to favorites", it)
-            }
-        )
-    }*/
-
-
-
 // removes from the favorites list and updates the UI
     fun removeProductFromFavorites(userId: String, product: StoreProduct) {
 
@@ -74,5 +53,6 @@ class FavoritesViewModel() : ViewModel() {
                 Log.e("FavoritesViewModel", "Failed to remove product from favorites", it)
             })
     }
+
 
 }

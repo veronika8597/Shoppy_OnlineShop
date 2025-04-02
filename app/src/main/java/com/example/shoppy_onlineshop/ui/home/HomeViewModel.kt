@@ -31,6 +31,7 @@ class HomeViewModel : ViewModel() {
     private val _allCategories = MutableLiveData<List<StoreCategory>>()
     val allCategories: LiveData<List<StoreCategory>> = _allCategories
 
+
     init {
         fetchProducts()
         fetchCategories()

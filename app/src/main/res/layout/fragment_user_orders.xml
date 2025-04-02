@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:text="All purchases"
         android:fontFamily="@font/fredoka_medium"
-        android:textSize="17sp"
-        android:textColor="@color/black"
-        android:padding="10dp"/>
+        android:textSize="25sp"
+        android:textColor="@color/Black_russian"
+        android:padding="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewOrders"
