@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="8dp"
+    android:backgroundTint="@color/lavender_gray"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove Item"
+            android:textAlignment="center"
+            android:textColor="@color/navy_blue"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:fontFamily="@font/fredoka_medium" />
+
+        <TextView
+            android:id="@+id/dialogMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Are you sure you want to remove this item from your bag?"
+            android:textColor="@color/Black_russian"
+            android:textSize="15sp"
+            android:fontFamily="@font/fredoka" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/No_button"
+                android:layout_width="5dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="No"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_background"
+                android:fontFamily="@font/fredoka_medium" />
+
+            <Button
+                android:id="@+id/Yes_button"
+                android:layout_width="5dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Yes"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_background"
+                android:fontFamily="@font/fredoka_medium" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

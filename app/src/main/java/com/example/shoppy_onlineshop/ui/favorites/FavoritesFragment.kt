@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,50 +21,77 @@ class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: FavoritesViewModel by activityViewModels()
 
+    private val viewModel: FavoritesViewModel by activityViewModels()
     private val bagViewModel: BagViewModel by activityViewModels()
 
     private lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var currentUserID: String
     private lateinit var product: StoreProduct
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
         viewModel.loadFavoriteProducts(currentUserID)
+        bagViewModel.loadBagProducts(currentUserID)
 
-        // Setup RecyclerView
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        favoritesAdapter = FavoritesAdapter(emptyList()){ product ->
-            bagViewModel.addToBag(
-                currentUserID,
-                product,
-                onSuccess = {
-                    Log.d("FavoritesFragment", "Product added to bag successfully")
-                },
-                onFailure = { exception ->
-                    Log.e("FavoritesFragment", "Failed to add product to bag: ${exception.message}")
-                }
 
-            )
+        favoritesAdapter = FavoritesAdapter(emptyList()) { product ->
+            val localBag = bagViewModel.bagItems.value.orEmpty()
+            val isInBag = localBag.any { it.product.id == product.id }
+
+            if (isInBag) {
+                Toast.makeText(requireContext(), "Product is already in bag", Toast.LENGTH_SHORT).show()
+            } else {
+                // Fallback check from Firebase if local is null or outdated
+                bagViewModel.isProductInBag(currentUserID, product) { result ->
+                    if (result) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Product is already in bag",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        bagViewModel.addToBag(
+                            currentUserID,
+                            product,
+                            onSuccess = {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Product added to bag",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            },
+                            onFailure = {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Failed to add product to bag",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            })
+                    }
+                }
+            }
         }
+
         binding.favoritesRecyclerView.adapter = favoritesAdapter
 
-        // Observe LiveData
         observeFavoriteProducts()
 
         setupSwipeToDelete(binding.favoritesRecyclerView) { position ->
             val deletedItem = favoritesAdapter.getItem(position)
             viewModel.removeProductFromFavorites(currentUserID, deletedItem)
         }
-
-        return binding.root
     }
 
     private fun observeFavoriteProducts() {

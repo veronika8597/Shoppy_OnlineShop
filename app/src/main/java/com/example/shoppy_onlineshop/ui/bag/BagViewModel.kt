@@ -73,7 +73,7 @@ class BagViewModel : ViewModel() {
             })
     }
 
-    fun removeFromDBBag(userId: String, productId: Int, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    private fun removeFromDBBag(userId: String, productId: Int, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         databaseBagRef.child(userId).child(productId.toString())
             .removeValue()
             .addOnSuccessListener { onSuccess() }
@@ -103,16 +103,16 @@ class BagViewModel : ViewModel() {
         }
     }
 
-    fun decreaseQuantity(userId: String, productId: Int) {
+    fun decreaseQuantity(userId: String, productId: Int):Boolean {
         val currentList = _bagItems.value.orEmpty().toMutableList()
         val item = currentList.find { it.product.id == productId }
         if (item != null && item.quantity > 1) {
             item.quantity -= 1
             _bagItems.value = currentList
             saveQuantityToDB(userId, item)
-        } else if (item != null) {
-
-            //removeProductFromBag(userId, productId)
+            return false
+        } else{
+            return true
         }
     }
 
@@ -143,5 +143,10 @@ class BagViewModel : ViewModel() {
                 }
             })
     }
+
+    fun isProductInLocalBag(productId: Int): Boolean {
+        return _bagItems.value?.any { it.product.id == productId } == true
+    }
+
 }
 

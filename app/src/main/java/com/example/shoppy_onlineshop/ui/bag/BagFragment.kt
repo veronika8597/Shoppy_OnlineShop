@@ -1,25 +1,29 @@
 package com.example.shoppy_onlineshop.ui.bag
 
+import OrdersViewModel
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
-
 import com.example.shoppy_onlineshop.databinding.FragmentBagBinding
 import com.example.shoppy_onlineshop.helpers.setupSwipeToDelete
+import com.example.shoppy_onlineshop.ui.userProfile.Orders.Order
 import com.google.firebase.auth.FirebaseAuth
 
 class BagFragment : Fragment() {
 
     private val bagViewModel: BagViewModel by activityViewModels()
+    private val ordersViewModel: OrdersViewModel by activityViewModels()
+
     private lateinit var bagAdapter: BagAdapter
     private lateinit var currentUserID: String
 
@@ -32,6 +36,7 @@ class BagFragment : Fragment() {
     ): View {
         _binding = FragmentBagBinding.inflate(inflater, container, false)
 
+
         currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
         bagViewModel.loadBagProducts(currentUserID)
 
@@ -43,6 +48,9 @@ class BagFragment : Fragment() {
             },
             onDecreaseQuantity = { productId ->
                 bagViewModel.decreaseQuantity(currentUserID, productId)
+            },
+            onRequestDeleteConfirmation = { productId ->
+                showDeleteConfirmationDialog(productId)
             })
         binding.bagRecyclerView.adapter = bagAdapter
 
@@ -58,20 +66,33 @@ class BagFragment : Fragment() {
             }
         }
 
+        binding.checkoutButton.setOnClickListener {
+            val bagItems = bagViewModel.bagItems.value.orEmpty()
+
+            if (bagItems.isEmpty()) {
+                Toast.makeText(requireContext(), "Your bag is empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            showCheckoutConfirmationDialog()
+        }
+
         return binding.root
+    }
+
+    private fun generateOrderId(): String {
+        val timestamp = System.currentTimeMillis()
+        return "ORD-$timestamp"
     }
 
     private fun updateUI(items: List<BagItem>) {
         if (items.isEmpty()) {
             binding.bagRecyclerView.visibility = View.GONE
             binding.priceSummaryLayout.visibility = View.GONE
-            binding.emptyBagTextView.visibility = View.VISIBLE
-            binding.bagimageView.visibility = View.VISIBLE
+            binding.emptyBagLayout.visibility = View.VISIBLE  // Changed to emptyBagLayout
         } else {
             binding.bagRecyclerView.visibility = View.VISIBLE
             binding.priceSummaryLayout.visibility = View.VISIBLE
-            binding.emptyBagTextView.visibility = View.GONE
-            binding.bagimageView.visibility = View.GONE
+            binding.emptyBagLayout.visibility = View.GONE     // Changed to emptyBagLayout
 
             val subtotal = items.sumOf { it.product.price * it.quantity }
             val shipping = if (subtotal >= 100.0) 0.0 else 9.99
@@ -87,4 +108,73 @@ class BagFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun showDeleteConfirmationDialog(productId: Int) {
+        val dialogView = layoutInflater.inflate(R.layout.custom_remove_dialog, null)
+        val alertDialog = AlertDialog.Builder(requireContext()).setView(dialogView).create()
+
+        val btnNo = dialogView.findViewById<Button>(R.id.No_button)
+        val btnYes = dialogView.findViewById<Button>(R.id.Yes_button)
+
+        btnNo.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnYes.setOnClickListener {
+            bagViewModel.removeProductFromBag(currentUserID, productId)
+            alertDialog.dismiss()
+        }
+
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        alertDialog.show()
+    }
+
+    private fun showCheckoutConfirmationDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.custom_remove_dialog, null)
+        val alertDialog = AlertDialog.Builder(requireContext()).setView(dialogView).create()
+
+        val titleText = dialogView.findViewById<TextView>(R.id.dialogTitle)
+        val messageText = dialogView.findViewById<TextView>(R.id.dialogMessage)
+        val btnNo = dialogView.findViewById<Button>(R.id.No_button)
+        val btnYes = dialogView.findViewById<Button>(R.id.Yes_button)
+
+        titleText.text = "Confirm Purchase"
+        messageText.text = "Are you sure you want to proceed with your order?"
+
+        btnNo.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnYes.setOnClickListener {
+            val orderId = generateOrderId()
+            val bagItems = bagViewModel.bagItems.value.orEmpty()
+            val order = Order(
+                orderId = orderId,
+                userId = currentUserID,
+                items = bagItems,
+                status = "In Process",
+                timestamp = System.currentTimeMillis()
+            )
+
+            bagViewModel.clearBag(currentUserID)
+            ordersViewModel.saveOrderToFirebase(currentUserID, order,
+                onSuccess = {
+                    Toast.makeText(requireContext(), "Order placed! Order ID: $orderId", Toast.LENGTH_LONG).show()
+                },
+                onFailure = {
+                    Toast.makeText(requireContext(), "Failed to place order: ${it.message}", Toast.LENGTH_LONG).show()
+                    })
+
+            val bundle = Bundle().apply {
+                putString("orderId", orderId)
+            }
+
+            findNavController().navigate(R.id.action_bagFragment_to_orderConfirmationFragment, bundle)
+            alertDialog.dismiss()
+        }
+
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        alertDialog.show()
+    }
+
 }

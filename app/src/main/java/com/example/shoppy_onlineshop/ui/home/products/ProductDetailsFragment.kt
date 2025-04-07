@@ -30,9 +30,14 @@ class ProductDetailsFragment : Fragment() {
     private val binding get() = _binding ?: throw IllegalStateException("Binding should not be null")
 
     private val bagViewModel: BagViewModel by activityViewModels()
+    private val favoritesViewModel: FavoritesViewModel by activityViewModels()
+    private val productDetailsViewModel: ProductDetailsViewModel by viewModels()
+
 
     private val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
     private lateinit var currentProduct: StoreProduct
+
+    private var isInBag: Boolean = false
 
 
     private var isFavorite = false
@@ -46,9 +51,6 @@ class ProductDetailsFragment : Fragment() {
             }
         }
     }
-
-    private val favoritesViewModel: FavoritesViewModel by activityViewModels()
-    private val productDetailsViewModel: ProductDetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -110,7 +112,11 @@ class ProductDetailsFragment : Fragment() {
                 setupReviewsRecyclerView(currentProduct.reviews)
             },
             onFailure = {
-                Toast.makeText(requireContext(), "Failed to load product details", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to load product details",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         )
 
@@ -151,27 +157,52 @@ class ProductDetailsFragment : Fragment() {
             )
         }
 
-        binding.addToBagButton.setOnClickListener{
-            if (::currentProduct.isInitialized) {
-                bagViewModel.addToBag(
-                    currentUserID,
-                    currentProduct,
-                    onSuccess = {
-                        Toast.makeText(requireContext(), "Product added to bag", Toast.LENGTH_SHORT)
-                            .show()
-                    },
-                    onFailure = {
-                        Toast.makeText(
-                            requireContext(),
-                            "Failed to add product to bag",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    })
-            }
-            else{
-                Toast.makeText(requireContext(), "Please wait, loading product...", Toast.LENGTH_SHORT).show()
+        binding.addToBagButton.setOnClickListener {
+            if (!::currentProduct.isInitialized) {
+                Toast.makeText(
+                    requireContext(),
+                    "Please wait, loading product...",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
             }
 
+            val localBag = bagViewModel.bagItems.value
+            val isInBag = localBag?.any { it.product.id == currentProduct.id } == true
+
+            if (isInBag) {
+                Toast.makeText(requireContext(), "Product is already in bag", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                // Fallback check from Firebase if local is null or outdated
+                bagViewModel.isProductInBag(currentUserID, currentProduct) { result ->
+                    if (result) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Product is already in bag",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        bagViewModel.addToBag(
+                            currentUserID,
+                            currentProduct,
+                            onSuccess = {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Product added to bag",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            },
+                            onFailure = {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Failed to add product to bag",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            })
+                    }
+                }
+            }
         }
     }
 

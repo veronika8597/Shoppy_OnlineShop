@@ -31,7 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
         // Load GIF using Glide
         Glide.with(this)
             .asGif()
-            .load(R.drawable.store_logo_animation)
+            .load(R.drawable.logo_animation)
             .into(findViewById(R.id.storeLogo_splash_image))
 
         // Delay to show splash screen for a few seconds before transitioning

@@ -50,7 +50,6 @@ class FavoritesAdapter(private var favorites: List<StoreProduct>, private val on
             .into(holder.favProductImage)
 
         holder.addToBagButton.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Added to Bag", Toast.LENGTH_SHORT).show()
             onAddToBagClick(favorites[position])
         }
     }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lavender_gray"
+    android:padding="24dp"
+    tools:context=".ui.orderPlacement.OrderConfirmationFragment">
+
+    <ImageView
+        android:id="@+id/successIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Success"
+        android:src="@drawable/success"
+        app:layout_constraintBottom_toTopOf="@+id/successTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/successTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Placed!"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/navy_blue"
+        android:fontFamily="@font/fredoka_medium"
+        app:layout_constraintTop_toBottomOf="@id/successIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/orderIdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order ID: ORD-123456789"
+        android:textSize="16sp"
+        android:textColor="@color/Black_russian"
+        android:fontFamily="@font/fredoka"
+        app:layout_constraintTop_toBottomOf="@id/successTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:id="@+id/goHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Home Page"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/white"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="12dp"
+        android:fontFamily="@font/fredoka_medium"
+        app:layout_constraintTop_toBottomOf="@id/orderIdText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

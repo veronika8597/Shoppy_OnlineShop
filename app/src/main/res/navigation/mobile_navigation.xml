@@ -43,7 +43,14 @@
         android:id="@+id/navigation_bag"
         android:name="com.example.shoppy_onlineshop.ui.bag.BagFragment"
         android:label="@string/title_bag"
-        tools:layout="@layout/fragment_bag" />
+        tools:layout="@layout/fragment_bag" >
+        <action
+            android:id="@+id/action_navigation_bag_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_bagFragment_to_orderConfirmationFragment"
+            app:destination="@id/orderConfirmationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_deals"
@@ -96,7 +103,7 @@
         tools:layout="@layout/fragment_faq"/>
     <fragment
         android:id="@+id/userOrdersFragment"
-        android:name="com.example.shoppy_onlineshop.ui.userProfile.Orders.UserOrdersFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.Orders.OrdersFragment"
         android:label="@string/title_user_orders"
         tools:layout="@layout/fragment_user_orders" />
     <fragment
@@ -150,5 +157,13 @@
         android:name="com.example.shoppy_onlineshop.ui.home.products.ProductDetailsFragment"
         android:label="@string/title_product_details"
         tools:layout="@layout/fragment_product_details" />
+    <fragment
+        android:id="@+id/orderConfirmationFragment"
+        android:name="com.example.shoppy_onlineshop.ui.orderPlacement.OrderConfirmationFragment"
+        android:label="OrderConfirmationFragment" >
+        <action
+            android:id="@+id/action_orderConfirmationFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
 </navigation>

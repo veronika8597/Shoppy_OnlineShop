@@ -16,7 +16,8 @@ import com.example.shoppy_onlineshop.api.StoreProduct
 class BagAdapter(
     private var bagItems: List<BagItem>,
     private val onIncreaseQuantity: (Int) -> Unit,
-    private val onDecreaseQuantity: (Int) -> Unit
+    private val onDecreaseQuantity: (Int) -> Unit,
+    private val onRequestDeleteConfirmation: (Int) -> Unit
 ) : RecyclerView.Adapter<BagAdapter.BagViewHolder>() {
 
     class BagViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -56,7 +57,11 @@ class BagAdapter(
         }
 
         holder.decreaseButton.setOnClickListener {
-            onDecreaseQuantity(item.product.id)
+            if (item.quantity > 1) {
+                onDecreaseQuantity(item.product.id)
+            } else {
+                onRequestDeleteConfirmation(item.product.id)
+            }
         }
     }
 

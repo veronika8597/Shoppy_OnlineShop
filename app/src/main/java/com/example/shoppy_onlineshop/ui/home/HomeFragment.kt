@@ -1,7 +1,6 @@
 package com.example.shoppy_onlineshop.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.SearchView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,7 +18,6 @@ import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.databinding.FragmentHomeBinding
-import com.example.shoppy_onlineshop.helpers.ProductLoader
 import com.example.shoppy_onlineshop.ui.home.categories.CategoryAdapter
 import com.example.shoppy_onlineshop.ui.home.categories.CategoryClickListener
 import com.example.shoppy_onlineshop.ui.home.products.ProductAdapter
@@ -41,7 +38,7 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
