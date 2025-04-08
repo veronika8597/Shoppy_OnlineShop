@@ -33,7 +33,7 @@
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
-            android:id="@+id/action_navigation_favorites_to_productDetailsFragment"
+            android:id="@+id/action_favoritesFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
 
@@ -176,7 +176,7 @@
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.shoppy_onlineshop.ui.orderPlacement.orderDetails.OrderDetailsFragment"
-        android:label="fragment_order_details"
+        android:label="@string/title_fragment_order_details"
         tools:layout="@layout/fragment_order_details" />
 
 </navigation>

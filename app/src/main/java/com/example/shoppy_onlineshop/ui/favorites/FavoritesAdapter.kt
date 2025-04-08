@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreProduct
 
-class FavoritesAdapter(private var favorites: List<StoreProduct>, private val onAddToBagClick: (StoreProduct) -> Unit) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
+class FavoritesAdapter(private var favorites: List<StoreProduct>, private val onAddToBagClick: (StoreProduct) -> Unit, private val onItemClick: (StoreProduct) -> Unit) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
     class FavoritesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -51,6 +51,10 @@ class FavoritesAdapter(private var favorites: List<StoreProduct>, private val on
 
         holder.addToBagButton.setOnClickListener {
             onAddToBagClick(favorites[position])
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(favorites[position])
         }
     }
 

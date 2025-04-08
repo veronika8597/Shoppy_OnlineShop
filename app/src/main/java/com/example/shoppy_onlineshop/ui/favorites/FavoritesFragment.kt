@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreProduct
@@ -27,7 +28,7 @@ class FavoritesFragment : Fragment() {
 
     private lateinit var favoritesAdapter: FavoritesAdapter
     private lateinit var currentUserID: String
-    private lateinit var product: StoreProduct
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +41,16 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
         viewModel.loadFavoriteProducts(currentUserID)
         bagViewModel.loadBagProducts(currentUserID)
 
         binding.favoritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        favoritesAdapter = FavoritesAdapter(emptyList()) { product ->
+        favoritesAdapter = FavoritesAdapter(
+            emptyList(),
+            onAddToBagClick = { product ->
             val localBag = bagViewModel.bagItems.value.orEmpty()
             val isInBag = localBag.any { it.product.id == product.id }
 
@@ -82,7 +86,16 @@ class FavoritesFragment : Fragment() {
                     }
                 }
             }
-        }
+        },
+            onItemClick = { product ->
+                // Navigate to product details
+                val bundle = Bundle().apply {
+                    putInt("productId", product.id)
+                }
+                findNavController().navigate(R.id.action_favoritesFragment_to_productDetailsFragment, bundle)
+
+        })
+
 
         binding.favoritesRecyclerView.adapter = favoritesAdapter
 
