@@ -16,7 +16,9 @@ class OrdersViewModel : ViewModel() {
     fun loadOrders(userId: String) {
         val ordersRef = database.getReference("orders") // Assuming your orders are in "orders"
         ordersRef.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+
             override fun onDataChange(snapshot: DataSnapshot) {
+
                 val orderList = mutableListOf<Order>()
                 for (orderSnapshot in snapshot.children) {
                     val order = orderSnapshot.getValue(Order::class.java)
@@ -26,6 +28,7 @@ class OrdersViewModel : ViewModel() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                android.util.Log.e("OrdersViewModel", "Error loading orders: ${error.message}")
                 // Handle error appropriately, e.g., log it or show an error message
                 println("Error loading orders: ${error.message}")
                 _orders.value = emptyList() // Set to empty list in case of error

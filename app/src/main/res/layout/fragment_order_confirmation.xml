@@ -10,12 +10,12 @@
 
     <ImageView
         android:id="@+id/successIcon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="24dp"
         android:contentDescription="Success"
-        android:src="@drawable/success"
+        android:src="@drawable/success_animation"
         app:layout_constraintBottom_toTopOf="@+id/successTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

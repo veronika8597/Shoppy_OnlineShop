@@ -7,16 +7,6 @@
     android:background="@color/lavender_gray"
     tools:context=".ui.userProfile.Orders.OrdersFragment">
 
-    <TextView
-        android:id="@+id/all_purchases_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="All purchases"
-        android:fontFamily="@font/fredoka_medium"
-        android:textSize="25sp"
-        android:textColor="@color/Black_russian"
-        android:padding="15dp"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersRecyclerView"
         android:layout_width="match_parent"

@@ -20,6 +20,7 @@
     <!-- App background color -->
     <color name="lavender_gray">#E5E9F2</color> <!-- Main screen background -->
 
+
     <!-- Bottom navigation bar background -->
     <color name="bottom_nav_background">#CBD2E0</color> <!-- Slight contrast background -->
 
@@ -41,7 +42,5 @@
     <color name="checkbox_checked">#1A2A4F</color> <!-- Dark blue when checked -->
     <color name="checkbox_unchecked">#777777</color> <!-- Light gray when unchecked -->
     <color name="checkbox_disabled">#B0B0B0</color> <!-- Dimmed when disabled -->
-
-
 
 </resources>

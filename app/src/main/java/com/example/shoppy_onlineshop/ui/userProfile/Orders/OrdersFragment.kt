@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.databinding.FragmentUserOrdersBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -36,8 +38,17 @@ class OrdersFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        orderAdapter = OrdersAdapter(mutableListOf()) // Initialize with a mutable list
-        binding.ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        orderAdapter = OrdersAdapter(mutableListOf()){ order ->
+            val bundle = Bundle().apply {
+                putParcelable("order", order)
+            }
+            findNavController().navigate(R.id.action_userOrdersFragment_to_orderDetailsFragment, bundle)
+
+        } // Initialize with a mutable list
+        binding.ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext()).apply {
+            reverseLayout = true
+            stackFromEnd = true
+        }
         binding.ordersRecyclerView.adapter = orderAdapter
     }
 
@@ -45,13 +56,6 @@ class OrdersFragment : Fragment() {
         ordersViewModel.orders.observe(viewLifecycleOwner) { orders ->
             orderAdapter.updateOrders(orders) // Update the adapter with the new list
         }
-    }
-    // Function to update the order list in the adapter
-    fun OrdersAdapter.updateOrders(newOrders: List<Order>) {
-        // Assuming you have a method to update the data in your adapter
-        (this.orders as MutableList<Order>).clear()
-        (this.orders as MutableList<Order>).addAll(newOrders)
-        this.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

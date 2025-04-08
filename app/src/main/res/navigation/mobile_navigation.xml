@@ -31,7 +31,11 @@
         android:id="@+id/navigation_favorites"
         android:name="com.example.shoppy_onlineshop.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_navigation_favorites_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -105,7 +109,11 @@
         android:id="@+id/userOrdersFragment"
         android:name="com.example.shoppy_onlineshop.ui.userProfile.Orders.OrdersFragment"
         android:label="@string/title_user_orders"
-        tools:layout="@layout/fragment_user_orders" />
+        tools:layout="@layout/fragment_user_orders" >
+        <action
+            android:id="@+id/action_userOrdersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.shoppy_onlineshop.ui.userProfile.ChangePassword.ChangePasswordFragment"
@@ -165,5 +173,10 @@
             android:id="@+id/action_orderConfirmationFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.shoppy_onlineshop.ui.orderPlacement.orderDetails.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
 
 </navigation>

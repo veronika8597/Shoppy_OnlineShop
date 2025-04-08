@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 
-class OrdersAdapter(val orders: MutableList<Order>) : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
+class OrdersAdapter(val orders: MutableList<Order>, private val onViewDetailsClick: (Order) -> Unit) : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -34,16 +34,12 @@ class OrdersAdapter(val orders: MutableList<Order>) : RecyclerView.Adapter<Order
         holder.orderID_textView.text = order.orderId
         holder.orderDate_textView.text = order.timestamp.toString()
         holder.orderStatus_textView.text = order.status
-        holder.totalPrice_textView.text =
-            order.items.sumOf { it.product.price * it.quantity }.toString()
+        val totalPrice = order.items.sumOf { it.product.price * it.quantity }
+        holder.totalPrice_textView.text = String.format("%.2f", totalPrice)
+
 
         holder.viewDetails_button.setOnClickListener {
-            Toast.makeText(
-                holder.itemView.context,
-                "View Details button clicked",
-                Toast.LENGTH_SHORT
-            ).show()
-
+            onViewDetailsClick(order)
         }
     }
 

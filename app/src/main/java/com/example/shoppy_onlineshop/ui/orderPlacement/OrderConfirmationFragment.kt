@@ -19,7 +19,7 @@ class OrderConfirmationFragment : Fragment() {
     private lateinit var orderId: String
 
     private lateinit var currentUserID: String
-    private var orderRef = FirebaseDatabase.getInstance().getReference("Orders")
+    private var orderRef = FirebaseDatabase.getInstance().getReference("orders")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class OrderConfirmationFragment : Fragment() {
 
          Glide.with(this)
             .asGif()
-            .load(R.drawable.success) // Replace with your actual gif drawable
+            .load(R.drawable.success_animation) // Replace with your actual gif drawable
             .into(binding.successIcon)
 
         binding.goHomeButton.setOnClickListener {

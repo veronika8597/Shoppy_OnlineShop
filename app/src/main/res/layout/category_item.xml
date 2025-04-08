@@ -18,7 +18,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" /> <!-- Placeholder image -->
+            android:src="@drawable/product_place_holder" /> <!-- Placeholder image -->
 
         <!-- Category Title over the image -->
         <TextView
