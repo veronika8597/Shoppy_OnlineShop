@@ -1,6 +1,8 @@
 package com.example.shoppy_onlineshop.ui.home.products
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,13 +35,8 @@ class ProductDetailsFragment : Fragment() {
     private val favoritesViewModel: FavoritesViewModel by activityViewModels()
     private val productDetailsViewModel: ProductDetailsViewModel by viewModels()
 
-
     private val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
     private lateinit var currentProduct: StoreProduct
-
-    private var isInBag: Boolean = false
-
-
     private var isFavorite = false
 
     companion object {
@@ -57,7 +54,6 @@ class ProductDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -65,163 +61,92 @@ class ProductDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val productID = arguments?.getInt(PRODUCT_ID_KEY)
-        //val currentUserID = FirebaseAuth.getInstance().currentUser?.uid
-
         if (productID == null || productID <= 0) {
             Toast.makeText(requireContext(), "Product not found", Toast.LENGTH_SHORT).show()
             return
         }
 
-        favoritesViewModel.loadFavoriteProducts(currentUserID.toString())
+        favoritesViewModel.loadFavoriteProducts(currentUserID)
+
+        showShimmer()
+
         productDetailsViewModel.loadProductDetails(
             context = requireContext(),
             productID = productID,
             onSuccess = { product ->
-                currentProduct = product
-
-                isProductInFavorites(currentUserID, currentProduct) { result ->
-                    isFavorite = result
-                    updateFavoriteButtonVisibility(isFavorite)
-
-                    val favoriteClickListener = View.OnClickListener {
-                        isFavorite = toggleFavoriteStatus(
-                            currentUserID,
-                            binding.favoriteButtonEmptyHeart,
-                            binding.favoriteButtonFilledHeart,
-                            currentProduct,
-                            isFavorite
-                        )
-                        updateFavoriteButtonVisibility(isFavorite)
-                    }
-
-                    binding.favoriteButtonEmptyHeart.setOnClickListener(favoriteClickListener)
-                    binding.favoriteButtonFilledHeart.setOnClickListener(favoriteClickListener)
-                }
-
-                // Set product data
-                binding.productTitle.text = currentProduct.title
-                binding.productBrand.text = currentProduct.brand
-                binding.productDescription.text = currentProduct.description
-                binding.productPrice.text = "$${currentProduct.price}"
-                binding.productRating.text = "Rating: ${currentProduct.rating}"
-                setTags(currentProduct.tags)
-                Glide.with(requireContext())
-                    .load(currentProduct.thumbnail)
-                    .transform(CenterCrop(), RoundedCorners(16))
-                    .into(binding.productImage)
-                setupReviewsRecyclerView(currentProduct.reviews)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    hideShimmer()
+                    bindProductDetails(product)
+                }, 250)
             },
             onFailure = {
-                Toast.makeText(
-                    requireContext(),
-                    "Failed to load product details",
-                    Toast.LENGTH_SHORT
-                ).show()
+                hideShimmer()
+                Toast.makeText(requireContext(), "Failed to load product", Toast.LENGTH_SHORT).show()
             }
         )
 
-        // Set up section visibility toggles
-        binding.reviewsTitle.setOnClickListener {
-            toggleSectionVisibility(
-                binding.reviewsRecyclerView,
-                binding.reviewsTitle,
-                "Reviews -",
-                "Reviews +"
-            )
-        }
+        setupSectionToggles()
+        setupAddToBag()
+    }
 
-        binding.itemDetailsHeader.setOnClickListener {
-            toggleSectionVisibility(
-                binding.itemDetailsSection,
-                binding.itemDetailsHeader,
-                "Item Details -",
-                "Item Details +"
-            )
-        }
+    private fun showShimmer() {
+        binding.shimmerViewContainer.visibility = View.VISIBLE
+        binding.shimmerViewContainer.startShimmer()
+        binding.productContentLayout.visibility = View.GONE
+    }
 
-        binding.shippingInformation.setOnClickListener {
-            toggleSectionVisibility(
-                binding.shippingInformationSection,
-                binding.shippingInformation,
-                "Shipping Information -",
-                "Shipping Information +"
-            )
-        }
+    private fun hideShimmer() {
+        binding.shimmerViewContainer.stopShimmer()
+        binding.shimmerViewContainer.visibility = View.GONE
+        binding.productContentLayout.visibility = View.VISIBLE
+        binding.productCardView.visibility = View.VISIBLE
+    }
 
-        binding.returnPolicy.setOnClickListener {
-            toggleSectionVisibility(
-                binding.returnPolicySection,
-                binding.returnPolicy,
-                "Return Policy -",
-                "Return Policy +"
-            )
-        }
+    private fun bindProductDetails(product: StoreProduct) {
+        currentProduct = product
+        binding.productTitle.text = product.title
+        binding.productBrand.text = product.brand
+        binding.productDescription.text = product.description
+        binding.productPrice.text = "$${product.price}"
+        binding.productRating.text = "Rating: ${product.rating}"
+        setTags(product.tags)
 
-        binding.addToBagButton.setOnClickListener {
-            if (!::currentProduct.isInitialized) {
-                Toast.makeText(
-                    requireContext(),
-                    "Please wait, loading product...",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
+        Glide.with(requireContext())
+            .load(product.thumbnail)
+            .transform(CenterCrop(), RoundedCorners(16))
+            .into(binding.productImage)
+
+        setupReviewsRecyclerView(product.reviews)
+
+        isProductInFavorites(currentUserID, product) { result ->
+            isFavorite = result
+            updateFavoriteButtonVisibility()
+
+            val favoriteClickListener = View.OnClickListener {
+                isFavorite = toggleFavoriteStatus(
+                    currentUserID,
+                    binding.favoriteButtonEmptyHeart,
+                    binding.favoriteButtonFilledHeart,
+                    product,
+                    isFavorite
+                )
+                updateFavoriteButtonVisibility()
             }
 
-            val localBag = bagViewModel.bagItems.value
-            val isInBag = localBag?.any { it.product.id == currentProduct.id } == true
-
-            if (isInBag) {
-                Toast.makeText(requireContext(), "Product is already in bag", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                // Fallback check from Firebase if local is null or outdated
-                bagViewModel.isProductInBag(currentUserID, currentProduct) { result ->
-                    if (result) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Product is already in bag",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        bagViewModel.addToBag(
-                            currentUserID,
-                            currentProduct,
-                            onSuccess = {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Product added to bag",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            },
-                            onFailure = {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Failed to add product to bag",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            })
-                    }
-                }
-            }
+            binding.favoriteButtonEmptyHeart.setOnClickListener(favoriteClickListener)
+            binding.favoriteButtonFilledHeart.setOnClickListener(favoriteClickListener)
         }
     }
 
-    // Function to update UI
-    private fun updateFavoriteButtonVisibility(isFavorite: Boolean) {
+    private fun updateFavoriteButtonVisibility() {
         binding.favoriteButtonFilledHeart.visibility = if (isFavorite) View.VISIBLE else View.INVISIBLE
         binding.favoriteButtonEmptyHeart.visibility = if (!isFavorite) View.VISIBLE else View.INVISIBLE
         Log.d("ProductDetailsFragment", "Updated UI: isFavorite = $isFavorite")
     }
 
-
     private fun setTags(tags: List<String>) {
-        // List of tag views
         val tagViews = listOf(binding.tag1, binding.tag2, binding.tag3)
-
-        // Hide all tags initially
         tagViews.forEach { it.visibility = View.GONE }
-
-        // Set tags based on availability
         tags.forEachIndexed { index, tag ->
             tagViews.getOrNull(index)?.let {
                 it.text = tag
@@ -231,14 +156,64 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun setupReviewsRecyclerView(reviews: List<Review>) {
-        // Set up RecyclerView to display reviews
         binding.reviewsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.reviewsRecyclerView.adapter = ReviewAdapter(reviews)
         binding.reviewsRecyclerView.visibility = View.GONE
     }
 
+    private fun setupSectionToggles() {
+        binding.reviewsTitle.setOnClickListener {
+            toggleSectionVisibility(binding.reviewsRecyclerView, binding.reviewsTitle, "Reviews -", "Reviews +")
+        }
+        binding.addReviewToggle.setOnClickListener {
+            toggleSectionVisibility(binding.addReviewForm, binding.addReviewToggle, "Add Review -", "Add Review +")
+        }
+        binding.itemDetailsHeader.setOnClickListener {
+            toggleSectionVisibility(binding.itemDetailsSection, binding.itemDetailsHeader, "Item Details -", "Item Details +")
+        }
+        binding.shippingInformation.setOnClickListener {
+            toggleSectionVisibility(binding.shippingInformationSection, binding.shippingInformation, "Shipping Information -", "Shipping Information +")
+        }
+        binding.returnPolicy.setOnClickListener {
+            toggleSectionVisibility(binding.returnPolicySection, binding.returnPolicy, "Return Policy -", "Return Policy +")
+        }
+    }
+
+    private fun setupAddToBag() {
+        binding.addToBagButton.setOnClickListener {
+            if (!::currentProduct.isInitialized) {
+                Toast.makeText(requireContext(), "Please wait, loading product...", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val localBag = bagViewModel.bagItems.value
+            val isInBag = localBag?.any { it.product.id == currentProduct.id } == true
+
+            if (isInBag) {
+                Toast.makeText(requireContext(), "Product is already in bag", Toast.LENGTH_SHORT).show()
+            } else {
+                bagViewModel.isProductInBag(currentUserID, currentProduct) { result ->
+                    if (result) {
+                        Toast.makeText(requireContext(), "Product is already in bag", Toast.LENGTH_SHORT).show()
+                    } else {
+                        bagViewModel.addToBag(
+                            currentUserID,
+                            currentProduct,
+                            onSuccess = {
+                                Toast.makeText(requireContext(), "Product added to bag", Toast.LENGTH_SHORT).show()
+                            },
+                            onFailure = {
+                                Toast.makeText(requireContext(), "Failed to add product to bag", Toast.LENGTH_SHORT).show()
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Avoid memory leaks by clearing binding reference
+        _binding = null
     }
 }

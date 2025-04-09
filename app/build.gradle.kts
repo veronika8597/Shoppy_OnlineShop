@@ -91,6 +91,9 @@ dependencies {
 
     implementation(libs.androidx.recyclerview)
 
+    //facebook shimmer
+    implementation(libs.shimmer)
+
 
 
 }
