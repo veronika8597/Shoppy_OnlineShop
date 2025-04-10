@@ -40,6 +40,8 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
     ): View {
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
+
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -52,6 +54,11 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
         //Featured Categories RecyclerView
         val categoriesRecyclerView: RecyclerView = binding.FeaturedItemsHorizontal
         categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        val shimmerContainer = binding.homeShimmerContainer1
+        categoriesRecyclerView.visibility = View.INVISIBLE
+        shimmerContainer.startShimmer()
+
 
         // Initialize your categories list here (e.g., from an API call)
         categories = listOf(
@@ -87,10 +94,17 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
 
         homeViewModel.featuredCategories.observe(viewLifecycleOwner) { categories ->
             categoryAdapter.updateData(categories)
+
+            // Delay just enough to allow Glide to begin loading (but not fully finish if slow)
+            binding.FeaturedItemsHorizontal.postDelayed({
+                binding.homeShimmerContainer1.stopShimmer()
+                binding.homeShimmerContainer1.visibility = View.GONE
+                binding.FeaturedItemsHorizontal.visibility = View.VISIBLE
+            }, 400)
         }
 
         //Recommended Products RecyclerView
-        val productsRecyclerView: RecyclerView = binding.RecomendedItemsVerticalRecyclerView
+        val productsRecyclerView: RecyclerView = binding.RecommendedItemsVerticalRecyclerView
         productsRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // 2 columns
 
         val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
@@ -99,7 +113,15 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
 
         homeViewModel.allProducts.observe(viewLifecycleOwner) { products ->
             productAdapter.updateData(products)
+
+            // Delay just enough to allow Glide to begin loading (but not fully finish if slow)
+            binding.RecommendedItemsVerticalRecyclerView.postDelayed({
+                binding.homeShimmerContainer2.stopShimmer()
+                binding.homeShimmerContainer2.visibility = View.GONE
+                binding.RecommendedItemsVerticalRecyclerView.visibility = View.VISIBLE
+            },400)
         }
+
 
         //All categories button
         val allCategoriesButton: Button = binding.categoriesButton

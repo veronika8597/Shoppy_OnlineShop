@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_categories"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,11 +32,85 @@
         android:textSize="22sp"
         android:padding="7dp"/>
 
+    <!-- Shimmer placeholder -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/categoryShimmerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="true"
+        app:shimmer_duration="1500"
+        android:padding="10dp">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:alignmentMode="alignMargins"
+            android:rowOrderPreserved="false"
+            android:useDefaultMargins="true">
+
+            <!-- Shimmer Card 1 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="16dp"
+                android:background="@drawable/shimmer_placeholder"/>
+
+            <!-- Shimmer Card 2 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="16dp"
+                android:background="@drawable/shimmer_placeholder"/>
+
+            <!-- Shimmer Card 3 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="16dp"
+                android:background="@drawable/shimmer_placeholder"/>
+
+            <!-- Shimmer Card 4 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="16dp"
+                android:background="@drawable/shimmer_placeholder"/>
+
+            <!-- Shimmer Card 5 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="16dp"
+                android:background="@drawable/shimmer_placeholder"/>
+
+            <!-- Shimmer Card 6 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="16dp"
+                android:background="@drawable/shimmer_placeholder"/>
+
+        </GridLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/all"
+        android:id="@+id/categories_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"/>
-
 
 </LinearLayout>

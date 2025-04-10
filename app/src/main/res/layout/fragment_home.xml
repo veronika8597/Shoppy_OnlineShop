@@ -54,13 +54,51 @@
             android:text="Explore these categories"
             android:textSize="25sp" />
 
-        <!-- Featured Items RecyclerView -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="8dp">
+
+        <!-- Shimmer placeholder -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/homeShimmerContainer1"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="1500"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- Fake shimmer items (2 for demo) -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="16dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/shimmer_placeholder" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="16dp"
+                    android:background="@drawable/shimmer_placeholder"/>
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Featured_Items_horizontal"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:padding="10dp" />
-
+            android:padding="10dp"
+            android:visibility="gone"/>
+        </FrameLayout>
+        <!-- Button -->
         <Button
             android:id="@+id/categories_button"
             android:layout_width="wrap_content"
@@ -73,18 +111,46 @@
             android:text="All categories"
             android:textColor="#ffffff"
             android:textSize="16sp" />
-        <!--Product List-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productRecyclerView"
+
+        <!-- Shimmer placeholder -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/homeShimmerContainer2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" />
-        <!-- Recommended Items RecyclerView -->
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="1500"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- Fake shimmer items (2 for demo) -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="183dp"
+                    android:layout_height="270dp"
+                    app:cardCornerRadius="16dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/shimmer_placeholder" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="183dp"
+                    android:layout_height="270dp"
+                    app:cardCornerRadius="16dp"
+                    android:background="@drawable/shimmer_placeholder"/>
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <!-- Product List (no shimmer here) -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Recomended_Items_vertical_RecyclerView"
+            android:id="@+id/Recommended_Items_vertical_RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

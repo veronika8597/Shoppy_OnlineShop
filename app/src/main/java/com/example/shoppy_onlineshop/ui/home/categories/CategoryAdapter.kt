@@ -1,5 +1,6 @@
 package com.example.shoppy_onlineshop.ui.home.categories
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.request.RequestListener
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.ui.home.adapter.design.RoundedCornersTransformation
@@ -51,12 +53,12 @@ class CategoryAdapter(private var categories: List<StoreCategory>,
                 "sports-accessories" -> R.drawable.sports_accessories_placeholder
                 "tablets" -> R.drawable.tablets_placeholder
 
-                else -> R.drawable.ic_launcher_background // Default placeholder
+                else -> R.drawable.placeholder_lavander // Default placeholder
             }
 
             Glide.with(itemView.context)
                 .load(imageResId)
-                .placeholder(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.placeholder_lavander)
                 .transform(CenterCrop(), RoundedCornersTransformation(40f))
                 .into(categoryImageView)
             itemView.setOnClickListener {
@@ -83,4 +85,5 @@ class CategoryAdapter(private var categories: List<StoreCategory>,
         categories = newCategories
         notifyDataSetChanged()
     }
+
 }

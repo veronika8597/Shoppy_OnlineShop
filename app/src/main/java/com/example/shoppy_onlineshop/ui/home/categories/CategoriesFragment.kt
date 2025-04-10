@@ -36,6 +36,9 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
     ): View {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
 
+        binding.categoryShimmerContainer.startShimmer()
+        binding.categoriesRecyclerView.visibility = View.INVISIBLE
+
         // Retrieve categories from arguments
         categories = arguments?.getParcelableArrayList("categories")
         return binding.root
@@ -43,10 +46,19 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         categories?.let {
             val categoryAdapter = CategoryAdapter(it, this)
-            binding.all.layoutManager = GridLayoutManager(context,2)
-            binding.all.adapter = categoryAdapter
+            binding.categoriesRecyclerView.layoutManager = GridLayoutManager(context,2)
+            binding.categoriesRecyclerView.adapter = categoryAdapter
+
+            // Simulate delay or real loading
+            binding.categoriesRecyclerView.postDelayed({
+                binding.categoryShimmerContainer.stopShimmer()
+                binding.categoryShimmerContainer.visibility = View.GONE
+                binding.categoriesRecyclerView.visibility = View.VISIBLE
+            }, 700) // You can adjust this delay
+
         }
     }
 
@@ -60,7 +72,7 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
         val bundle = Bundle().apply{
             putString("categorySlug", category.slug) //Pass the slug
         }
-        //Navigate to the ProductsFragment wiith the category's data
+        //Navigate to the ProductsFragment with the category's data
         findNavController().navigate(R.id.action_categoriesFragment_to_productsFragment, bundle)
 
     }

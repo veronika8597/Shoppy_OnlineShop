@@ -35,6 +35,10 @@ class ProductsFragment : Fragment(), ProductClickListener {
     ): View {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
 
+        binding.productShimmerContainer.startShimmer()
+        binding.productsRecyclerView.visibility = View.INVISIBLE
+
+
         // Retrieve categorySlug passed from CategoriesFragment
         //val categorySlug = arguments?.getString("categorySlug") ?: return binding.root
         val categorySlug = arguments?.getString("categorySlug")
@@ -74,6 +78,13 @@ class ProductsFragment : Fragment(), ProductClickListener {
         val productAdapter = ProductAdapter(products ?: emptyList(), this, currentUserID)
         binding.productsRecyclerView.layoutManager = GridLayoutManager(context, 2)
         binding.productsRecyclerView.adapter = productAdapter
+
+        // Simulate delay or real loading
+        binding.productsRecyclerView.postDelayed({
+            binding.productShimmerContainer.stopShimmer()
+            binding.productShimmerContainer.visibility = View.GONE
+            binding.productsRecyclerView.visibility = View.VISIBLE
+        }, 700) // You can adjust this delay
     }
 
     override fun onProductClick(product: StoreProduct) {
