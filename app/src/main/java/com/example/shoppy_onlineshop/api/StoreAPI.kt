@@ -14,7 +14,7 @@ interface StoreAPI {
     fun getCategories(): Call<List<StoreCategory>>
 
     @GET("products/search")
-    fun searchProducts(@Query("q") query: String) : Call<List<StoreProduct>>
+    suspend fun searchProducts(@Query("q") query: String) : StoreProductResponse
 
     @GET("products/category/{categorySlug}")
     fun getProductsForCategory(@Path("categorySlug") category: String): Call<StoreProductResponse>

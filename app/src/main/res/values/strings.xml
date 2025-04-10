@@ -18,6 +18,8 @@
     <string name="title_products">Products</string>
     <string name="title_product_details">Product Details</string>
     <string name="title_fragment_order_details">Order Details</string>
+    <string name="title_fragment_order_confirmation">Order Confirmation</string>
+    <string name="title_fragment_search">Search</string>
 
     <string-array name="Countries">
         <item>Not Selected</item>

@@ -141,17 +141,12 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
         //Search Bar
         val searchBar: SearchView = binding.searchBarHome
         searchBar.queryHint = "Search on Shoppy"
-        binding.searchBarHome.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // Handle search query submission
-                return true
-            }
 
-            override fun onQueryTextChange(query: String?): Boolean {
-                // Handle search query text changes
-                return true
+        binding.searchBarHome.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                findNavController().navigate(R.id.action_searchFragment_to_productDetailsFragment)
             }
-        })
+        }
 
         return root
     }

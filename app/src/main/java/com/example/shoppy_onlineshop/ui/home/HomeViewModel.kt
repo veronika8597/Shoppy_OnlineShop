@@ -5,10 +5,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.shoppy_onlineshop.api.RetroFitInstance
+import com.example.shoppy_onlineshop.api.StoreAPI
 import com.example.shoppy_onlineshop.api.StoreCategory
 import com.example.shoppy_onlineshop.api.StoreProduct
 import com.example.shoppy_onlineshop.api.StoreProductResponse
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +22,9 @@ class HomeViewModel : ViewModel() {
         value = "Explore these categories"
     }
     val exploreTitle: LiveData<String> = _exploreTitle
+
+    private val _searchResults = MutableLiveData<List<StoreProduct>>()
+    val searchResults: LiveData<List<StoreProduct>> = _searchResults
 
     //products
     private val _allProducts = MutableLiveData<List<StoreProduct>>()
@@ -76,6 +82,18 @@ class HomeViewModel : ViewModel() {
                 Log.e("HomeViewModel", "Categories API request failed: ${t.message}")
             }
         })
+    }
+
+    fun searchProducts(query: String) {
+        viewModelScope.launch {
+            try {
+                val response = RetroFitInstance.api.searchProducts(query)
+                _searchResults.postValue(response.products)
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Error: ${e.message}")
+            }
+        }
+
     }
 
 }
