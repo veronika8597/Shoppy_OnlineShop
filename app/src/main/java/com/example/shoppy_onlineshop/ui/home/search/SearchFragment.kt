@@ -50,7 +50,7 @@ class SearchFragment : Fragment(), ProductClickListener {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let {
-                    if (it.length >= 2) {
+                    if (it.isNotEmpty()) {
                         binding.searchShimmerContainer.visibility = View.VISIBLE
                         binding.searchResultsRecyclerView.visibility = View.GONE
                         binding.searchShimmerContainer.startShimmer()
