@@ -1,101 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient_background"
+    android:background="@color/lavender_gray"
     android:gravity="center"
     android:padding="24dp">
 
-    <!-- Header Text -->
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="300dp"
-        android:layout_height="270dp"
-        app:srcCompat="@drawable/deliveringsmiles" />
-
-    <TextView
-        android:id="@+id/header_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome Back!"
-        android:textSize="24sp"
-        android:textColor="#fae5d8"
-        android:fontFamily="@font/fredoka"
-        android:layout_marginBottom="32dp" />
-
-    <!-- Email Input -->
-    <EditText
-        android:id="@+id/email_input"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:fontFamily="@font/fredoka"
-        android:padding="12dp"
-        android:textColorHint="#522959"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="650dp"
+        android:backgroundTint="@color/white"
+        android:layout_marginTop="32dp"
+        app:cardUseCompatPadding="true"
+        android:clipToPadding="false"
+        android:layout_gravity="center"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp"
+        android:padding="24dp">
 
-    <!-- Password Input -->
-    <EditText
-        android:id="@+id/password_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:fontFamily="@font/fredoka"
-        android:padding="12dp"
-        android:inputType="textPassword"
-        android:textColorHint="#522959"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-    <!-- Login Button -->
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:background="@drawable/button_background"
-        app:backgroundTint="@null"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/fredoka_medium"
-        android:layout_marginBottom="24dp" />
+            <!-- Logo -->
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="236dp"
+                android:layout_height="201dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/app_logo" />
 
-    <!-- Alternative Login Options -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="16dp">
+            <!-- Welcome Text -->
+            <TextView
+                android:id="@+id/header_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome Back!"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/fredoka_medium"
+                android:layout_marginBottom="20dp" />
 
-        <ImageView
-            android:id="@+id/google_login"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_google"
-            android:layout_marginEnd="16dp" />
+            <!-- Email -->
+            <EditText
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Email"
+                android:fontFamily="@font/fredoka"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:textColorHint="@color/Black_russian"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp" />
 
-        <ImageView
-            android:id="@+id/facebook_login"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_facebook" />
-    </LinearLayout>
+            <!-- Password -->
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Password"
+                android:fontFamily="@font/fredoka"
+                android:inputType="textPassword"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:textColorHint="@color/Black_russian"
+                android:textColor="@color/black"
+                android:layout_marginBottom="24dp" />
 
-    <!-- Sign Up Text -->
-    <TextView
-        android:id="@+id/sign_up_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:fontFamily="@font/fredoka_light"
-        android:gravity="center"
-        android:text="Don't have an account? Sign Up"
-        android:textColor="#FAE5D8"
-        android:textSize="14sp" />
+            <!-- Login Button -->
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Login"
+                android:background="@drawable/button_background"
+                app:backgroundTint="@null"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/fredoka_medium"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Social Buttons -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/google_login"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_google"
+                    android:layout_marginEnd="12dp" />
+
+                <ImageView
+                    android:id="@+id/facebook_login"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_facebook" />
+            </LinearLayout>
+
+            <!-- Sign Up -->
+            <TextView
+                android:id="@+id/sign_up_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? Sign Up"
+                android:textColor="@color/navy_blue"
+                android:textSize="14sp"
+                android:fontFamily="@font/fredoka"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

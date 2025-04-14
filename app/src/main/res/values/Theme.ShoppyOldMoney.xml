@@ -16,5 +16,11 @@
         <!-- Custom component styles -->
         <item name="materialButtonStyle">@style/Widget.ShoppyOldMoney.Button</item>
         <item name="checkboxStyle">@style/Widget.ShoppyOldMoney.Checkbox</item>
+
+        <!-- Edit text -->
+        <item name="colorControlActivated">@color/navy_blue</item> <!-- Focus underline & icons -->
+        <item name="colorAccent">@color/navy_blue</item> <!-- Older devices -->
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item> <!-- Cursor -->
+
     </style>
 </resources>
