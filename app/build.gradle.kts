@@ -1,10 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
     id("com.google.gms.google-services")
 
     id("kotlin-parcelize") // Add this line
 }
+
+val googleClientId: String = project.findProperty("GOOGLE_CLIENT_ID") as String
 
 android {
     namespace = "com.example.shoppy_onlineshop"
@@ -18,6 +21,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${googleClientId}\"")
+
     }
 
     buildTypes {
@@ -38,6 +44,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -94,6 +101,7 @@ dependencies {
     //facebook shimmer
     implementation(libs.shimmer)
 
-
-
+    //Google Sign In
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.auth.ktx.v2230)
 }
