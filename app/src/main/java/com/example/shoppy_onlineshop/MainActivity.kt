@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_favorites,
                 R.id.navigation_notifications,
                 R.id.navigation_bag,
-                R.id.navigation_deals
+                R.id.navigation_profile
             )
         )
 

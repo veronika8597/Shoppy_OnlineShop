@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_deals"
-        android:icon="@drawable/deals_logo"
-        android:title="@string/title_deals" />
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/user_profile"
+        android:title="@string/title_profile" />
 
     <item
         android:id="@+id/navigation_notifications"

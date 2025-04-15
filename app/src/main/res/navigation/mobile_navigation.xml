@@ -60,10 +60,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_deals"
-        android:name="com.example.shoppy_onlineshop.ui.deals.DealsFragment"
-        android:label="@string/title_deals"
-        tools:layout="@layout/fragment_deals" />
+        android:id="@+id/navigation_profile"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.UserProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_user_profile" />
 
     <fragment
         android:id="@+id/categoriesFragment"
