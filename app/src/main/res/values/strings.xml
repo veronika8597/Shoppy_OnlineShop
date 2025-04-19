@@ -21,6 +21,25 @@
     <string name="title_fragment_order_confirmation">Order Confirmation</string>
     <string name="title_fragment_search">Search</string>
 
+
+    <string-array name="category_options">
+        <!-- Gender-specific fashion -->
+        <item>Women\'s Fashion (Dresses, Shoes, Bags, Jewelry)</item>
+        <item>Men\'s Fashion (Shirts, Shoes, Watches)</item>
+
+        <!-- Unisex categories -->
+        <item>Beauty &amp; Skincare</item>
+        <item>Fragrances</item>
+        <item>Groceries &amp; Kitchen</item>
+        <item>Home &amp; Furniture</item>
+        <item>Sunglasses</item>
+        <item>Vehicles (Cars &amp; Motorcycles)</item>
+        <item>Lighting &amp; Decoration</item>
+        <item>Electronics (Laptops, Smartphones, Tablets)</item>
+        <item>Sports &amp; Outdoor Accessories</item>
+    </string-array>
+
+
     <string-array name="Countries">
         <item>Not Selected</item>
         <item>Albania</item>

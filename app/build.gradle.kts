@@ -5,6 +5,8 @@ plugins {
     id("com.google.gms.google-services")
 
     id("kotlin-parcelize") // Add this line
+
+    id("kotlin-kapt")
 }
 
 val googleClientId: String = project.findProperty("GOOGLE_CLIENT_ID") as String
@@ -104,4 +106,12 @@ dependencies {
     //Google Sign In
     implementation(libs.play.services.auth)
     implementation(libs.firebase.auth.ktx.v2230)
+
+    // CameraX core libraries
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.extensions)
+
 }

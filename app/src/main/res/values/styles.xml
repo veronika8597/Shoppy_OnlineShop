@@ -11,4 +11,11 @@
         <item name="android:buttonTint">@color/checkbox_tint</item>
         <item name="android:fontFamily">@font/fredoka</item>
     </style>
+
+    <style name="RoundedImageStyle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+
 </resources>

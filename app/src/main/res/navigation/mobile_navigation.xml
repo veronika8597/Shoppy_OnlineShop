@@ -42,9 +42,9 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.shoppy_onlineshop.ui.notifications.NotificationsFragment"
+        android:name="com.example.shoppy_onlineshop.ui.visualSearch.VisualSearchFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_visual_search" />
 
     <fragment
         android:id="@+id/navigation_bag"

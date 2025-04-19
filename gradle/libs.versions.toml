@@ -1,10 +1,16 @@
 [versions]
 agp = "8.9.1"
+cameraCore = "1.4.2"
+cameraLifecycle = "1.3.1"
+cardStackView = "2.3.4"
+cardstackviewVersion = "2.3.4"
+compiler = "4.16.0"
 datastorePreferences = "1.1.3"
 design = "28.0.0"
 firebaseAuth = "23.2.0"
 firebaseAuthKtxVersion = "22.3.0"
 glide = "4.11.0"
+glideVersion = "4.16.0"
 googleServices = "4.4.2"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
@@ -36,15 +42,24 @@ firebaseFirestoreKtx = "25.1.2"
 roomRuntimeAndroid = "2.7.0-rc02"
 
 [libraries]
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
+androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "cameraLifecycle" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraLifecycle" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraLifecycle" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+card-stack-view = { module = "com.yuyakaido.android:card-stack-view", version.ref = "cardStackView" }
+cardstackview = { module = "com.github.yuyakaido:CardStackView", version.ref = "cardstackviewVersion" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+compiler-v4160 = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 design = { module = "com.android.support:design", version.ref = "design" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 firebase-auth-ktx-v2230 = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtxVersion" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-v4160 = { module = "com.github.bumptech.glide:glide", version.ref = "glideVersion" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
