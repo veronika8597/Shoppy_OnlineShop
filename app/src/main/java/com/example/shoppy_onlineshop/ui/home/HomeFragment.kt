@@ -130,12 +130,6 @@ class HomeFragment : Fragment(), CategoryClickListener, ProductClickListener {
             findNavController().navigate(R.id.action_home_to_categories)
 
         }
-/*
-        //Profile button
-        val profileButton: ImageButton = binding.profileButton
-        profileButton.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_user_profile)
-        }*/
 
 
         //Search Bar

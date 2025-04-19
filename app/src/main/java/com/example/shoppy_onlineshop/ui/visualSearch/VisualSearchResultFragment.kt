@@ -40,7 +40,7 @@ class VisualSearchResultFragment : Fragment() {
             Log.d("PRODUCT_CLICK", "Clicked: ${selectedProduct.title}")
 
             val bundle = Bundle().apply {
-                putInt("productID", selectedProduct.id)
+                putInt("productId", selectedProduct.id)
             }
             findNavController().navigate(
                 R.id.action_visualSearchResultFragment_to_productDetailsFragment,

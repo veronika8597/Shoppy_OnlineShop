@@ -191,7 +191,13 @@
         android:id="@+id/productDetailsFragment"
         android:name="com.example.shoppy_onlineshop.ui.home.products.ProductDetailsFragment"
         android:label="@string/title_product_details"
-        tools:layout="@layout/fragment_product_details" />
+        tools:layout="@layout/fragment_product_details">
+
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/orderConfirmationFragment"

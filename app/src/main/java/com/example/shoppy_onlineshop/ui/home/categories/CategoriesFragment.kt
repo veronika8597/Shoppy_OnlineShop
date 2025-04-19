@@ -20,7 +20,6 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CategoriesViewModel by viewModels()
-    private var categories: List<StoreCategory>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +27,7 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
     ): View {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
 
+        // Show shimmer and hide recycler until loaded
         binding.categoryShimmerContainer.startShimmer()
         binding.categoriesRecyclerView.visibility = View.INVISIBLE
 
@@ -37,19 +37,24 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchCategories()
+        // Handle tapping the search bar
+        binding.searchBarCategories.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                findNavController().navigate(R.id.searchFragment)
+            }
+        }
 
+        // Observe and populate category list
+        viewModel.fetchCategories()
         viewModel.categories.observe(viewLifecycleOwner) { categoryList ->
-            categories = categoryList
-            val categoryAdapter = CategoryAdapter(categoryList, this)
+            val adapter = CategoryAdapter(categoryList, this)
             binding.categoriesRecyclerView.layoutManager = GridLayoutManager(context, 2)
-            binding.categoriesRecyclerView.adapter = categoryAdapter
+            binding.categoriesRecyclerView.adapter = adapter
 
             binding.categoryShimmerContainer.stopShimmer()
             binding.categoryShimmerContainer.visibility = View.GONE
             binding.categoriesRecyclerView.visibility = View.VISIBLE
         }
-
     }
 
     override fun onCategoryClick(category: StoreCategory) {
