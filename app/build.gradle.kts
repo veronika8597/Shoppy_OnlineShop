@@ -7,6 +7,8 @@ plugins {
     id("kotlin-parcelize") // Add this line
 
     id("kotlin-kapt")
+
+    id("androidx.navigation.safeargs")
 }
 
 val googleClientId: String = project.findProperty("GOOGLE_CLIENT_ID") as String
@@ -113,5 +115,19 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.extensions)
+
+    //ML
+    implementation(libs.image.labeling)
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v262)
+    implementation(libs.androidx.fragment.ktx.v162)
+
+
+
+
+
+
+
 
 }

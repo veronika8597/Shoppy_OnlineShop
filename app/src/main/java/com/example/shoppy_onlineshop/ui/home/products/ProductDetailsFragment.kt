@@ -40,7 +40,7 @@ class ProductDetailsFragment : Fragment() {
     private var isFavorite = false
 
     companion object {
-        private const val PRODUCT_ID_KEY = "productId"
+        private const val PRODUCT_ID_KEY = "productID"
 
         fun newInstance(productId: Int) = ProductDetailsFragment().apply {
             arguments = Bundle().apply {

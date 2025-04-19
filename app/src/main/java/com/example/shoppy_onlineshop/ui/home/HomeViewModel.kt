@@ -44,7 +44,7 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun fetchProducts() {
-        RetroFitInstance.api.getProducts().enqueue(object : Callback<StoreProductResponse> {
+        RetroFitInstance.api.getFeaturedProducts().enqueue(object : Callback<StoreProductResponse> {
             override fun onResponse(call: Call<StoreProductResponse>, response: Response<StoreProductResponse>) {
                 if (response.isSuccessful) {
                     val products = response.body()?.products ?: emptyList()

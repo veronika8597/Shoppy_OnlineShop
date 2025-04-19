@@ -8,7 +8,10 @@ import retrofit2.http.Query
 
 interface StoreAPI {
     @GET("products")
-    fun getProducts(): Call<StoreProductResponse>
+    fun getFeaturedProducts(): Call<StoreProductResponse>
+
+    @GET("products")
+    fun getProducts(@Query("limit") limit: Int = 100): Call<StoreProductResponse>
 
     @GET("products/categories")
     fun getCategories(): Call<List<StoreCategory>>

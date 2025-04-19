@@ -17,7 +17,7 @@
 
         <action
             android:id="@+id/action_home_to_user_profile"
-            app:destination="@id/user_profileFragment" />
+            app:destination="@id/navigation_profile" />
         <action
             android:id="@+id/action_navigation_home_to_productsFragment"
             app:destination="@id/productsFragment" />
@@ -41,10 +41,34 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_visual_search"
         android:name="com.example.shoppy_onlineshop.ui.visualSearch.VisualSearchFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_visual_search" />
+        android:label="@string/title_visual_search"
+        tools:layout="@layout/fragment_visual_search" >
+        <action
+            android:id="@+id/action_visualSearchFragment_to_visualSearchResultFragment"
+            app:destination="@id/visualSearchResultFragment" />
+
+        <action
+            android:id="@+id/action_visualSearchFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/visualSearchResultFragment"
+        android:name="com.example.shoppy_onlineshop.ui.visualSearch.VisualSearchResultFragment"
+        android:label="@string/title_visual_search_Results">
+        <action
+            android:id="@+id/action_visualSearchResultFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
+
+        <action
+            android:id="@+id/action_visualSearchResultFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_bag"
@@ -59,24 +83,24 @@
             app:destination="@id/orderConfirmationFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.example.shoppy_onlineshop.ui.userProfile.UserProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_user_profile" />
 
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.shoppy_onlineshop.ui.home.categories.CategoriesFragment"
         android:label="@string/title_categories"
         tools:layout="@layout/fragment_categories" >
+
+        <argument
+            android:name="categorySlug"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_categoriesFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/user_profileFragment"
+        android:id="@+id/navigation_profile"
         android:name="com.example.shoppy_onlineshop.ui.userProfile.UserProfileFragment"
         android:label="@string/title_user_profile"
         tools:layout="@layout/fragment_user_profile" >
@@ -168,10 +192,11 @@
         android:name="com.example.shoppy_onlineshop.ui.home.products.ProductDetailsFragment"
         android:label="@string/title_product_details"
         tools:layout="@layout/fragment_product_details" />
+
     <fragment
         android:id="@+id/orderConfirmationFragment"
         android:name="com.example.shoppy_onlineshop.ui.orderPlacement.OrderConfirmationFragment"
-        android:label="OrderConfirmationFragment" >
+        android:label="@string/title_fragment_order_confirmation" >
         <action
             android:id="@+id/action_orderConfirmationFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -190,5 +215,4 @@
             android:id="@+id/action_searchFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
     </fragment>
-
 </navigation>

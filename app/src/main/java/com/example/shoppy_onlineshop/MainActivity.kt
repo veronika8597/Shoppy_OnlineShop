@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_home,
                 R.id.navigation_favorites,
-                R.id.navigation_notifications,
+                R.id.navigation_visual_search,
                 R.id.navigation_bag,
                 R.id.navigation_profile
             )

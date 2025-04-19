@@ -9,9 +9,11 @@ datastorePreferences = "1.1.3"
 design = "28.0.0"
 firebaseAuth = "23.2.0"
 firebaseAuthKtxVersion = "22.3.0"
+fragmentKtxVersion = "1.6.2"
 glide = "4.11.0"
 glideVersion = "4.16.0"
 googleServices = "4.4.2"
+imageLabeling = "17.0.9"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -19,6 +21,7 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 kotlinxCoroutinesAndroid = "1.8.1"
+lifecycleViewmodelKtxVersion = "2.6.2"
 material = "1.12.0"
 constraintlayout = "2.2.1"
 lifecycleLivedataKtx = "2.8.7"
@@ -49,6 +52,10 @@ androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", versi
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraLifecycle" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-fragment-ktx-v162 = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx-v262 = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationFragmentKtx" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 card-stack-view = { module = "com.yuyakaido.android:card-stack-view", version.ref = "cardStackView" }
 cardstackview = { module = "com.github.yuyakaido:CardStackView", version.ref = "cardstackviewVersion" }
@@ -61,6 +68,7 @@ firebase-auth-ktx-v2230 = { module = "com.google.firebase:firebase-auth-ktx", ve
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-v4160 = { module = "com.github.bumptech.glide:glide", version.ref = "glideVersion" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
+image-labeling = { module = "com.google.mlkit:image-labeling", version.ref = "imageLabeling" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

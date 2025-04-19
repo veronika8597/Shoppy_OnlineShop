@@ -19,16 +19,8 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
-    private var categories: List<StoreCategory>? = null
     private val viewModel: CategoriesViewModel by viewModels()
-    private lateinit var productAdapter: ProductAdapter
-    private var categorySlug: String? = null
-    private var categoryName: String? = null
-
-
-    companion object {
-        fun newInstance() = CategoriesFragment()
-    }
+    private var categories: List<StoreCategory>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,41 +31,36 @@ class CategoriesFragment : Fragment(), CategoryClickListener {
         binding.categoryShimmerContainer.startShimmer()
         binding.categoriesRecyclerView.visibility = View.INVISIBLE
 
-        // Retrieve categories from arguments
-        categories = arguments?.getParcelableArrayList("categories")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        categories?.let {
-            val categoryAdapter = CategoryAdapter(it, this)
-            binding.categoriesRecyclerView.layoutManager = GridLayoutManager(context,2)
+        viewModel.fetchCategories()
+
+        viewModel.categories.observe(viewLifecycleOwner) { categoryList ->
+            categories = categoryList
+            val categoryAdapter = CategoryAdapter(categoryList, this)
+            binding.categoriesRecyclerView.layoutManager = GridLayoutManager(context, 2)
             binding.categoriesRecyclerView.adapter = categoryAdapter
 
-            // Simulate delay or real loading
-            binding.categoriesRecyclerView.postDelayed({
-                binding.categoryShimmerContainer.stopShimmer()
-                binding.categoryShimmerContainer.visibility = View.GONE
-                binding.categoriesRecyclerView.visibility = View.VISIBLE
-            }, 700) // You can adjust this delay
-
+            binding.categoryShimmerContainer.stopShimmer()
+            binding.categoryShimmerContainer.visibility = View.GONE
+            binding.categoriesRecyclerView.visibility = View.VISIBLE
         }
+
+    }
+
+    override fun onCategoryClick(category: StoreCategory) {
+        val bundle = Bundle().apply {
+            putString("categorySlug", category.slug)
+        }
+        findNavController().navigate(R.id.action_categoriesFragment_to_productsFragment, bundle)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onCategoryClick(category: StoreCategory) {
-        //Pass the category data to the ProductFragment
-        val bundle = Bundle().apply{
-            putString("categorySlug", category.slug) //Pass the slug
-        }
-        //Navigate to the ProductsFragment with the category's data
-        findNavController().navigate(R.id.action_categoriesFragment_to_productsFragment, bundle)
-
     }
 }

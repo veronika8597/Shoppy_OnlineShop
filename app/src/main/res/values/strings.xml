@@ -2,7 +2,8 @@
     <string name="app_name">Shoppy.</string>
     <string name="title_home">Home</string>
     <string name="title_favorites">Favorites</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_visual_search">Visual Search</string>
+    <string name="title_visual_search_Results">Visual Search Result</string>
     <string name="title_profile">Profile</string>
     <string name="title_bag">Bag</string>
     <string name="title_categories">All Categories</string>
