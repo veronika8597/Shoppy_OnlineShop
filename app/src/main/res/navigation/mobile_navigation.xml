@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_bagFragment_to_orderConfirmationFragment"
             app:destination="@id/orderConfirmationFragment" />
+        <action
+            android:id="@+id/action_navigation_bag_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
     </fragment>
 
 

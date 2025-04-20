@@ -17,45 +17,46 @@ class OrderConfirmationFragment : Fragment() {
     private val binding get() = _binding
 
     private lateinit var orderId: String
-
-    private lateinit var currentUserID: String
-    private var orderRef = FirebaseDatabase.getInstance().getReference("orders")
+    private var returnToHomeRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         orderId = arguments?.getString("orderId") ?: "N/A"
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        _binding =  FragmentOrderConfirmationBinding.inflate(inflater, container, false)
+        _binding = FragmentOrderConfirmationBinding.inflate(inflater, container, false)
 
         binding.orderIdText.text = "Order ID: $orderId"
 
-         Glide.with(this)
+        Glide.with(this)
             .asGif()
-            .load(R.drawable.success_animation) // Replace with your actual gif drawable
+            .load(R.drawable.success_animation)
             .into(binding.successIcon)
 
+        val navController = findNavController()
+
         binding.goHomeButton.setOnClickListener {
-            findNavController().navigate(R.id.action_orderConfirmationFragment_to_navigation_home)
+            returnToHomeRunnable?.let { binding.root.removeCallbacks(it) }
+            navController.navigate(R.id.navigation_home)
         }
-        // ⏳ Auto-return to home after 3 seconds
-        binding.root.postDelayed({
-            findNavController().navigate(
-                R.id.action_orderConfirmationFragment_to_navigation_home
-            )
-        }, 4000)
+
+        returnToHomeRunnable = Runnable {
+            if (isAdded) {
+                navController.navigate(R.id.navigation_home)
+            }
+        }
+
+        binding.root.postDelayed(returnToHomeRunnable!!, 4000)
 
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        returnToHomeRunnable?.let { binding.root.removeCallbacks(it) }
     }
-
 }

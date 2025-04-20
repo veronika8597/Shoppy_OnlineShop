@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -35,65 +36,58 @@ class BagFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBagBinding.inflate(inflater, container, false)
-
-
         currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
         bagViewModel.loadBagProducts(currentUserID)
 
-        // Setup RecyclerView
+        setupRecyclerView()
+        observeBagItems()
+        setupSwipeToDelete()
+
+        binding.checkoutButton.setOnClickListener {
+            val bagItems = bagViewModel.bagItems.value.orEmpty()
+            if (bagItems.isEmpty()) {
+                Toast.makeText(requireContext(), "Your bag is empty", Toast.LENGTH_SHORT).show()
+            } else {
+                showCheckoutConfirmationDialog()
+            }
+        }
+
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
         binding.bagRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         bagAdapter = BagAdapter(emptyList(),
-            onIncreaseQuantity = { productId ->
-                bagViewModel.increaseQuantity(currentUserID, productId)
-            },
-            onDecreaseQuantity = { productId ->
-                bagViewModel.decreaseQuantity(currentUserID, productId)
-            },
-            onRequestDeleteConfirmation = { productId ->
-                showDeleteConfirmationDialog(productId)
-            })
+            onIncreaseQuantity = { productId -> bagViewModel.increaseQuantity(currentUserID, productId) },
+            onDecreaseQuantity = { productId -> bagViewModel.decreaseQuantity(currentUserID, productId) },
+            onRequestDeleteConfirmation = { productId -> showDeleteConfirmationDialog(productId) }
+        )
         binding.bagRecyclerView.adapter = bagAdapter
+    }
 
+    private fun observeBagItems() {
         bagViewModel.bagItems.observe(viewLifecycleOwner) { cartItems ->
             bagAdapter.updateItems(cartItems)
             updateUI(cartItems)
         }
+    }
 
+    private fun setupSwipeToDelete() {
         setupSwipeToDelete(binding.bagRecyclerView) { position ->
             if (position in 0 until bagAdapter.itemCount) {
                 val deletedItem = bagAdapter.getItem(position)
                 bagViewModel.removeProductFromBag(currentUserID, deletedItem.product.id)
             }
         }
-
-        binding.checkoutButton.setOnClickListener {
-            val bagItems = bagViewModel.bagItems.value.orEmpty()
-
-            if (bagItems.isEmpty()) {
-                Toast.makeText(requireContext(), "Your bag is empty", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            showCheckoutConfirmationDialog()
-        }
-
-        return binding.root
-    }
-
-    private fun generateOrderId(): String {
-        val timestamp = System.currentTimeMillis()
-        return "ORD-$timestamp"
     }
 
     private fun updateUI(items: List<BagItem>) {
-        if (items.isEmpty()) {
-            binding.bagRecyclerView.visibility = View.GONE
-            binding.priceSummaryLayout.visibility = View.GONE
-            binding.emptyBagLayout.visibility = View.VISIBLE  // Changed to emptyBagLayout
-        } else {
-            binding.bagRecyclerView.visibility = View.VISIBLE
-            binding.priceSummaryLayout.visibility = View.VISIBLE
-            binding.emptyBagLayout.visibility = View.GONE     // Changed to emptyBagLayout
+        val isEmpty = items.isEmpty()
+        binding.bagRecyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        binding.priceSummaryLayout.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        binding.emptyBagLayout.visibility = if (isEmpty) View.VISIBLE else View.GONE
 
+        if (!isEmpty) {
             val subtotal = items.sumOf { it.product.price * it.quantity }
             val shipping = if (subtotal >= 100.0) 0.0 else 9.99
             val total = subtotal + shipping
@@ -104,23 +98,14 @@ class BagFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    private fun generateOrderId(): String = "ORD-${System.currentTimeMillis()}"
 
     private fun showDeleteConfirmationDialog(productId: Int) {
         val dialogView = layoutInflater.inflate(R.layout.custom_remove_dialog, null)
         val alertDialog = AlertDialog.Builder(requireContext()).setView(dialogView).create()
 
-        val btnNo = dialogView.findViewById<Button>(R.id.No_button)
-        val btnYes = dialogView.findViewById<Button>(R.id.Yes_button)
-
-        btnNo.setOnClickListener {
-            alertDialog.dismiss()
-        }
-
-        btnYes.setOnClickListener {
+        dialogView.findViewById<Button>(R.id.No_button).setOnClickListener { alertDialog.dismiss() }
+        dialogView.findViewById<Button>(R.id.Yes_button).setOnClickListener {
             bagViewModel.removeProductFromBag(currentUserID, productId)
             alertDialog.dismiss()
         }
@@ -133,21 +118,26 @@ class BagFragment : Fragment() {
         val dialogView = layoutInflater.inflate(R.layout.custom_remove_dialog, null)
         val alertDialog = AlertDialog.Builder(requireContext()).setView(dialogView).create()
 
-        val titleText = dialogView.findViewById<TextView>(R.id.dialogTitle)
-        val messageText = dialogView.findViewById<TextView>(R.id.dialogMessage)
-        val btnNo = dialogView.findViewById<Button>(R.id.No_button)
-        val btnYes = dialogView.findViewById<Button>(R.id.Yes_button)
+        dialogView.findViewById<TextView>(R.id.dialogTitle).text = "Confirm Purchase"
+        dialogView.findViewById<TextView>(R.id.dialogMessage).text = "Are you sure you want to proceed with your order?"
 
-        titleText.text = "Confirm Purchase"
-        messageText.text = "Are you sure you want to proceed with your order?"
+        dialogView.findViewById<Button>(R.id.No_button).setOnClickListener { alertDialog.dismiss() }
 
-        btnNo.setOnClickListener {
-            alertDialog.dismiss()
-        }
+        dialogView.findViewById<Button>(R.id.Yes_button).setOnClickListener {
+            val sharedPrefs = requireContext().getSharedPreferences("addresses_prefs", Context.MODE_PRIVATE)
+            val addressList = sharedPrefs.getString("addresses_list", "[]")
+            val hasAddresses = !addressList.isNullOrBlank() && addressList != "[]"
 
-        btnYes.setOnClickListener {
+            if (!hasAddresses) {
+                Toast.makeText(requireContext(), "Please add an address before placing an order", Toast.LENGTH_SHORT).show()
+                alertDialog.dismiss()
+                findNavController().navigate(R.id.action_navigation_bag_to_addressesFragment)
+                return@setOnClickListener
+            }
+
             val orderId = generateOrderId()
             val bagItems = bagViewModel.bagItems.value.orEmpty()
+
             val order = Order(
                 orderId = orderId,
                 userId = currentUserID,
@@ -163,12 +153,10 @@ class BagFragment : Fragment() {
                 },
                 onFailure = {
                     Toast.makeText(requireContext(), "Failed to place order: ${it.message}", Toast.LENGTH_LONG).show()
-                    })
+                }
+            )
 
-            val bundle = Bundle().apply {
-                putString("orderId", orderId)
-            }
-
+            val bundle = Bundle().apply { putString("orderId", orderId) }
             findNavController().navigate(R.id.action_bagFragment_to_orderConfirmationFragment, bundle)
             alertDialog.dismiss()
         }
@@ -177,4 +165,8 @@ class BagFragment : Fragment() {
         alertDialog.show()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
