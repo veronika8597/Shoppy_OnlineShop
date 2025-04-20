@@ -316,19 +316,28 @@
                             android:visibility="gone">
 
                         <!-- Review Input -->
-                        <EditText
-                            android:id="@+id/review_input"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:background="@drawable/edit_text_background"
-                            android:fontFamily="@font/fredoka_light"
-                            android:gravity="top"
-                            android:hint="Write your review here"
-                            android:inputType="textMultiLine"
-                            android:padding="16dp"
-                            android:textSize="15dp" />
+                            <EditText
+                                android:id="@+id/review_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:background="@drawable/edit_text_background"
+                                android:fontFamily="@font/fredoka_light"
+                                android:gravity="top"
+                                android:hint="Write your review here"
+                                android:inputType="textMultiLine"
+                                android:padding="16dp"
+                                android:textSize="15dp" />
 
-                        <!-- Submit Button -->
+                            <RatingBar
+                                android:id="@+id/ratingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:numStars="5"
+                                android:stepSize="1.0"
+                                android:layout_marginBottom="8dp" />
+
+
+                            <!-- Submit Button -->
                         <Button
                             android:id="@+id/submit_review_button"
                             android:layout_width="match_parent"

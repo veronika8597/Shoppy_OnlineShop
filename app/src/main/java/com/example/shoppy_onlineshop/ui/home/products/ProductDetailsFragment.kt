@@ -124,11 +124,22 @@ class ProductDetailsFragment : Fragment() {
         //setupReviewsRecyclerView(product.reviews)
         productDetailsViewModel.fetchFirebaseReviews(product.id) { firebaseReviews ->
             val allReviews = product.reviews + firebaseReviews
+
+            // 🧮 Calculate new average
+            val totalRating = allReviews.sumOf { it.rating }
+            val averageRating = if (allReviews.isNotEmpty()) totalRating.toDouble() / allReviews.size else 0.0
+
+            // Update UI
+            binding.productRating.text = "Rating: %.1f".format(averageRating)
+
             setupReviewsRecyclerView(allReviews)
         }
 
         binding.submitReviewButton.setOnClickListener {
+
             val comment = binding.reviewInput.text.toString().trim()
+            val rating = binding.ratingBar.rating.toInt()
+
             if (comment.isEmpty()) {
                 Toast.makeText(requireContext(), "Please write a review first", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -139,7 +150,7 @@ class ProductDetailsFragment : Fragment() {
             val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
             val review = Review(
-                rating = 5, // Default rating
+                rating = rating,
                 comment = comment,
                 date = date,
                 reviewerName = reviewerName,
@@ -158,6 +169,14 @@ class ProductDetailsFragment : Fragment() {
                     // 🔁 Re-fetch Firebase reviews and update the list
                     productDetailsViewModel.fetchFirebaseReviews(product.id) { updatedReviews ->
                         val allReviews = product.reviews + updatedReviews
+                        // ✅ Recalculate average rating
+                        val totalRating = allReviews.sumOf { it.rating }
+                        val averageRating = if (allReviews.isNotEmpty()) totalRating.toDouble() / allReviews.size else 0.0
+
+                        // ✅ Update UI
+                        binding.productRating.text = "Rating: %.1f".format(averageRating)
+                        //binding.productRatingStars.rating = averageRating.toFloat()
+
                         setupReviewsRecyclerView(allReviews)
                         binding.reviewsRecyclerView.visibility = View.VISIBLE
                     }
