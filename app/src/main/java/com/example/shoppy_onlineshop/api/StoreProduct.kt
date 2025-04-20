@@ -43,7 +43,10 @@ data class Review(
     val date: String = "", // Default value: empty string
     val reviewerName: String = "", // Default value: empty string
     val reviewerEmail: String = "" // Default value: empty string
-): Parcelable
+): Parcelable{
+    // Needed for Firebase deserialization
+    constructor() : this(0, "", "", "", "")
+}
 
 @Parcelize
 data class Meta(

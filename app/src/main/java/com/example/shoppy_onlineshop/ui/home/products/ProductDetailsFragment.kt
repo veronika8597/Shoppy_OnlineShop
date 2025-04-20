@@ -25,6 +25,11 @@ import com.example.shoppy_onlineshop.helpers.toggleSectionVisibility
 import com.example.shoppy_onlineshop.ui.bag.BagViewModel
 import com.example.shoppy_onlineshop.ui.favorites.FavoritesViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.UUID
 
 class ProductDetailsFragment : Fragment() {
 
@@ -116,7 +121,53 @@ class ProductDetailsFragment : Fragment() {
             .transform(CenterCrop(), RoundedCorners(16))
             .into(binding.productImage)
 
-        setupReviewsRecyclerView(product.reviews)
+        //setupReviewsRecyclerView(product.reviews)
+        productDetailsViewModel.fetchFirebaseReviews(product.id) { firebaseReviews ->
+            val allReviews = product.reviews + firebaseReviews
+            setupReviewsRecyclerView(allReviews)
+        }
+
+        binding.submitReviewButton.setOnClickListener {
+            val comment = binding.reviewInput.text.toString().trim()
+            if (comment.isEmpty()) {
+                Toast.makeText(requireContext(), "Please write a review first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val reviewerName = FirebaseAuth.getInstance().currentUser?.displayName ?: "Anonymous"
+            val reviewerEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+            val review = Review(
+                rating = 5, // Default rating
+                comment = comment,
+                date = date,
+                reviewerName = reviewerName,
+                reviewerEmail = reviewerEmail
+            )
+
+            val dbRef = FirebaseDatabase.getInstance().getReference("product_reviews")
+            val reviewId = dbRef.child(product.id.toString()).push().key ?: UUID.randomUUID().toString()
+            productDetailsViewModel.submitReviewToFirebase(
+                productId = product.id,
+                review = review,
+                onSuccess = {
+                    Toast.makeText(requireContext(), "Review submitted successfully!", Toast.LENGTH_SHORT).show()
+                    binding.reviewInput.text.clear()
+
+                    // 🔁 Re-fetch Firebase reviews and update the list
+                    productDetailsViewModel.fetchFirebaseReviews(product.id) { updatedReviews ->
+                        val allReviews = product.reviews + updatedReviews
+                        setupReviewsRecyclerView(allReviews)
+                        binding.reviewsRecyclerView.visibility = View.VISIBLE
+                    }
+                },
+                onFailure = {
+                    Toast.makeText(requireContext(), "Failed to submit review", Toast.LENGTH_SHORT).show()
+                }
+            )
+
+        }
 
         isProductInFavorites(currentUserID, product) { result ->
             isFavorite = result
