@@ -9,6 +9,8 @@ buildscript {
     dependencies {
         classpath(libs.google.services) // Use the latest version
 
+        classpath(libs.google.services.v440)
+
         classpath(libs.androidx.navigation.safe.args.gradle.plugin)
 
     }

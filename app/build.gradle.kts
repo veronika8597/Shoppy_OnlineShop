@@ -9,6 +9,8 @@ plugins {
     id("kotlin-kapt")
 
     id("androidx.navigation.safeargs")
+
+
 }
 
 val googleClientId: String = project.findProperty("GOOGLE_CLIENT_ID") as String
@@ -30,8 +32,20 @@ android {
 
     }
 
+    signingConfigs {
+        named("debug") {
+            storeFile = file("C:/Users/veronika/.android/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
-        release {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+        getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -51,6 +65,8 @@ android {
         buildConfig = true
     }
 }
+
+
 
 dependencies {
 
@@ -81,7 +97,8 @@ dependencies {
 
     // Glide dependency
     implementation(libs.glide)
-    annotationProcessor(libs.compiler)
+
+    kapt(libs.compiler)
 
     //HTTP Dependency
     implementation(libs.retrofit)
@@ -98,6 +115,10 @@ dependencies {
     implementation(libs.firebase.auth)
     //For storing user credentials automatically
     implementation(libs.androidx.datastore.preferences)
+
+
+    implementation(libs.firebase.auth.v2230)
+    implementation(libs.play.services.auth.v2100)
 
 
     implementation(libs.androidx.recyclerview)

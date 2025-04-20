@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "817175636364-ksd5d60dnp43elsqq63l94b4astmfq7c.apps.googleusercontent.com",
+          "client_id": "817175636364-i15dot3c0vgr1h21gi29obqi59t9hb92.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.shoppy_onlineshop",
-            "certificate_hash": "3432ba4a54ba0ea4e13379b7687a822aeb6a5f21"
+            "certificate_hash": "6198a492f46748af0f93302ca9c3bc4319798cb4"
           }
         },
         {

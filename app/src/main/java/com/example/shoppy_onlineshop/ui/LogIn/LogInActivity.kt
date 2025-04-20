@@ -9,11 +9,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
@@ -33,89 +29,110 @@ import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
 class LogInActivity : AppCompatActivity() {
+
     private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
+
     private lateinit var userEmail: EditText
     private lateinit var userPassword: EditText
     private lateinit var loginButton: Button
     private lateinit var login2reg: TextView
     private lateinit var googleLoginButton: ImageView
 
-    private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 9001
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Initialize FirebaseAuth
-        auth = FirebaseAuth.getInstance()
-
         setContentView(R.layout.activity_log_in)
 
-        login2reg= findViewById(R.id.sign_up_text)
-        userEmail= findViewById(R.id.email_input)
+        auth = FirebaseAuth.getInstance()
+        Log.d("LoginFlow", "FirebaseAuth initialized")
+
+        userEmail = findViewById(R.id.email_input)
         userPassword = findViewById(R.id.password_input)
         loginButton = findViewById(R.id.login_button)
+        login2reg = findViewById(R.id.sign_up_text)
         googleLoginButton = findViewById(R.id.google_login)
 
-
-        //window.statusBarColor = Color.TRANSPARENT
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         supportActionBar?.hide()
 
+        printAppShaKey()
+        setupGoogleSignInClient()
+        handleAutoLogin()
+        setupClickListeners()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun printAppShaKey() {
         try {
-            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+            val info = packageManager.getPackageInfo(
+                packageName,
+                PackageManager.GET_SIGNING_CERTIFICATES
+            )
             val signatures = info.signingInfo?.apkContentsSigners
-            if (signatures != null) {
-                for (signature in signatures) {
-                    val md = MessageDigest.getInstance("SHA-1")
-                    md.update(signature.toByteArray())
-                    val sha = Base64.encodeToString(md.digest(), Base64.NO_WRAP)
-                    Log.d("REAL_SHA", sha)
-                }
+            signatures?.forEach { signature ->
+                val md = MessageDigest.getInstance("SHA-1")
+                md.update(signature.toByteArray())
+
+                val base64Sha = Base64.encodeToString(md.digest(), Base64.NO_WRAP)
+                val colonSha = md.digest().joinToString(":") { byte -> "%02X".format(byte) }
+
+                Log.d("REAL_SHA", "🔐 Base64 SHA-1 (Android Studio style): $base64Sha")
+                Log.d("REAL_SHA", "📛 Colon-separated SHA-1 (Firebase format): $colonSha")
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("REAL_SHA", "Error printing SHA key", e)
         }
+    }
 
-        // Configure sign-in
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    private fun setupGoogleSignInClient() {
+        Log.d("LoginFlow", "Setting up GoogleSignInClient with client ID: ${BuildConfig.GOOGLE_CLIENT_ID}")
+/*        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
             .requestEmail()
             .build()
-
+        googleSignInClient = GoogleSignIn.getClient(this, gso)*/
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("817175636364-i15dot3c0vgr1h21gi29obqi59t9hb92.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+        Log.d("LoginFlow", "Using CLIENT_ID: 817175636364-i15dot3c0vgr1h21gi29obqi59t9hb92.apps.googleusercontent.com")
 
-/*        FirebaseAuth.getInstance().signOut()
-        googleSignInClient.signOut()*/
+    }
 
+    private fun handleAutoLogin() {
         lifecycleScope.launch {
             val (savedEmail, savedPassword) = UserPreferences.getCredentials(this@LogInActivity)
-            if (!savedEmail.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
-                val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-
-                if (isLoggedIn) {
-                    autoLogin(savedEmail, savedPassword)
-                }
+            val prefs = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+            val isLoggedIn = prefs.getBoolean("isLoggedIn", false)
+            Log.d("LoginFlow", "Auto-login check: email=$savedEmail, isLoggedIn=$isLoggedIn")
+            if (!savedEmail.isNullOrEmpty() && !savedPassword.isNullOrEmpty() && isLoggedIn) {
+                autoLogin(savedEmail, savedPassword)
             }
         }
+    }
 
+    private fun setupClickListeners() {
         loginButton.setOnClickListener {
-            val enteredEmail = userEmail.text.toString()
-            val enteredPassword = userPassword.text.toString()
-
-            if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
-                Toast.makeText(this, "All fields must be filled in", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
+            val email = userEmail.text.toString()
+            val password = userPassword.text.toString()
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "All fields must be filled in", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.d("LoginFlow", "Manual login attempt with email: $email")
+                loginUser(email, password)
             }
-
-            loginUser(enteredEmail, enteredPassword)
         }
 
         googleLoginButton.setOnClickListener {
+            Log.d("LoginFlow", "Google Sign-In button clicked")
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
+            Toast.makeText(this, "Intent Launched", Toast.LENGTH_SHORT).show()
         }
 
         login2reg.setOnClickListener {
@@ -124,89 +141,93 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun loginUser(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-
-                    val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                    sharedPreferences.edit() { putBoolean("isLoggedIn", true) }
-
-                    // 🔹 Save credentials for future auto-login
-                    lifecycleScope.launch {
-                        UserPreferences.saveCredentials(this@LogInActivity, email, password)
-                    }
-
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-
-                } else {
-                    Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
-                    userEmail.text.clear()
-                    userPassword.text.clear()
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("LoginFlow", "Login success for: $email")
+                getSharedPreferences("user_prefs", Context.MODE_PRIVATE).edit {
+                    putBoolean("isLoggedIn", true)
                 }
+                lifecycleScope.launch {
+                    UserPreferences.saveCredentials(this@LogInActivity, email, password)
+                }
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } else {
+                Log.w("LoginFlow", "Email login failed", task.exception)
+                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                userEmail.text.clear()
+                userPassword.text.clear()
             }
+        }
     }
 
     private fun autoLogin(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.d("LoginFlow", "Auto-login success for $email")
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } else {
+                Log.w("LoginFlow", "Auto-login failed", it.exception)
             }
+        }
     }
 
-    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n" +
-            "which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n" +
-            "contracts for common intents available in\n" +
-            "{@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n" +
-            "testing, and allow receiving results in separate, testable classes independent from your\n" +
-            "activity. Use {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n" +
-            "with the appropriate {@link ActivityResultContract} and handling the result in the\n" +
-            "{@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
+                Log.d("LoginFlow", "Google SignIn task result: $task")
+                Log.d("LoginFlow", "Exception (if any): ${task.exception?.message}")
+
                 val account = task.getResult(ApiException::class.java)
+
+                Log.d("LoginFlow", "ID Token received: ${account.idToken}")
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Log.w("Login", "Google sign in failed", e)
+                Log.e("LoginFlow", "Google sign-in failed (ApiException): ${e.statusCode}", e)
             }
         }
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
+        Log.d("LoginFlow", "Authenticating with Firebase using Google token")
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = FirebaseAuth.getInstance().currentUser
-                    user?.let {
-                        val db = FirebaseFirestore.getInstance()
-                        val userRef = db.collection("users").document(it.uid)
+        auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                Log.d("LoginFlow", "Firebase sign-in with Google successful")
+                val user = FirebaseAuth.getInstance().currentUser
+                user?.let { firebaseUser ->
+                    val db = FirebaseFirestore.getInstance()
+                    val userRef = db.collection("users").document(firebaseUser.uid)
 
-                        userRef.get().addOnSuccessListener { doc ->
-                            if (!doc.exists()) {
-                                val userData = hashMapOf(
-                                    "uid" to it.uid,
-                                    "name" to (it.displayName ?: ""),
-                                    "email" to (it.email ?: ""),
-                                    "createdAt" to FieldValue.serverTimestamp()
-                                )
-                                userRef.set(userData)
-                            }
-                            startActivity(Intent(this, MainActivity::class.java))
-                            finish()
+                    userRef.get().addOnSuccessListener { doc ->
+                        if (!doc.exists()) {
+                            Log.d("LoginFlow", "New Google user. Saving to Firestore.")
+                            val userData = hashMapOf(
+                                "uid" to firebaseUser.uid,
+                                "name" to (firebaseUser.displayName ?: ""),
+                                "email" to (firebaseUser.email ?: ""),
+                                "createdAt" to FieldValue.serverTimestamp()
+                            )
+                            userRef.set(userData)
+                        } else {
+                            Log.d("LoginFlow", "Returning Google user. Firestore entry exists.")
                         }
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }.addOnFailureListener {
+                        Log.e("LoginFlow", "Firestore user check failed", it)
                     }
-                } else {
-                    Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
                 }
+            } else {
+                Log.e("LoginFlow", "Firebase sign-in with Google failed", task.exception)
+                Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
             }
+        }
     }
+
+
 
 }
