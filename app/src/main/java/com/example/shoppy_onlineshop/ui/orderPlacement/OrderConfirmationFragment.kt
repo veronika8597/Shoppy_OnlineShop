@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.databinding.FragmentOrderConfirmationBinding
+import com.example.shoppy_onlineshop.ui.bag.BagViewModel
+import com.example.shoppy_onlineshop.ui.userProfile.Orders.Order
+import com.example.shoppy_onlineshop.ui.userProfile.Orders.OrdersViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class OrderConfirmationFragment : Fragment() {
@@ -18,10 +23,16 @@ class OrderConfirmationFragment : Fragment() {
 
     private lateinit var orderId: String
     private var returnToHomeRunnable: Runnable? = null
+    private val ordersViewModel = OrdersViewModel()
+    private val bagViewModel = BagViewModel()
+    private val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+    private lateinit var order: Order
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        orderId = arguments?.getString("orderId") ?: "N/A"
+        order = arguments?.getParcelable("order")!!
     }
 
     override fun onCreateView(
@@ -30,12 +41,22 @@ class OrderConfirmationFragment : Fragment() {
     ): View {
         _binding = FragmentOrderConfirmationBinding.inflate(inflater, container, false)
 
-        binding.orderIdText.text = "Order ID: $orderId"
+        binding.orderIdText.text = "${order.orderId}"
 
         Glide.with(this)
             .asGif()
             .load(R.drawable.success_animation)
             .into(binding.successIcon)
+
+        bagViewModel.clearBag(currentUserID)
+        ordersViewModel.saveOrderToFirebase(currentUserID, order,
+            onSuccess = {
+                Toast.makeText(requireContext(), "Order ID: ${order.orderId} placed!", Toast.LENGTH_LONG).show()
+            },
+            onFailure = {
+                Toast.makeText(requireContext(), "Failed to place order: ${it.message}", Toast.LENGTH_LONG).show()
+            }
+        )
 
         val navController = findNavController()
 

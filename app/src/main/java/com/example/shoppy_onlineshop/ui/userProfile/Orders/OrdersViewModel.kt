@@ -1,7 +1,8 @@
+package com.example.shoppy_onlineshop.ui.userProfile.Orders
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shoppy_onlineshop.ui.userProfile.Orders.Order
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -28,7 +29,7 @@ class OrdersViewModel : ViewModel() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                android.util.Log.e("OrdersViewModel", "Error loading orders: ${error.message}")
+                android.util.Log.e("com.example.shoppy_onlineshop.ui.userProfile.Orders.OrdersViewModel", "Error loading orders: ${error.message}")
                 // Handle error appropriately, e.g., log it or show an error message
                 println("Error loading orders: ${error.message}")
                 _orders.value = emptyList() // Set to empty list in case of error

@@ -79,11 +79,11 @@
             android:id="@+id/action_navigation_bag_to_navigation_home"
             app:destination="@id/navigation_home" />
         <action
-            android:id="@+id/action_bagFragment_to_orderConfirmationFragment"
-            app:destination="@id/orderConfirmationFragment" />
-        <action
             android:id="@+id/action_navigation_bag_to_addressesFragment"
             app:destination="@id/addressesFragment" />
+        <action
+            android:id="@+id/action_navigation_bag_to_checkoutSummaryFragment"
+            app:destination="@id/checkoutSummaryFragment" />
     </fragment>
 
 
@@ -153,7 +153,7 @@
 
     <fragment
         android:id="@+id/editAddressFragment"
-        android:name="com.example.shoppy_onlineshop.ui.userProfile.addresses.EditAddressFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.addresses.EditAddressBottomSheet"
         android:label="@string/title_edit_address"
         tools:layout="@layout/fragment_edit_address" />
     <fragment
@@ -177,7 +177,7 @@
     </fragment>
     <fragment
         android:id="@+id/editPaymentMethodsFragment"
-        android:name="com.example.shoppy_onlineshop.ui.userProfile.paymentMethods.EditPaymentMethodsFragment"
+        android:name="com.example.shoppy_onlineshop.ui.userProfile.paymentMethods.EditPaymentMethodBottomSheet"
         android:label="@string/title_edit_payment_methods"
         tools:layout="@layout/fragment_edit_payment_methods" />
 
@@ -210,6 +210,18 @@
             android:id="@+id/action_orderConfirmationFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+
+    <fragment
+        android:id="@+id/checkoutSummaryFragment"
+        android:name="com.example.shoppy_onlineshop.ui.orderPlacement.orderDetails.CheckoutSummaryFragment"
+        android:label="Checkout Summary"
+        tools:layout="@layout/fragment_checkout_summary" >
+        <action
+            android:id="@+id/action_checkoutSummaryFragment_to_orderConfirmationFragment"
+            app:destination="@id/orderConfirmationFragment" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.shoppy_onlineshop.ui.orderPlacement.orderDetails.OrderDetailsFragment"

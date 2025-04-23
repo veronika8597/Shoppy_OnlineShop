@@ -1,6 +1,6 @@
 package com.example.shoppy_onlineshop.ui.bag
 
-import OrdersViewModel
+import com.example.shoppy_onlineshop.ui.userProfile.Orders.OrdersViewModel
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -47,16 +47,13 @@ class BagFragment : Fragment() {
         setupSwipeToDelete()
 
         binding.checkoutButton.setOnClickListener {
-            val bagItems = bagViewModel.bagItems.value.orEmpty()
-            if (bagItems.isEmpty()) {
-                Toast.makeText(requireContext(), "Your bag is empty", Toast.LENGTH_SHORT).show()
-            } else {
                 showCheckoutConfirmationDialog()
-            }
         }
 
         return binding.root
     }
+
+
 
     private fun setupRecyclerView() {
         binding.bagRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -156,6 +153,7 @@ class BagFragment : Fragment() {
                 }
 
                 return@setOnClickListener
+
             }
 
             val orderId = generateOrderId()
@@ -169,19 +167,13 @@ class BagFragment : Fragment() {
                 timestamp = System.currentTimeMillis()
             )
 
-            bagViewModel.clearBag(currentUserID)
-            ordersViewModel.saveOrderToFirebase(currentUserID, order,
-                onSuccess = {
-                    Toast.makeText(requireContext(), "Order placed! Order ID: $orderId", Toast.LENGTH_LONG).show()
-                },
-                onFailure = {
-                    Toast.makeText(requireContext(), "Failed to place order: ${it.message}", Toast.LENGTH_LONG).show()
-                }
-            )
+            val bundle = Bundle().apply {
+                putParcelable("order", order)
+            }
 
-            val bundle = Bundle().apply { putString("orderId", orderId) }
-            findNavController().navigate(R.id.action_bagFragment_to_orderConfirmationFragment, bundle)
+            findNavController().navigate(R.id.checkoutSummaryFragment, bundle)
             alertDialog.dismiss()
+
         }
 
         alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
