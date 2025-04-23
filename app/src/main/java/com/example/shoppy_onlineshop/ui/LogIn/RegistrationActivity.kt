@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.shoppy_onlineshop.R
+import com.example.shoppy_onlineshop.helpers.clearUserSessionData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 
@@ -63,49 +64,35 @@ class RegistrationActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            // Authentication success, now store user details in the database
                             val user = User(name, email, password)
-
-                            // Pass the User object to DbHelper
                             DbHelper(this).addUser(user)
-                            // Set the display name
+
                             val profileUpdates = UserProfileChangeRequest.Builder()
                                 .setDisplayName(name)
                                 .build()
 
-                            FirebaseAuth.getInstance().currentUser?.updateProfile(profileUpdates)
-                                ?.addOnCompleteListener { updateTask ->
-                                    if (updateTask.isSuccessful) {
-                                        Log.d("SignUp", "User profile updated.")
-                                        Toast.makeText(
-                                            this,
-                                            "Registration successful",
-                                            Toast.LENGTH_LONG
-                                        )
-                                            .show()
+                            auth.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { updateTask ->
+                                if (updateTask.isSuccessful) {
+                                    Toast.makeText(this, "Registration successful", Toast.LENGTH_LONG).show()
 
-                                        // Clear fields after registration
-                                        userName.text.clear()
-                                        userEmail.text.clear()
-                                        userPassword.text.clear()
-                                        userConfirmPassword.text.clear()
+                                    // Clear previous user data (critical step)
+                                    clearUserSessionData(this)
 
+                                    userName.text.clear()
+                                    userEmail.text.clear()
+                                    userPassword.text.clear()
+                                    userConfirmPassword.text.clear()
 
-                                        // Navigate to the next screen
-                                        intent =
-                                            Intent(applicationContext, LogInActivity::class.java)
-                                        startActivity(intent)
-
-                                    } else {
-                                        Toast.makeText(
-                                            this,
-                                            "Registration failed",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
+                                    startActivity(Intent(applicationContext, LogInActivity::class.java))
+                                    finish()
                                 }
+                            }
+                        } else {
+                            Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                            Log.e("Registration", "Failed: ", task.exception)
                         }
                     }
+
             }
         }
     }

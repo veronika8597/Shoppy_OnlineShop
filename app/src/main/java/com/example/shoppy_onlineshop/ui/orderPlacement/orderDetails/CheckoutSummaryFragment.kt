@@ -84,6 +84,7 @@ class CheckoutSummaryFragment : Fragment() {
                 id = index
                 isChecked = address.isDefault
                 typeface = ResourcesCompat.getFont(requireContext(), R.font.fredoka)
+                textSize = 16f
             }
             addressGroup.addView(rb)
         }
@@ -92,6 +93,7 @@ class CheckoutSummaryFragment : Fragment() {
             text = "Add new address"
             id = addresses.size
             typeface = ResourcesCompat.getFont(requireContext(), R.font.fredoka)
+            textSize = 16f
         }
         addressGroup.addView(addNew)
 

@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.databinding.FragmentUserProfileBinding
 import com.example.shoppy_onlineshop.ui.LogIn.LogInActivity
+import com.example.shoppy_onlineshop.ui.LogIn.UserPreferences
 import com.example.shoppy_onlineshop.ui.userProfile.accountSection.AccountSection
 import com.example.shoppy_onlineshop.ui.userProfile.accountSection.MyAccountAdapter
 import com.google.firebase.auth.FirebaseAuth
+import androidx.core.content.edit
 
 class UserProfileFragment : Fragment() {
 
@@ -85,9 +87,11 @@ class UserProfileFragment : Fragment() {
     private fun logoutUser() {
         FirebaseAuth.getInstance().signOut() // Sign out from Firebase
 
-        // Clear stored login session (if using SharedPreferences)
-        val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-        sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+        // Clear all persisted data
+        UserPreferences.clearCredentials(requireContext())
+        requireContext().getSharedPreferences("addresses_prefs", Context.MODE_PRIVATE).edit() { clear() }
+        requireContext().getSharedPreferences("payment_methods_prefs", Context.MODE_PRIVATE).edit() { clear() }
+        requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE).edit() { clear() }
 
         Toast.makeText(this.context, "Logged out", Toast.LENGTH_SHORT).show()
 

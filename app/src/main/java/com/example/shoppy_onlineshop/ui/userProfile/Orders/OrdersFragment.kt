@@ -53,7 +53,14 @@ class OrdersFragment : Fragment() {
 
     private fun observeOrders() {
         ordersViewModel.orders.observe(viewLifecycleOwner) { orders ->
-            orderAdapter.updateOrders(orders) // Update the adapter with the new list
+            if (orders.isEmpty()) {
+                binding.emptyOrdersLayout.visibility = View.VISIBLE
+                binding.ordersRecyclerView.visibility = View.GONE
+            } else {
+                binding.emptyOrdersLayout.visibility = View.GONE
+                binding.ordersRecyclerView.visibility = View.VISIBLE
+                orderAdapter.updateOrders(orders)
+            }
         }
     }
 
