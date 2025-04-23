@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:background="@drawable/bottom_sheet_background"
-           >
+            android:background="@drawable/bottom_sheet_background">
 
             <Spinner
                 android:id="@+id/country_spinner"

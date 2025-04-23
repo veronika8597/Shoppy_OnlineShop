@@ -46,8 +46,8 @@ class PaymentMethodsAdapter(private var paymentMethodsList: MutableList<PaymentM
         notifyDataSetChanged()
     }
 
-    fun maskCardNumber(cardNumber: String): String {
-        return if(!cardNumber.isNullOrEmpty() && cardNumber.length >= 15){
+    private fun maskCardNumber(cardNumber: String): String {
+        return if(cardNumber.isNotEmpty() && cardNumber.length >= 15){
             "**** **** **** " + cardNumber.takeLast(4)
         }
         else {

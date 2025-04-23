@@ -1,103 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/lavender_gray"
-    tools:context=".ui.userProfile.paymentMethods.EditPaymentMethodsFragment">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    tools:context=".ui.userProfile.paymentMethods.EditPaymentMethodBottomSheet">
 
-    <!-- Card Number Input -->
-    <EditText
-        android:id="@+id/card_number_editText"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/fredoka"
-        android:textColor="@color/Black_russian"
-        android:hint="Card Number"
-        android:inputType="number"
-        android:maxLength="19"
-        android:padding="12dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:clipToPadding="false"
+        android:paddingBottom="24dp"
+        android:paddingTop="8dp">
 
-    <!-- Expiration Date Input -->
-    <EditText
-        android:id="@+id/expiry_date_editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fredoka"
-        android:textColor="@color/Black_russian"
-        android:hint="MM/YY"
-        android:inputType="number"
-        android:maxLength="5"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/card_number_editText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cvv_editText"
-        android:layout_marginTop="12dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@drawable/bottom_sheet_background">
 
-    <!-- CVV Input -->
-    <EditText
-        android:id="@+id/cvv_editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fredoka"
-        android:textColor="@color/Black_russian"
-        android:hint="CVV"
-        android:inputType="numberPassword"
-        android:maxLength="3"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/card_number_editText"
-        app:layout_constraintStart_toEndOf="@id/expiry_date_editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="12dp" />
+            <EditText
+                android:id="@+id/card_number_editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Card Number"
+                android:inputType="number"
+                android:fontFamily="@font/fredoka"
+                android:textSize="14sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Cardholder Name Input -->
-    <EditText
-        android:id="@+id/cardholder_name_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fredoka"
-        android:hint="Cardholder Name"
-        android:inputType="text"
-        android:textColor="@color/Black_russian"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/expiry_date_editText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+            <EditText
+                android:id="@+id/expiry_date_editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Expiry Date (MM/YY)"
+                android:inputType="text"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/fredoka"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/card_number_editText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Set as Default Checkbox -->
-    <CheckBox
-        android:id="@+id/default_payment_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fredoka"
-        android:text="Set as Default Payment Method"
-        app:layout_constraintTop_toBottomOf="@id/cardholder_name_editText"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp" />
+            <EditText
+                android:id="@+id/cvv_editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="CVV"
+                android:inputType="numberPassword"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/fredoka"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/expiry_date_editText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Save Button -->
-    <Button
-        android:id="@+id/save_payment_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/fredoka"
-        android:text="Save Payment Method"
-        android:background="@drawable/button_background"
-        app:backgroundTint="@null"
-        android:textColor="#ffffff"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/default_payment_checkbox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp" />
+            <EditText
+                android:id="@+id/cardholder_name_editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Cardholder Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/fredoka"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/cvv_editText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
+            <CheckBox
+                android:id="@+id/default_payment_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set as default payment method"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/cardholder_name_editText"
+                app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/save_payment_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="Save Payment Method"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_background"
+                android:fontFamily="@font/fredoka"
+                app:backgroundTint="@null"
+                app:layout_constraintTop_toBottomOf="@id/default_payment_checkbox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

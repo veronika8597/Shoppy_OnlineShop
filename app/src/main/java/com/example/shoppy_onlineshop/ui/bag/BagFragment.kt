@@ -19,6 +19,8 @@ import com.example.shoppy_onlineshop.databinding.FragmentBagBinding
 import com.example.shoppy_onlineshop.helpers.setupSwipeToDelete
 import com.example.shoppy_onlineshop.ui.userProfile.Orders.Order
 import com.example.shoppy_onlineshop.ui.userProfile.addresses.EditAddressBottomSheet
+import com.example.shoppy_onlineshop.ui.userProfile.paymentMethods.EditPaymentMethodBottomSheet
+import com.example.shoppy_onlineshop.ui.userProfile.paymentMethods.PaymentMethodsViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class BagFragment : Fragment() {
@@ -129,18 +131,30 @@ class BagFragment : Fragment() {
             val addressList = sharedPrefs.getString("addresses_list", "[]")
             val hasAddresses = !addressList.isNullOrBlank() && addressList != "[]"
 
-            if (!hasAddresses) {
-                Toast.makeText(requireContext(), "Please add an address before placing an order", Toast.LENGTH_SHORT).show()
+            val defaultPaymentExists = PaymentMethodsViewModel(requireActivity().application)
+                .paymentMethods.value?.any { it.isDefault } == true
 
-                val sheet = EditAddressBottomSheet()
-                sheet.listener = object : EditAddressBottomSheet.OnAddressSavedListener {
-                    override fun onAddressSaved() {
-                        alertDialog.dismiss()
-                        // Optionally trigger checkout or reload here
+
+            if (!hasAddresses || !defaultPaymentExists) {
+                if (!hasAddresses) {
+                    Toast.makeText(requireContext(), "Please add an address before placing an order", Toast.LENGTH_SHORT).show()
+
+                    val sheet = EditAddressBottomSheet()
+                    sheet.listener = object : EditAddressBottomSheet.OnAddressSavedListener {
+                        override fun onAddressSaved() {
+                            alertDialog.dismiss()
+                        }
                     }
+                    sheet.show(parentFragmentManager, "EditAddressBottomSheet")
                 }
 
-                sheet.show(parentFragmentManager, "EditAddressBottomSheet")
+                if (!defaultPaymentExists) {
+                    Toast.makeText(requireContext(), "Please add a payment method before placing an order", Toast.LENGTH_SHORT).show()
+
+                    val paymentSheet = EditPaymentMethodBottomSheet()
+                    paymentSheet.show(parentFragmentManager, "EditPaymentMethodBottomSheet")
+                }
+
                 return@setOnClickListener
             }
 

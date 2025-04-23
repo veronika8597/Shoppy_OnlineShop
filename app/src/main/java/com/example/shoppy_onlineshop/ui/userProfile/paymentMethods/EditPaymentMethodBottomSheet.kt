@@ -4,17 +4,82 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppy_onlineshop.R
+import com.example.shoppy_onlineshop.databinding.FragmentEditPaymentMethodsBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class EditPaymentMethodsFragment : Fragment() {
+class EditPaymentMethodBottomSheet : BottomSheetDialogFragment() {
+
+    override fun getTheme(): Int = R.style.BottomSheetDialogRounded
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.layoutParams?.height = ViewGroup.LayoutParams.MATCH_PARENT
+    }
+
+    private val viewModel: PaymentMethodsViewModel by activityViewModels()
+    private lateinit var binding: FragmentEditPaymentMethodsBinding
+    private var paymentMethodId: Int? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentEditPaymentMethodsBinding.inflate(inflater, container, false)
+
+        paymentMethodId = arguments?.getInt("paymentMethodId")
+        paymentMethodId?.let { id ->
+            viewModel.paymentMethods.value?.find { it.id == id }?.let { paymentMethod ->
+                binding.cardNumberEditText.setText(paymentMethod.cardNumber)
+                binding.expiryDateEditText.setText(paymentMethod.expiryDate)
+                binding.cvvEditText.setText(paymentMethod.cvv)
+                binding.cardholderNameEditText.setText(paymentMethod.cardholderName)
+                binding.defaultPaymentCheckbox.isChecked = paymentMethod.isDefault
+            }
+        }
+
+        binding.savePaymentButton.setOnClickListener {
+            val cardNumber = binding.cardNumberEditText.text.toString()
+            val expiryDate = binding.expiryDateEditText.text.toString()
+            val cvv = binding.cvvEditText.text.toString()
+            val cardholderName = binding.cardholderNameEditText.text.toString()
+            val isDefault = binding.defaultPaymentCheckbox.isChecked
+
+            if (cardNumber.isNotBlank() && expiryDate.isNotBlank() && cvv.isNotBlank() && cardholderName.isNotBlank()) {
+                val newPaymentMethod = PaymentMethodItem(
+                    id = paymentMethodId ?: ((viewModel.paymentMethods.value?.size ?: 0) + 1),
+                    cardNumber = cardNumber,
+                    expiryDate = expiryDate,
+                    cvv = cvv,
+                    cardholderName = cardholderName,
+                    isDefault = isDefault
+                )
+                viewModel.saveOrUpdatePaymentMethod(newPaymentMethod)
+                dismiss()
+            } else {
+                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return binding.root
+    }
+}
+
+
+
+/*
+class EditPaymentMethodBottomSheet : BottomSheetDialogFragment() {
 
     val viewModel: PaymentMethodsViewModel by viewModels()
     private lateinit var adapter: PaymentMethodsAdapter
@@ -84,4 +149,4 @@ class EditPaymentMethodsFragment : Fragment() {
             Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
         }
     }
-}
+}*/
