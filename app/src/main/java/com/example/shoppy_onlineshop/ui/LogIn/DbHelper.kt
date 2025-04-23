@@ -25,6 +25,10 @@ class DbHelper(val context: Context){
             usersRef.child(userId).setValue(user).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("DbHelper", "User added successfully!")
+
+                    // Save name locally for autofill
+                    UserPreferences.saveName(context, user.name)
+
                 } else {
                     Log.e("DbHelper", "Error adding user", task.exception)
                 }

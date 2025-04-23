@@ -1,6 +1,5 @@
 package com.example.shoppy_onlineshop.ui.LogIn
 
-import UserPreferences
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager

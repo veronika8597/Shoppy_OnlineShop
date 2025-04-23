@@ -1,3 +1,5 @@
+package com.example.shoppy_onlineshop.ui.LogIn
+
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -10,6 +12,23 @@ val Context.dataStore by preferencesDataStore(name = "user_prefs")
 object UserPreferences {
     private val EMAIL_KEY = stringPreferencesKey("email")
     private val PASSWORD_KEY = stringPreferencesKey("password")
+    private val NAME_KEY = stringPreferencesKey("name")
+
+    fun saveName(context: Context, name: String) {
+        runBlocking {
+            context.dataStore.edit { prefs ->
+                prefs[NAME_KEY] = name
+            }
+        }
+    }
+
+    fun getName(context: Context): String? {
+        return runBlocking {
+            val prefs = context.dataStore.data.first()
+            prefs[NAME_KEY]
+        }
+    }
+
 
     fun saveCredentials(context: Context, email: String, password: String) {
         runBlocking {

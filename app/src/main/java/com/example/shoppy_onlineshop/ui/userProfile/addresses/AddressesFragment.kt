@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,7 @@ class AddressesFragment : Fragment() {
         viewModel.loadAddresses() // Force LiveData to reload from SharedPreferences
     }
 
-    private val viewModel: AddressesViewModel by viewModels()
+    private val viewModel: AddressesViewModel by activityViewModels()
     private lateinit var adapter: AddressesAdapter
     private lateinit var recyclerView: RecyclerView
 
@@ -39,8 +40,6 @@ class AddressesFragment : Fragment() {
             val sheet = EditAddressBottomSheet()
             sheet.arguments = bundleOf("addressId" to addressItem.id)
             sheet.show(parentFragmentManager, "EditAddressBottomSheet")
-
-            EditAddressBottomSheet().show(parentFragmentManager, "EditAddressBottomSheet")
         }
 
         recyclerView.adapter = adapter
