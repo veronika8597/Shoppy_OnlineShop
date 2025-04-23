@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -32,8 +33,14 @@ class AddressesFragment : Fragment() {
         val addButton: Button = view.findViewById(R.id.addAddress_button)
 
         adapter = AddressesAdapter(mutableListOf<AddressItem>()) { addressItem ->
-            val bundle = Bundle().apply { putInt("addressId", addressItem.id) }
-            findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment, bundle)
+/*            val bundle = Bundle().apply { putInt("addressId", addressItem.id) }
+            findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment, bundle)*/
+
+            val sheet = EditAddressBottomSheet()
+            sheet.arguments = bundleOf("addressId" to addressItem.id)
+            sheet.show(parentFragmentManager, "EditAddressBottomSheet")
+
+            EditAddressBottomSheet().show(parentFragmentManager, "EditAddressBottomSheet")
         }
 
         recyclerView.adapter = adapter
@@ -45,7 +52,9 @@ class AddressesFragment : Fragment() {
         }
 
         addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment)
+            //findNavController().navigate(R.id.action_addressesFragment_to_editAddressFragment)
+            EditAddressBottomSheet().show(parentFragmentManager, "EditAddressBottomSheet")
+
         }
 
         setupSwipeToDelete(recyclerView){ position ->

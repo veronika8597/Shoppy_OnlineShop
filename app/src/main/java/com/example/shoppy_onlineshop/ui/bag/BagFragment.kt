@@ -18,6 +18,7 @@ import com.example.shoppy_onlineshop.R
 import com.example.shoppy_onlineshop.databinding.FragmentBagBinding
 import com.example.shoppy_onlineshop.helpers.setupSwipeToDelete
 import com.example.shoppy_onlineshop.ui.userProfile.Orders.Order
+import com.example.shoppy_onlineshop.ui.userProfile.addresses.EditAddressBottomSheet
 import com.google.firebase.auth.FirebaseAuth
 
 class BagFragment : Fragment() {
@@ -130,8 +131,16 @@ class BagFragment : Fragment() {
 
             if (!hasAddresses) {
                 Toast.makeText(requireContext(), "Please add an address before placing an order", Toast.LENGTH_SHORT).show()
-                alertDialog.dismiss()
-                findNavController().navigate(R.id.action_navigation_bag_to_addressesFragment)
+
+                val sheet = EditAddressBottomSheet()
+                sheet.listener = object : EditAddressBottomSheet.OnAddressSavedListener {
+                    override fun onAddressSaved() {
+                        alertDialog.dismiss()
+                        // Optionally trigger checkout or reload here
+                    }
+                }
+
+                sheet.show(parentFragmentManager, "EditAddressBottomSheet")
                 return@setOnClickListener
             }
 
