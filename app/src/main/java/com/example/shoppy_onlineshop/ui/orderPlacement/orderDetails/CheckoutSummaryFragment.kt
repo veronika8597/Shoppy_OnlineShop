@@ -36,9 +36,17 @@ class CheckoutSummaryFragment : Fragment() {
     ): View {
         binding = FragmentCheckoutSummaryBinding.inflate(inflater, container, false)
 
-        setupAddressSection()
-        setupPaymentSection()
-        setupProductSummary()
+        addressViewModel.addresses.observe(viewLifecycleOwner) {
+            setupAddressSection()
+        }
+
+        paymentViewModel.paymentMethods.observe(viewLifecycleOwner) {
+            setupPaymentSection()
+        }
+
+        bagViewModel.bagItems.observe(viewLifecycleOwner) {
+            setupProductSummary()
+        }
 
         binding.placeOrderButton.setOnClickListener {
             val selectedAddressId = binding.addressRadioGroup.checkedRadioButtonId
@@ -78,6 +86,8 @@ class CheckoutSummaryFragment : Fragment() {
         val addressGroup = binding.addressRadioGroup
         val addresses = addressViewModel.addresses.value.orEmpty()
 
+        addressGroup.removeAllViews()
+
         addresses.forEachIndexed { index, address ->
             val rb = RadioButton(requireContext()).apply {
                 text = "${address.streetAddress}, ${address.city}"
@@ -107,6 +117,8 @@ class CheckoutSummaryFragment : Fragment() {
     private fun setupPaymentSection() {
         val paymentGroup = binding.paymentMethodRadioGroup
         val methods = paymentViewModel.paymentMethods.value.orEmpty()
+
+        paymentGroup.removeAllViews()
 
         methods.forEachIndexed { index, method ->
             val rb = RadioButton(requireContext()).apply {
