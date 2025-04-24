@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -43,6 +44,8 @@ class LogInActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
         setContentView(R.layout.activity_log_in)
 
         auth = FirebaseAuth.getInstance()
@@ -89,16 +92,12 @@ class LogInActivity : AppCompatActivity() {
 
     private fun setupGoogleSignInClient() {
         Log.d("LoginFlow", "Setting up GoogleSignInClient with client ID: ${BuildConfig.GOOGLE_CLIENT_ID}")
-/*        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)*/
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("817175636364-i15dot3c0vgr1h21gi29obqi59t9hb92.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
         Log.d("LoginFlow", "Using CLIENT_ID: 817175636364-i15dot3c0vgr1h21gi29obqi59t9hb92.apps.googleusercontent.com")
 
     }
